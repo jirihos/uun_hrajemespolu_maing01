@@ -1,9 +1,439 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2023-11-18T10:28:12.130Z",
+  "__export_date": "2023-11-21T14:58:54.281Z",
   "__export_source": "insomnia.desktop.app:v2023.5.8",
   "resources": [
+    {
+      "_id": "req_5fcd0cd48c10452bb178988ad4b1047b",
+      "parentId": "fld_a10124dab7f24cec930042060aa0866b",
+      "modified": 1700577343809,
+      "created": 1700577043892,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/sportsField/get",
+      "name": "sportsField/get",
+      "description": "",
+      "method": "GET",
+      "body": { "mimeType": "application/json", "text": "{\n\t\"id\": \"db99fca394fg\"\n}" },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577047734,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_a10124dab7f24cec930042060aa0866b",
+      "parentId": "wrk_94db94835b684b81b2c3e209ccc09109",
+      "modified": 1700577009002,
+      "created": 1700576979896,
+      "name": "sportsField",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1700577005402,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_94db94835b684b81b2c3e209ccc09109",
+      "parentId": null,
+      "modified": 1700303130274,
+      "created": 1700303130274,
+      "name": "uunHrajemespoluMaing01",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_f89665cc99754ca0bb5677143f974bdb",
+      "parentId": "fld_a10124dab7f24cec930042060aa0866b",
+      "modified": 1700577770497,
+      "created": 1700577721100,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/sportsField/create",
+      "name": "sportsField/create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sportsFieldName\": \"Tenisový kurt 1\",\n  \"sportsFieldDesc\": \"Nejlepší tenisový kurt široko daleko.\",\n  \"galleryId\": \"123456789\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577047634,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c4d35ac783b843e6af38411a3ec0d2fa",
+      "parentId": "fld_a10124dab7f24cec930042060aa0866b",
+      "modified": 1700577943522,
+      "created": 1700577921982,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/sportsField/delete",
+      "name": "sportsField/delete",
+      "description": "",
+      "method": "POST",
+      "body": { "mimeType": "application/json", "text": "{\n\t\"id\": \"db99fca394fg\"\n}" },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700369600691,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_bb4f115f761a4d309082728c4a1f2be1",
+      "parentId": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "modified": 1700577379052,
+      "created": 1700577173222,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/reservation/listOwn",
+      "name": "reservation/listOwn",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"pageInfo\": {\n\t\t\"pageIndex\": 0,\n\t\t\"pageSize\": 25\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577133403,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "parentId": "wrk_94db94835b684b81b2c3e209ccc09109",
+      "modified": 1700577005302,
+      "created": 1700577005302,
+      "name": "reservation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1700577005302,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_226dd38868b04412aced3f508b880cfa",
+      "parentId": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "modified": 1700578514848,
+      "created": 1700578229932,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/reservation/listBySportsField",
+      "name": "reservation/listBySportsField",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"sportsFieldId\": \"db99fca394fg\",\n\t\"omitHistory\": true,\n\t\"loadFull\": false,\n\t\"pageInfo\": {\n\t\t\"pageIndex\": 0,\n\t\t\"pageSize\": 25\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577133353,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9f7653ba63c9442c9dc886a2c44dbc29",
+      "parentId": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "modified": 1700577457861,
+      "created": 1700577130998,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/reservation/create",
+      "name": "reservation/create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sportsFieldId\": \"db99fca394fg\",\n  \"startTs\": \"2023-11-19T12:00:00\",\n  \"endTs\": \"2023-11-19T14:00:00\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577133303,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_39ec87a434fa4204bf8c43062523f873",
+      "parentId": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "modified": 1700577491526,
+      "created": 1700577156063,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/reservation/cancelByUser",
+      "name": "reservation/cancelByUser",
+      "description": "",
+      "method": "POST",
+      "body": { "mimeType": "application/json", "text": "{\n\t\"id\": \"db99fca394fg\"\n}" },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577090518.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_65a3c40e80b84b6393fbc65d672f82ae",
+      "parentId": "fld_3d59483614cd4582ad2326bfe5a94b6c",
+      "modified": 1700578127053,
+      "created": 1700578072598,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/reservation/cancelByAdmin",
+      "name": "reservation/cancelByAdmin",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": \"db99fca394fg\",\n\t\"cancelReason\": \"Zrušeno z důvodu údržby sportoviště.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577069126.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5802d79b9c4a40adb8a8d5b1a9b6846c",
+      "parentId": "fld_bf2b410562bb47b29c09359d25375cb2",
+      "modified": 1700577888249,
+      "created": 1700577842708,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/gallery/create",
+      "name": "gallery/create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"images\": [\n    {\n      \"imageName\": \"Tenisový kurt 1\",\n      \"imageURL\": \"https://www.obrazky.cz/obrazek1.png\"\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577846568,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_bf2b410562bb47b29c09359d25375cb2",
+      "parentId": "wrk_94db94835b684b81b2c3e209ccc09109",
+      "modified": 1700576995409,
+      "created": 1700576995409,
+      "name": "gallery",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1700576995409,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_213ed36f480e467ea0f8b01eb955461e",
+      "parentId": "fld_bf2b410562bb47b29c09359d25375cb2",
+      "modified": 1700577970203,
+      "created": 1700577965906,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/gallery/delete",
+      "name": "gallery/delete",
+      "description": "",
+      "method": "POST",
+      "body": { "mimeType": "application/json", "text": "{\n\t\"id\": \"db99fca394fg\"\n}" },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577846468,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1c69455523fa4a0f859419aa4ef51617",
+      "parentId": "fld_96f6e3d2c46046df8cf407d0589211cb",
+      "modified": 1700577587564,
+      "created": 1700577218186,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/review/list",
+      "name": "review/list",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"sportsFieldId\": \"db99fca394fg\",\n\t\"pageInfo\": {\n\t\t\"pageIndex\": 0,\n\t\t\"pageSize\": 10\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577220074,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_96f6e3d2c46046df8cf407d0589211cb",
+      "parentId": "wrk_94db94835b684b81b2c3e209ccc09109",
+      "modified": 1700576989221,
+      "created": 1700576989221,
+      "name": "review",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1700576989221,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_14f1cdcc54604926b874a66a046ad59f",
+      "parentId": "fld_96f6e3d2c46046df8cf407d0589211cb",
+      "modified": 1700577655341,
+      "created": 1700577237624,
+      "url": "{{ host  }}/{{ contextPath  }}/{{ awid  }}/review/create",
+      "name": "review/create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"sportsFieldId\": \"db99fca394fg\",\n\t\"text\": \"Sportoviště splilo očekávání, mohu všem doporučit\",\n\t\"rating\": 5\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_25e6b00d0a5049d88371e226467eacc8_1592560665_1594385840_1700301929",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "metaSortKey": -1700577219974,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
     {
       "_id": "req_51e343ef9dbc43cfbd278ad6c79de34d",
       "parentId": "fld_4d4f65ea387f48e1af5ba2a5aad2a799",
@@ -47,16 +477,6 @@
       "environmentPropertyOrder": null,
       "metaSortKey": -1549535903297,
       "_type": "request_group"
-    },
-    {
-      "_id": "wrk_94db94835b684b81b2c3e209ccc09109",
-      "parentId": null,
-      "modified": 1700303130274,
-      "created": 1700303130274,
-      "name": "uunHrajemespoluMaing01",
-      "description": "",
-      "scope": "collection",
-      "_type": "workspace"
     },
     {
       "_id": "req_91289085650a4efaa0780e6c318a8ab0",
@@ -2659,7 +3079,7 @@
     {
       "_id": "env_5835a158f281433dbdfe2ec91d7dc33a",
       "parentId": "env_7fbce17c44544df881f41f5f7f9850d2",
-      "modified": 1594392773421,
+      "modified": 1700561023135,
       "created": 1549535585354,
       "name": "localhost",
       "data": {
