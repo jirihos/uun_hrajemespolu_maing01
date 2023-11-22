@@ -7,8 +7,21 @@
         "hrajemespoluMain": {
           "realization": "dao/HrajemespoluMainMongo"
         },
+        "sportsField": {
+          "realization": "dao/SportsFieldMongo",
+          "maxNoi": 99
+        },
         "reservation": {
-          "realization": "dao/ReservationMongo"
+          "realization": "dao/ReservationMongo",
+          "maxNoi": 1000
+        },
+        "gallery": {
+          "realization": "dao/GalleryMongo",
+          "maxNoi": 99
+        },
+        "review": {
+          "realization": "dao/ReviewMongo",
+          "maxNoi": 1000
         }
       }
     }
