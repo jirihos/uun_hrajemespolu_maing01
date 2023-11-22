@@ -6,6 +6,9 @@
       "schemaMap": {
         "hrajemespoluMain": {
           "realization": "dao/HrajemespoluMainMongo"
+        },
+        "reservation": {
+          "realization": "dao/ReservationMongo"
         }
       }
     }

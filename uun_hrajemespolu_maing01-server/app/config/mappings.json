@@ -25,6 +25,11 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "reservation/create": {
+        "realization": "api/controllers/ReservationController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
