@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useSession, Lsi } from "uu5g05";
+import { Utils, createVisualComponent, useSession, Lsi, useRoute } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { withRoute } from "uu_plus4u5g02-app";
@@ -42,6 +42,7 @@ let Home = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { identity } = useSession();
+    const [, setRoute] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -52,6 +53,15 @@ let Home = createVisualComponent({
     return (
       <div {...attrs}>
         <RouteBar />
+
+        <Uu5Elements.Button
+          colorScheme="warning"
+          significance="highlighted"
+          onClick={() => setRoute("sportsFieldDetail", { id: "655d0191de265134ec233d41" })}
+        >
+          Go to sportsFieldDetail
+        </Uu5Elements.Button>
+
         <WelcomeRow left={<Plus4U5Elements.PersonPhoto size="xl" borderRadius="none" />}>
           <Uu5Elements.Text category="story" segment="heading" type="h2">
             <Lsi import={importLsi} path={["Home", "welcome"]} />

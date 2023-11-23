@@ -1,0 +1,19 @@
+{
+  "id": "123456789",
+  "awid": "987654321",
+  "sys": {
+    "cts": "...",
+    "mts": "...",
+    "rev": 0
+  },
+  "images": [
+    {
+      "imageName": "Tenisový kurt 1",
+      "imageURL": "https://placehold.co/600x400"
+    },
+    {
+      "imageName": "Tenisový kurt 2",
+      "imageURL": "https://placehold.co/600x300"
+    }
+  ]
+}

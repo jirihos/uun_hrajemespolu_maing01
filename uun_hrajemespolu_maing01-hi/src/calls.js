@@ -13,11 +13,10 @@ const Calls = {
     return response.data;
   },
 
-  // // example for mock calls
-  // loadDemoContent(dtoIn) {
-  //   const commandUri = Calls.getCommandUri("loadDemoContent");
-  //   return Calls.call("get", commandUri, dtoIn);
-  // },
+  loadGallery(dtoIn) {
+    const commandUri = Calls.getCommandUri("gallery/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
 
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
