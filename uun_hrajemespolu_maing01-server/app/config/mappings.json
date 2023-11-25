@@ -30,6 +30,11 @@
         "realization": "api/controllers/ReservationController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "review/list": {
+        "realization": "api/controllers/ReviewController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

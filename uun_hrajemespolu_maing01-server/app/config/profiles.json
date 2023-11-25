@@ -28,6 +28,10 @@
       "reservation/create": {
         "sysStateList": ["active"],
         "profileList": ["Authenticated","Executives"]
+      },
+      "review/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Authenticated","Public"]
       }
     }
   }
