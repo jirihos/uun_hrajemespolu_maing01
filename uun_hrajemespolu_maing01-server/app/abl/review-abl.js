@@ -28,7 +28,9 @@ class ReviewAbl {
       Errors.list.InvalidDtoIn
     );
 
-    return await this.dao.list(awid, dtoIn.sportsFieldId);
+    let itemList = await this.dao.list(awid, dtoIn.sportsFieldId);
+    
+    return {itemList, uuAppErrorMap}
 
   }
 
