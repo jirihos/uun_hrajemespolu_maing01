@@ -33,6 +33,11 @@ const Calls = {
     return Calls.call("get", commandUri);
   },
 
+  reviewList() {
+    const commandUri = Calls.getCommandUri("review/list");
+    return Calls.call("get", commandUri);
+  },
+
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();
