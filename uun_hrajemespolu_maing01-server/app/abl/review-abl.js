@@ -11,9 +11,10 @@ class ReviewAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("review");
+    this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
-  async list(awid, dtoIn) {
+  async listBySportsField(awid, dtoIn) {
 
     let uuAppErrorMap = {};
 
@@ -28,9 +29,23 @@ class ReviewAbl {
       Errors.list.InvalidDtoIn
     );
 
-    let itemList = await this.dao.list(awid, dtoIn.sportsFieldId);
+    if (!dtoIn.pageInfo) { 
+      dtoIn.pageInfo = {};
+      dtoIn.pageInfo.pageIndex = 0;
+      dtoIn.pageInfo.pageSize = 10;
+  }
+
+    //kontrola existence sportsField
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+    // if (!sportsField) {
+    //   throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    // }
+
+    let itemList = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, dtoIn.pageInfo);
+
+    let dtoOut = {...itemList, uuAppErrorMap}
     
-    return {itemList, uuAppErrorMap}
+    return dtoOut;
 
   }
 
