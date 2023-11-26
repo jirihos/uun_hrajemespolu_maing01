@@ -62,7 +62,7 @@ const ListOwn = {
   InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidDtoIn`;
+      this.code = `${ListOwn.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
