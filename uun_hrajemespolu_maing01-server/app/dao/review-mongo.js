@@ -7,13 +7,15 @@ class ReviewMongo extends UuObjectDao {
     await super.createIndex({ awid: 1, rating: 1 });
   }
 
-  async list(awid, sportsFieldId) {
+
+  async listBySportsField(awid, sportsFieldId, pageInfo) {
 
     const filter = {
+      awid,
       sportsFieldId,
     }
 
-    return await super.find(filter, 10);
+    return await super.find(filter, pageInfo);
   }
 }
 
