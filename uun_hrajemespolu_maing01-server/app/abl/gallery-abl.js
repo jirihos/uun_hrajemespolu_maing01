@@ -1,0 +1,46 @@
+"use strict";
+const Path = require("path");
+const { Validator } = require("uu_appg01_server").Validation;
+const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { ValidationHelper } = require("uu_appg01_server").AppServer;
+const Errors = require("../api/errors/gallery-error.js");
+const Warnings = require("../api/warnings/gallery-warning.js");
+
+class GalleryAbl {
+
+  constructor() {
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao("gallery");
+  }
+
+  async create(awid, dtoIn) {
+
+    let uuAppErrorMap = {};
+
+
+    //validace dtoin
+    const validationResult = this.validator.validate("galleryCreateTypes", dtoIn)
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+    dtoIn = {
+      awid: awid,
+      sys: {},
+      images: dtoIn.images,
+    }
+
+    let newImage = this.dao.create(dtoIn)
+
+    const dtoOut = { ...newImage, uuAppErrorMap };
+    return dtoOut;
+  }
+
+}
+
+module.exports = new GalleryAbl();

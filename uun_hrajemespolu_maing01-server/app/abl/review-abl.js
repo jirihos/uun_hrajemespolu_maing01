@@ -18,6 +18,7 @@ class ReviewAbl {
 
     let uuAppErrorMap = {};
 
+
     //validace dtoin
     const validationResult = this.validator.validate("reviewListTypes", dtoIn)
 
@@ -34,6 +35,7 @@ class ReviewAbl {
       dtoIn.pageInfo.pageIndex = 0;
       dtoIn.pageInfo.pageSize = 10;
   }
+
 
     //kontrola existence sportsField
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
