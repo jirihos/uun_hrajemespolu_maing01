@@ -11,6 +11,7 @@ class ReservationAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("reservation");
+    this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
   async create(awid, dtoIn, session) {
@@ -26,7 +27,11 @@ class ReservationAbl {
       Errors.Create.InvalidDtoIn
     );
 
-    // TODO: validate sportsfield
+    // Verify that sports field exists
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+    if (!sportsField) {
+      throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    }
 
     let startMoment = moment(dtoIn.startTs);
     let endMoment = moment(dtoIn.endTs);
