@@ -13,6 +13,25 @@ class ReservationAbl {
     this.dao = DaoFactory.getDao("reservation");
   }
 
+  async listOwn(awid, dtoIn, session) {
+
+    let uuAppErrorMap = {};
+    
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationListOwnDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+    let itemList = await this.dao.list(awid, session.getIdentity().getUuIdentity() );
+
+    return {itemList, uuAppErrorMap}
+  }
+
   async create(awid, dtoIn, session) {
     let uuAppErrorMap = {};
 

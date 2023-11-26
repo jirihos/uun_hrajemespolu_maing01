@@ -56,6 +56,20 @@ const Create = {
   },
 };
 
+const ListOwn = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}listOwn/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  
+};
+
 module.exports = {
+  ListOwn,
   Create,
 };

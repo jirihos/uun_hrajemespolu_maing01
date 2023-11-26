@@ -35,6 +35,11 @@
         "realization": "api/controllers/ReviewController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "reservation/listOwn": {
+        "realization": "api/controllers/ReservationController.listOwn",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
