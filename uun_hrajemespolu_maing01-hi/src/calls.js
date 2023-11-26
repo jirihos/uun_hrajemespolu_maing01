@@ -38,6 +38,11 @@ const Calls = {
     return Calls.call("get", commandUri);
   },
 
+  galleryCreate() {
+    const commandUri = Calls.getCommandUri("gallery/Create");
+    return Calls.call("get", commandUri);
+  },
+
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();
