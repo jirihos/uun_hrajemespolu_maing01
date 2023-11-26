@@ -23,11 +23,11 @@ class ReservationAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      Warnings.ListOwn.UnsupportedKeys.code,
+      Errors.ListOwn.InvalidDtoIn
     );
 
-    let itemList = await this.dao.list(awid, session.getIdentity().getUuIdentity() );
+    let itemList = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity() );
 
     return {itemList, uuAppErrorMap}
   }

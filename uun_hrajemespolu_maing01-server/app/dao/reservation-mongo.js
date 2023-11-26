@@ -11,12 +11,13 @@ class ReservationMongo extends UuObjectDao {
     return await super.insertOne(uuObject);
   }
 
-  async list(awid, uuIdentity) {
+  async listByUuIdentity(awid, uuIdentity, pageInfo) {
     const filter = {
-      uuIdentity
+      awid,
+      uuIdentity,
     }
 
-    return await super.find(filter, 30);
+    return await super.find(filter, pageInfo);
   }
 }
 
