@@ -39,7 +39,7 @@ const Calls = {
   },
 
   galleryCreate() {
-    const commandUri = Calls.getCommandUri("gallery/Create");
+    const commandUri = Calls.getCommandUri("gallery/create");
     return Calls.call("get", commandUri);
   },
 

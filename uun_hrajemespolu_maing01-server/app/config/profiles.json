@@ -32,6 +32,10 @@
       "review/list": {
         "sysStateList": ["active"],
         "profileList": ["Executives","Authenticated","Public"]
+      },
+      "gallery/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }

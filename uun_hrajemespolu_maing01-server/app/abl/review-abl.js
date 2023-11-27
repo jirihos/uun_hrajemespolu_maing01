@@ -14,7 +14,7 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
-  async listBySportsField(awid, dtoIn) {
+  async list(awid, dtoIn) {
 
     let uuAppErrorMap = {};
 
@@ -32,16 +32,20 @@ class ReviewAbl {
 
     if (!dtoIn.pageInfo) { 
       dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
       dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
       dtoIn.pageInfo.pageSize = 10;
-  }
+    }
 
 
     //kontrola existence sportsField
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-    // if (!sportsField) {
-    //   throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    // }
+    if (!sportsField) {
+      throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    }
 
     let itemList = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, dtoIn.pageInfo);
 

@@ -31,11 +31,10 @@ class GalleryAbl {
 
     dtoIn = {
       awid: awid,
-      sys: {},
       images: dtoIn.images,
     }
 
-    let newImage = this.dao.create(dtoIn)
+    let newImage = await this.dao.create(dtoIn)
 
     const dtoOut = { ...newImage, uuAppErrorMap };
     return dtoOut;
