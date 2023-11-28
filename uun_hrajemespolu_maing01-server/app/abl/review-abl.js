@@ -18,10 +18,9 @@ class ReviewAbl {
 
     let uuAppErrorMap = {};
 
-
     //validace dtoin
-    const validationResult = this.validator.validate("reviewListTypes", dtoIn)
-
+    const validationResult = this.validator.validate("reviewListTypes", dtoIn);
+    
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,

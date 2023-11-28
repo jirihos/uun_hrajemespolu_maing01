@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { PropTypes, createComponent, useDataObject } from "uu5g05";
 import Config from "./config/config.js";
-import Calls from "calls";
+import Calls from "../calls.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -10,14 +10,14 @@ import Calls from "calls";
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const GalleryProvider = createComponent({
+const ReviewListProvider = createComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "GalleryProvider",
+  uu5Tag: Config.TAG + "ReviewListProvider",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    galleryId: PropTypes.string.isRequired,
+    sportsFieldId: PropTypes.string.isRequired,
   },
   //@@viewOff:propTypes
 
@@ -27,29 +27,34 @@ const GalleryProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const { galleryId, children } = props;
+    const { sportsFieldId, children } = props;
+    //@@viewOff:private
 
-    const dataObject = useDataObject({
+    const dataObject = useDataObject(
+      {
       handlerMap: {
         load: () => {
-          const dtoIn = { id: galleryId };
-          return Calls.loadGallery(dtoIn);
+          const dtoIn = { 
+            sportsFieldId: sportsFieldId,
+           };
+          return Calls.reviewList(dtoIn);
         },
       },
     });
 
-    //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
+
+
     return typeof children === "function" ? children(dataObject) : children;
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { GalleryProvider };
-export default GalleryProvider;
+export { ReviewListProvider };
+export default ReviewListProvider;
 //@@viewOff:exports

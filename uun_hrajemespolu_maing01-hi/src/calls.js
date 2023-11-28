@@ -33,9 +33,9 @@ const Calls = {
     return Calls.call("get", commandUri);
   },
 
-  reviewList() {
+  reviewList(dtoIn) {
     const commandUri = Calls.getCommandUri("review/list");
-    return Calls.call("get", commandUri);
+    return Calls.call("get", commandUri, dtoIn);
   },
 
   galleryCreate() {
