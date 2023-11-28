@@ -45,15 +45,17 @@ const ReviewListView = createVisualComponent({
     const { dataObject } = props;
     const { state, data } = dataObject;
     //@@viewOff:private
+    let profileList = "";
+    let canDeleteReservation = "";
 
     const { identity } = useSession();
-    identity.name // jméno
-    identity.uuIdentity // ID
+    console.log(identity)
 
-    console.log(identity);
     const systemDataObject = useSystemData();
-    const profileList = systemDataObject.data.profileData.uuIdentityProfileList;
-    const canDeleteReservation = profileList.includes("Authenticated") || profileList.includes("Executives");
+    if (identity !== null) {
+    profileList = systemDataObject.data.profileData.uuIdentityProfileList;
+    canDeleteReservation = profileList.includes("Authenticated") || profileList.includes("Executives");
+    }
 
     //@@viewOn:interface
     //@@viewOff:interface
@@ -72,7 +74,7 @@ const ReviewListView = createVisualComponent({
 
           dataObject.data.itemList.map((review) => {
              return (
-             <ReviewView key={review.id} review={review} canDelete={canDeleteReservation} />
+             <ReviewView key={review.id} review={review} canDelete={canDeleteReservation} session={identity} />
              )}
           ))
         }

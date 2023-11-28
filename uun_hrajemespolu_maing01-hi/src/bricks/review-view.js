@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content, useState } from "uu5g05";
+import Plus4U5Elements from "uu_plus4u5g02-elements";
 
 import Config from "./config/config.js";
 import UU5 from "uu5g04";
@@ -80,7 +81,7 @@ const ReviewView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { review, canDelete, children } = props;
+    const { review, canDelete, session,  children } = props;
     const [show, setShow] = useState(false);
     //@@viewOff:private
 
@@ -98,7 +99,9 @@ const ReviewView = createVisualComponent({
 
             <div className={Css.header()}>
               <Uu5Elements.Grid templateColumns="50% 50%">
-                <Uu5Elements.Grid.Item className={Css.username()}>{review.uuIdentityName}</Uu5Elements.Grid.Item>
+                {(session === null) && <Uu5Elements.Grid.Item className={Css.username()}>{review.uuIdentityName}</Uu5Elements.Grid.Item>}
+                {(session !== null) && <Plus4U5Elements.PersonItem className={Css.username()} uuIdentity={review.uuIdentity} />}
+                
                 <Uu5Elements.Grid.Item className={Css.rating()}>
 {//                 <UU5.Bricks.Rating  colorSchema="default" value={review.rating}/>
   }
