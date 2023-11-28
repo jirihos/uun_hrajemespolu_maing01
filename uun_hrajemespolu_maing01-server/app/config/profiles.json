@@ -4,7 +4,7 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator","Executivas"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created","assigned"],
@@ -35,7 +35,7 @@
       },
       "reservation/listOwn": {
         "sysStateList": ["active"],
-        "profileList": ["Executivas","Authenticated"]
+        "profileList": ["Executives","Authenticated"]
       }
     }
   }
