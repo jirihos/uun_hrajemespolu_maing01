@@ -3,6 +3,8 @@ import { createVisualComponent, Utils } from "uu5g05";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
+import ReviewListProvider from "../bricks/review-list-provider.js";
+import ReviewListView from "../bricks/review-list-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -43,15 +45,21 @@ const SportsFieldDetail = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, SportsFieldDetail);
 
     return currentNestingLevel ? (
+      <>
       <GalleryProvider galleryId="655d0191de265134ec233d41" {...attrs}>
         {(dataObject) => <GalleryView dataObject={dataObject} />}
       </GalleryProvider>
+
+      <ReviewListProvider sportsFieldId="655d0191de265134ec233d41" {...attrs}>
+      {(dataObject) => <ReviewListView dataObject={dataObject}/>}
+      </ReviewListProvider>
+      </>
     ) : null;
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { SportsFieldDetail };
+export { SportsFieldDetail }
 export default SportsFieldDetail;
 //@@viewOff:exports
