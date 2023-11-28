@@ -40,6 +40,11 @@
         "realization": "api/controllers/GalleryController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "reservation/listOwn": {
+        "realization": "api/controllers/ReservationController.listOwn",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

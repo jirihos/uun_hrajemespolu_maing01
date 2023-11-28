@@ -14,6 +14,38 @@ class ReservationAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async listOwn(awid, dtoIn, session) {
+
+    let uuAppErrorMap = {};
+    
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationListOwnDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.ListOwn.UnsupportedKeys.code,
+      Errors.ListOwn.InvalidDtoIn
+    );
+
+    // default pageInfo
+    if (!dtoIn.pageInfo) { 
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 25;
+    }
+
+    let itemList = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity(), dtoIn.pageInfo );
+
+    let dtoOut = {...itemList,  uuAppErrorMap}
+
+    return dtoOut;
+  }
+
   async create(awid, dtoIn, session) {
     let uuAppErrorMap = {};
 
