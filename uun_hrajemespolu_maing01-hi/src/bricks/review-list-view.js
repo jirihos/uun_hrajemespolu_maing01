@@ -67,7 +67,7 @@ const ReviewListView = createVisualComponent({
     return currentNestingLevel ? (
       <>
 
-      <Uu5Elements.Box className={Css.wrapper()} >
+      <Uu5Elements.Grid className={Css.wrapper()} >
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
         {state === "ready" && (
@@ -79,7 +79,7 @@ const ReviewListView = createVisualComponent({
           ))
         }
 
-      </Uu5Elements.Box>
+      </Uu5Elements.Grid>
       </>
     ) : null;
     //@@viewOff:render
