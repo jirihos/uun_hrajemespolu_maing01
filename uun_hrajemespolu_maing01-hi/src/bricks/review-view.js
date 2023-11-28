@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content, useState } from "uu5g05";
+import { createVisualComponent, Utils, Content, useState, useScreenSize } from "uu5g05";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 
 import Config from "./config/config.js";
-import UU5 from "uu5g04";
+import { Rating } from "uu5g04-bricks";
 import Uu5Elements from "uu5g05-elements";
 //@@viewOff:imports
 
@@ -13,14 +13,24 @@ import Uu5Elements from "uu5g05-elements";
 //@@viewOn:css
 const Css = {
   main: () => Config.Css.css({}),
-  box: () =>
-  Config.Css.css({
+  box: (screensize) => {
+
+    if (screensize == "xs" || screensize == "s" ||  screensize == "m") {
+      return Config.Css.css({
+      width: "98%",
+      marginLeft: "1%",
+      marginTop: "1%",
+      marginBottom: "1%",
+      height: "33%",
+    })
+  } else {
+    return Config.Css.css({
     width: "32%",
     marginLeft: "1%",
     marginTop: "1%",
     marginBottom: "1%",
     height: "33%",
-  }),
+  })}},
   header: () =>
   Config.Css.css({
     width: "98%",
@@ -39,10 +49,10 @@ const Css = {
     float: "left",
     fontSize: "25px",
   }),
-  rating: () =>
+  rating: () => 
   Config.Css.css({
-    width: "80%",
-    marginLeft: "5%",
+    width: "50%",
+    marginLeft: "1%",
     marginRight: "1%",
     marginTop: "1%",
     float: "right",
@@ -58,6 +68,11 @@ const Css = {
     width: "90%",
     marginLeft: "5%",
     marginTop: "5%",
+  }),
+  reviewButton: () =>
+  Config.Css.css({
+    float: "right",
+    marginBottom: "1%",
   }),
 };
 //@@viewOff:css
@@ -83,8 +98,13 @@ const ReviewView = createVisualComponent({
     //@@viewOn:private
     const { review, canDelete, session,  children } = props;
     const [show, setShow] = useState(false);
+    const [screenSize] = useScreenSize();
+    let size = "";
+    console.log()
     //@@viewOff:private
-
+    if (screenSize == "xs" || screenSize == "s" || screenSize == "m") {
+      size = "s";
+    } else {size="m"}
     //@@viewOn:interface
     //@@viewOff:interface
 
@@ -95,7 +115,7 @@ const ReviewView = createVisualComponent({
     return currentNestingLevel ? (
       <>
           
-           <Uu5Elements.Box className={Css.box()}>
+           <Uu5Elements.Box className={Css.box(screenSize)}>
 
             <div className={Css.header()}>
               <Uu5Elements.Grid templateColumns="50% 50%">
@@ -103,8 +123,8 @@ const ReviewView = createVisualComponent({
                 {(session !== null) && <Plus4U5Elements.PersonItem className={Css.username()} uuIdentity={review.uuIdentity} />}
                 
                 <Uu5Elements.Grid.Item className={Css.rating()}>
-{//                 <UU5.Bricks.Rating  colorSchema="default" value={review.rating}/>
-  }
+                 <Rating colorSchema="default" size={size} value={review.rating} />
+  
                 </Uu5Elements.Grid.Item>
               </Uu5Elements.Grid>
             </div>
@@ -114,10 +134,10 @@ const ReviewView = createVisualComponent({
             </div>
           
             <div className={Css.footer()}>
-            {(canDelete === false) && 
+            {(canDelete === false) &&  /*TODO Upravit po fixnutí profileListu na TRUE*/
               <>
               <Uu5Elements.Button 
-              className="reviewButton"
+              className={Css.reviewButton()}
               onClick={ () => setShow(true) }
               >Delete</Uu5Elements.Button>
               
