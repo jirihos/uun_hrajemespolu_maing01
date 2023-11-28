@@ -27,9 +27,22 @@ class ReservationAbl {
       Errors.ListOwn.InvalidDtoIn
     );
 
-    let itemList = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity() );
+    // default pageInfo
+    if (!dtoIn.pageInfo) { 
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 25;
+    }
 
-    return {itemList, uuAppErrorMap}
+    let itemList = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity(), dtoIn.pageInfo );
+
+    let dtoOut = {...itemList,  uuAppErrorMap}
+
+    return dtoOut;
   }
 
   async create(awid, dtoIn, session) {
