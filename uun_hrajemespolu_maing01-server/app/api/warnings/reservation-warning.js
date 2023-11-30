@@ -9,7 +9,7 @@ const Warnings = {
 
   ListOwn: {
    UnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
+    code: `${Errors.ListOwn.UC_CODE}unsupportedKeys`,
   },
 }
 
