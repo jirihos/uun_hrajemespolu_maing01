@@ -25,7 +25,7 @@ const Css = {
     })
   } else {
     return Config.Css.css({
-    width: "32%",
+    width: "31%",
     marginLeft: "1%",
     marginTop: "1%",
     marginBottom: "1%",
@@ -52,10 +52,9 @@ const Css = {
   rating: () => 
   Config.Css.css({
     width: "50%",
-    marginLeft: "1%",
+    marginLeft: "35%",
     marginRight: "1%",
-    marginTop: "1%",
-    float: "right",
+    marginTop: "3%",
   }),
   body: () =>
   Config.Css.css({
