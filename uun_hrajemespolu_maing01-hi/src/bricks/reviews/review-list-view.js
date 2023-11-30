@@ -49,9 +49,9 @@ const ReviewListView = createVisualComponent({
     let canDeleteReservation = "";
 
     const { identity } = useSession();
-    console.log(identity)
 
     const systemDataObject = useSystemData();
+    console.log(systemDataObject)
     if (identity !== null) {
     profileList = systemDataObject.data.profileData.uuIdentityProfileList;
     canDeleteReservation = profileList.includes("Authenticated") || profileList.includes("Executives");

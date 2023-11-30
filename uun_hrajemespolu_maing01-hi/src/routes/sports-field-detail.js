@@ -3,8 +3,8 @@ import { createVisualComponent, Utils } from "uu5g05";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
-import ReviewListProvider from "../bricks/review-list-provider.js";
-import ReviewListView from "../bricks/review-list-view.js";
+import ReviewListProvider from "../bricks/reviews/review-list-provider.js";
+import ReviewListView from "../bricks/reviews/review-list-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants

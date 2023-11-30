@@ -42,9 +42,9 @@ class ReviewAbl {
 
     //kontrola existence sportsField
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-    if (!sportsField) {
-      throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    }
+    // if (!sportsField) {
+    //   throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    // }
 
     let itemList = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, dtoIn.pageInfo);
 

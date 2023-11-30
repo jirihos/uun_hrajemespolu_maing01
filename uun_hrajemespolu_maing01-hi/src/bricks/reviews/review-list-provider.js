@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { PropTypes, createComponent, useDataObject } from "uu5g05";
 import Config from "./config/config.js";
-import Calls from "../calls.js";
+import Calls from "../../calls.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
