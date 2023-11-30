@@ -49,13 +49,33 @@ const Css = {
     float: "left",
     fontSize: "25px",
   }),
-  rating: () => 
-  Config.Css.css({
+  rating: (screensize) => {
+    if (screensize == "xs" || screensize == "s") {
+  return Config.Css.css(
+    {
     width: "50%",
-    marginLeft: "35%",
+    marginLeft: "30%",
     marginRight: "1%",
     marginTop: "3%",
-  }),
+    })
+  } else if (screensize == "m") {
+    return Config.Css.css(
+      {
+      width: "50%",
+      marginLeft: "60%",
+      marginRight: "1%",
+      marginTop: "3%",
+      })
+  } else {
+    return Config.Css.css(
+      {
+      width: "50%",
+      marginLeft: "40%",
+      marginRight: "1%",
+      marginTop: "3%",
+      })
+  }
+},
   body: () =>
   Config.Css.css({
     width: "90%",
@@ -99,11 +119,11 @@ const ReviewView = createVisualComponent({
     const [show, setShow] = useState(false);
     const [screenSize] = useScreenSize();
     let size = "";
-    console.log()
     //@@viewOff:private
     if (screenSize == "xs" || screenSize == "s" || screenSize == "m") {
       size = "s";
     } else {size="m"}
+
     //@@viewOn:interface
     //@@viewOff:interface
 
@@ -121,7 +141,7 @@ const ReviewView = createVisualComponent({
                 {(session === null) && <Uu5Elements.Grid.Item className={Css.username()}>{review.uuIdentityName}</Uu5Elements.Grid.Item>}
                 {(session !== null) && <Plus4U5Elements.PersonItem className={Css.username()} uuIdentity={review.uuIdentity} />}
                 
-                <Uu5Elements.Grid.Item className={Css.rating()}>
+                <Uu5Elements.Grid.Item className={Css.rating(screenSize)}>
                  <Rating colorSchema="default" size={size} value={review.rating} />
   
                 </Uu5Elements.Grid.Item>
