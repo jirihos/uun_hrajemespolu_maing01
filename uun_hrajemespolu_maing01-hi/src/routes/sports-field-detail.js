@@ -46,9 +46,11 @@ const SportsFieldDetail = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
-      <GalleryProvider galleryId="655d0191de265134ec233d41" {...attrs}>
-        {(dataObject) => <GalleryView dataObject={dataObject} />}
-      </GalleryProvider>
+      <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
+        <GalleryProvider galleryId="655d0191de265134ec233d41" {...attrs}>
+          {(dataObject) => <GalleryView dataObject={dataObject} />}
+        </GalleryProvider>
+      </div>
 
       <ReviewListProvider sportsFieldId="655d0191de265134ec233d41" {...attrs}>
       {(dataObject) => <ReviewListView dataObject={dataObject}/>}
