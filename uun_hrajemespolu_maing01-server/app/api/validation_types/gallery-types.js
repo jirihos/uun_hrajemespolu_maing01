@@ -12,3 +12,8 @@ const galleryCreateTypes = shape(
     ).isRequired()
     }
 );
+
+const galleryGetDtoInType = shape({
+    id: id().isRequired()
+  });
+  

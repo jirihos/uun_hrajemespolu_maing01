@@ -40,6 +40,10 @@
       "reservation/listOwn": {
         "sysStateList": ["active"],
         "profileList": ["Executives","Authenticated"]
+      },
+      "gallery/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Authenticated","Executives"]
       }
     }
   }

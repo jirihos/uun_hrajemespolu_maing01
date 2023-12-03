@@ -45,6 +45,11 @@
         "realization": "api/controllers/ReservationController.listOwn",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "gallery/get": {
+        "realization": "api/controllers/GalleryController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
