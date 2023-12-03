@@ -9,6 +9,10 @@ class GalleryMongo extends UuObjectDao {
     return await super.insertOne(dtoIn);
 
   }
+  
+  async get(awid, id) {
+    return await super.findOne({ awid, id });
+  }
 }
 
 module.exports = GalleryMongo;
