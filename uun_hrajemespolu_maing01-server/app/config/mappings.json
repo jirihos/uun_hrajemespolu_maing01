@@ -45,6 +45,11 @@
         "realization": "api/controllers/ReservationController.listOwn",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "sportsField/get": {
+        "realization": "api/controllers/SportsFieldController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

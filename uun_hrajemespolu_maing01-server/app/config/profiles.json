@@ -4,7 +4,7 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator","AsidAuthorities","AsidExecutives","AsidLicenseOwner","AsidAuditors","SystemIdentities"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created","assigned"],
@@ -40,6 +40,10 @@
       "reservation/listOwn": {
         "sysStateList": ["active"],
         "profileList": ["Executives","Authenticated"]
+      },
+      "sportsField/get": {
+        "sysStateList": ["active"],
+        "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","AsidAuditors","SystemIdentities"]
       }
     }
   }

@@ -3,7 +3,7 @@
   "uuSubAppDataStoreMap": {
     "primary": "mongodb://127.0.0.1:27017/hrajemespoluMainPrimary"
   },
-  "asid_license_owner_list": ["3987-144-5699-0000", "471-2246-4185-0000", "6765-1356-9539-0000"],
+  "asid_license_owner_list": ["3987-144-5699-0000", "471-2246-4185-0000", "6765-1356-9539-0000", "1561-1840-9793-0000"],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO",
   "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
