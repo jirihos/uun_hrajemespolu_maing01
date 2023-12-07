@@ -16,6 +16,10 @@ class SportsFieldAbl {
     // this.dao = DaoFactory.getDao("sportsField");
   }
 
+  async create(awid, dtoIn) {
+    
+  }
+
   async get(awid, dtoIn) {
     
   }

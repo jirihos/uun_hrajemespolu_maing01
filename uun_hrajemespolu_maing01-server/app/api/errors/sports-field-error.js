@@ -8,6 +8,12 @@ const Get = {
   
 };
 
+const Create = {
+  UC_CODE: `${SPORTS_FIELD_ERROR_PREFIX}create/`,
+  
+};
+
 module.exports = {
+  Create,
   Get
 };

@@ -44,6 +44,10 @@
       "sportsField/get": {
         "sysStateList": ["active"],
         "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","AsidAuditors","SystemIdentities"]
+      },
+      "sportsField/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Public","Authenticated"]
       }
     }
   }

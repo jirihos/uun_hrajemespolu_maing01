@@ -50,6 +50,11 @@
         "realization": "api/controllers/SportsFieldController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "sportsField/create": {
+        "realization": "api/controllers/SportsFieldController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
