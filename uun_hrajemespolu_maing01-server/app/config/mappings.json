@@ -50,6 +50,11 @@
         "realization": "api/controllers/GalleryController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "review/create": {
+        "realization": "api/controllers/ReviewController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

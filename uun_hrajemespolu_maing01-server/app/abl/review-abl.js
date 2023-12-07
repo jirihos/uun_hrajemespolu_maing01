@@ -14,13 +14,44 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async create(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    //validace dtoin
+    const validationResult = this.validator.validate("galleryCreateTypes", dtoIn)
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+    dtoIn = {
+      awid: awid,
+      sportsFieldId: dtoIn.sportsFieldId,
+      text: dtoIn.text,
+      rating: dtoIn.rating
+    }
+    // kontrola jestli existuje sportsField
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+
+    // TODO: Check if TEXT is null or empty
+
+    let newReview = await this.dao.create(dtoIn)
+
+    const dtoOut = { ...newReview, uuAppErrorMap };
+    return dtoOut;
+  }
+
   async list(awid, dtoIn) {
 
     let uuAppErrorMap = {};
 
     //validace dtoin
     const validationResult = this.validator.validate("reviewListTypes", dtoIn);
-    
+
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
@@ -29,7 +60,7 @@ class ReviewAbl {
       Errors.list.InvalidDtoIn
     );
 
-    if (!dtoIn.pageInfo) { 
+    if (!dtoIn.pageInfo) {
       dtoIn.pageInfo = {};
     }
     if (!dtoIn.pageInfo.pageIndex) {
@@ -48,8 +79,8 @@ class ReviewAbl {
 
     let itemList = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, dtoIn.pageInfo);
 
-    let dtoOut = {...itemList, uuAppErrorMap}
-    
+    let dtoOut = { ...itemList, uuAppErrorMap }
+
     return dtoOut;
 
   }
