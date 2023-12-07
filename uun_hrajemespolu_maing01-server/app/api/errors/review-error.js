@@ -35,7 +35,7 @@ const Create = {
       this.code = `${Create.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 
   SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
@@ -43,7 +43,7 @@ const Create = {
       this.code = `${Create.UC_CODE}sportsFieldDoesNotExist`;
       this.message = "Sports field does not exist.";
     }
-  }
+  },
 
   TextIsNullOrEmpty: class extends HrajemespoluMainUseCaseError {
     constructor() {
