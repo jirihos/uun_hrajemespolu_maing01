@@ -2,6 +2,8 @@
 import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
+import Provider from "../bricks/own-reservation-list/provider.js";
+import View from "../bricks/own-reservation-list/view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -43,10 +45,11 @@ const ReservationList = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationList);
 
     return currentNestingLevel ? (
-      <div {...attrs}>
+      <div>
         <RouteBar />
-        <div>Visual Component {ReservationList.uu5Tag}</div>
-        <Content nestingLevel={currentNestingLevel}>{children}</Content>
+        <Provider>
+          {(dataObject) => <View dataObject={dataObject} />}
+        </Provider>
       </div>
     ) : null;
     //@@viewOff:render
