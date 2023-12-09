@@ -68,8 +68,6 @@ class ReservationAbl {
     let startMoment = moment(dtoIn.startTs);
     let endMoment = moment(dtoIn.endTs);
 
-    // TODO: validate that timestamps are rounded to half an hour
-
     // Check that dtoIn.startTs is earlier than dtoIn.endTs
     if (!startMoment.isBefore(endMoment)) {
       throw new Errors.Create.EndTsCannotBeSameOrBeforeStartTs(
@@ -86,17 +84,29 @@ class ReservationAbl {
       );
     }
 
+    // Validate that timestamps are rounded to half an hour
+    if (startMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0 ||
+        endMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0) {
+      throw new Errors.Create.TimestampNotRounded({ uuAppErrorMap });
+    }
+
     // Check that the duration of the reservation is not longer than MAX_RESERVATION_DURATION hours.
     let duration = endMoment.diff(startMoment, "hours", true);
     if (duration > Constants.MAX_RESERVATION_DURATION) {
       throw new Errors.Create.DurationIsTooLong({ uuAppErrorMap }, { startTs: dtoIn.startTs, endTs: dtoIn.endTs });
     }
 
-    // TODO: Check that the reservation doesn't overlap with any existing reservation for the same sports field.
+    // Check that the reservation doesn't overlap with any existing reservation for the same sports field.
+    let overlapsCount = await this.dao.countOverlaps(awid, dtoIn.sportsFieldId, startMoment.toDate(), endMoment.toDate());
+    if (overlapsCount > 0) {
+      throw new Errors.Create.ReservationOverlaps({ uuAppErrorMap });
+    }
 
     // Call reservation DAO create
     dtoIn.awid = awid;
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    dtoIn.startTs = startMoment.toDate();
+    dtoIn.endTs = endMoment.toDate();
     dtoIn.state = "valid";
     dtoIn.cancelReason = "";
     let reservation = await this.dao.create(dtoIn);
