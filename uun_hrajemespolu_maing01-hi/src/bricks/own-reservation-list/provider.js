@@ -28,17 +28,10 @@ const Provider = createComponent({
 
     const dataObject = useDataList({
       handlerMap: {
-        load: () => {
-          const dtoIn =
-          {
-            "pageInfo": {
-              "pageIndex": 0,
-              "pageSize": 10
-            }	
-          } ;
-          return Calls.listOwn(dtoIn);
+        load: Calls.listOwn
         },
-      },
+      
+      pageSize: 2,
     });
 
 

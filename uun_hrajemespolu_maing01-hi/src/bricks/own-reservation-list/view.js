@@ -1,7 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, Uu5Forms, Block, Grid, useState, Toogle } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Block, Grid, useState, Toogle, useMemo } from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
+import Uu5TilesElements from "uu5tilesg02-elements";
+import Uu5TilesControls from "uu5tilesg02-controls";
+import Uu5Tiles from "uu5tilesg02";
 
 //@@viewOff:imports
 
@@ -25,7 +28,6 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-
 const View = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "View",
@@ -45,43 +47,55 @@ const View = createVisualComponent({
   render(props) {
     //@@viewOn:private
 
-    const { dataObject } = props;
+    const [view, setView] = useState("table");
     const [open, setOpen] = useState(false);
-    const { state, data } = dataObject;
+    const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
+
+    const columnList = [ // column list
+      { header: "Sportoviště", label: "sportsFieldId", icon: "uugds-view-list", value: "sportsFieldId" },
+      { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs", 
+      cellComponent:<Uu5TilesElements.Table.Cell><Uu5Elements.DateTime /> </Uu5TilesElements.Table.Cell> },
+      { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs", 
+      cellComponent: <Uu5TilesElements.Table.Cell><Uu5Elements.DateTime /> </Uu5TilesElements.Table.Cell>  },
+      { header: "Stav", label: "state", icon: "uugds-view-liste", value: "state" },
+      { header: "Důvod zrušení", label: "cancelReason", icon: "uugds-view-liste", value: "cancelReason" },
+    ];
+
+    function getActionList({ rowIndex, data }) {   // delete button
+      return [
+        {
+          icon: "uugds-delete",
+          tooltip: "Delete item",
+          onClick: (e) => {
+            setConfirmRemove({ open: true, id: data.id }),
+            setOpen(true);
+          },
+        },
+      ];
+    };
+
+    const VIEW_LIST = [ // view list
+      { label: "Table", icon: "uugds-view-list", value: "table" },
+      { label: "Grid", icon: "uugds-view-grid", value: "grid" },
+    ];
+
+    const { dataObject } = props;
+    const { state, data, handlerMap } = dataObject;
     const [filter, setFilter] = useState(true);
-    const [itemToDelete, setItemToDelete] = useState(null);
-    const filteredData = Array.isArray(dataObject.data)
-    ? dataObject.data.filter(
+
+    const dataToRender = useMemo(() => { // filter data
+      return data?.filter((dataItem) => dataItem);
+    }, [data]);
+    const filteredData = Array.isArray(dataToRender)
+    ? dataToRender.filter( 
       itemData =>
     itemData.data.state === "valid" || filter === false
     )
     : [];
 
-    function handleDelete() { // delete reservation
-      /*
-      const dataObject = useDataList({
-        handlerMap: {
-          delete: () => {
-            const dtoIn =
-            {
-              "id": itemToDelete,
-            } ;
-            return Calls.canceledByUser(dtoIn);
-          },
-        },
-      });
-      
-      }
-      */
-      console.log(`Delete ${itemToDelete}`);
-      setItemToDelete(null);
-    }
-
-    console.log("itemToDelete", itemToDelete)
-
     //@@viewOff:private
-
     //@@viewOn:render
+
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, View);
 
@@ -91,88 +105,69 @@ const View = createVisualComponent({
       <h1>List rezervací</h1>
           <Uu5Elements.Header
           />
-           <Uu5Elements.Toggle  // toggle filter button
+           <Uu5Elements.Toggle  // toggle filter 
             value={filter}
             onChange={(e) => setFilter(e.data.value)}
             label={filter ? 'Pouze aktivní rezervace' : 'Všechny rezervace'}
             {...props}
           />
       </div>        
-        {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />} 
+        {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
-        {state === "ready" && (
-          filteredData.map((itemData, index) => (  // map filtered data
-            
-            <Uu5Elements.Block
-              card="full"
-              significance={index % 2 === 0 ? "distinct" : "subdued"}
-              colorScheme={itemData.data.state === "valid" ? "light-green" : "yellow"}
-              className={Config.Css.css({ padding: 4 })}
-              key={itemData.data.id} 
-              header={
-                <Uu5Elements.Text category="story" segment="heading" type="h5">
-                  Rezervace sportoviště: {itemData.data.sportsFieldId} 
-                </Uu5Elements.Text>
-              }
-              footer={
-                <Uu5Elements.Grid>
-                  <Uu5Elements.Grid.Item rowSpan={2}>
-                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>
-                  Začátek rezervace_
-                    <Uu5Elements.DateTime value={itemData.data.startTs}/>
-                  </Uu5Elements.Text>
-                  </Uu5Elements.Grid.Item>
-                  <Uu5Elements.Grid.Item rowSpan={2}>
-                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>
-                  Konec rezervace_
-                     <Uu5Elements.DateTime value={itemData.data.endTs}/>
-                  </Uu5Elements.Text>
-                  </Uu5Elements.Grid.Item>
-              </Uu5Elements.Grid>
-              }
-            >
-              <Uu5Elements.Button 
-              className="center" 
-              width={200} 
-              effect="upper"
-              onClick={() => { // set delete modal+ set item to delete
-                setOpen(true)
-                setItemToDelete(itemData.data.id)
-              }}>
-                Zrušit rezervaci
-                </Uu5Elements.Button>
-            </Uu5Elements.Block>
-          ))
-        )} 
+        {(state === "ready" || state === "pending") && (
+              
+              <Uu5Tiles.ViewProvider viewList={VIEW_LIST} value={view} onChange={(e) => setView(e.data.value)}>
+              <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
+                <Uu5TilesElements.List
+                  data={filteredData}
+                  columnList={columnList
+                  }
+                  tileMinWidth={280}
+                  tileMaxWidth={300}
+                  view={view}
+                  getActionList={getActionList}
+                >
+                  <Uu5TilesElements.Grid.DefaultTile
+                    header={
+                      <Uu5Elements.Text category="interface" segment="title" type="micro">
+                         Rezervace 
+                      </Uu5Elements.Text>
+                    }
+                  />
+                </Uu5TilesElements.List>
+              </Uu5Elements.Block>
+            </Uu5Tiles.ViewProvider> 
+            )}
+        
         <div className="center">     
-        <Uu5Elements.Button
-         className={Config.Css.css({  padding: 6 })} width={300} effect="upper" onClick={() => console.log("upper")}>
+        <Uu5Elements.Button // load next button
+        disabled={state === "pending" || state === "pendingNoData"}
+         className={Config.Css.css({  padding: 6 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}>
           Načíst další rezervace
-          </Uu5Elements.Button> 
+        </Uu5Elements.Button> 
+
         </div>
-        <Uu5Elements.Dialog
+        <Uu5Elements.Dialog  // confirm delete dialog
           open={open}
           onClose={() => setOpen(false)}
           header="Smazat tuto rezervaci?"
           icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
           info="Rezervaci nelze obnovit"
-
           actionDirection="horizontal"
           actionList={[
             {
               children: "Zrušit"  ,
-              onClick: () => setItemToDelete(null), // set item to detete to null
+              onClick: () => setOpen(false), // TODO set item to detete to null
             },
             {
               children: "Smazat",
-              onClick: () =>  handleDelete(), // delete reservation
+              onClick: () =>  setOpen(false), // TODO delete reservation
               colorScheme: "red",
               significance: "highlighted",
             },
           ]}
         />
       </>
-      
     ) : null;
     //@@viewOff:render
   },
