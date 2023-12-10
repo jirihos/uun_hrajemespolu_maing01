@@ -39,6 +39,14 @@ const Create = {
     }
   },
 
+  TimestampNotRounded: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}timestampNotRounded`;
+      this.message = "Timestamps need to be rounded to half an hour.";
+    }
+  },
+
   DurationIsTooLong: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);

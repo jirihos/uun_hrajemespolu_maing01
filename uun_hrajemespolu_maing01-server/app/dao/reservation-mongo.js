@@ -19,6 +19,37 @@ class ReservationMongo extends UuObjectDao {
 
     return await super.find(filter, pageInfo);
   }
+
+  async countOverlaps(awid, sportsFieldId, startDate, endDate) {
+    let filter = {
+      awid,
+      sportsFieldId,
+      $or: [
+        {
+          startTs: {
+            $gt: startDate,
+            $lt: endDate
+          }
+        },
+        {
+          endTs: {
+            $gt: startDate,
+            $lt: endDate
+          }
+        },
+        {
+          startTs: {
+            $lte: startDate
+          },
+          endTs: {
+            $gte: endDate
+          }
+        }
+      ]
+    }
+
+    return await super.count(filter);
+  }
 }
 
 module.exports = ReservationMongo

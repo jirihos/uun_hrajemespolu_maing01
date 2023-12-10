@@ -43,6 +43,11 @@ const Calls = {
     return Calls.call("get", commandUri);
   },
 
+  listOwn(dtoIn) {
+    const commandUri = Calls.getCommandUri("reservation/listOwn");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();

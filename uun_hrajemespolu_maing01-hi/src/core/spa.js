@@ -13,12 +13,14 @@ const SportsFieldDetail = Utils.Component.lazy(() => import("../routes/sports-fi
 const About = Utils.Component.lazy(() => import("../routes/about.js"));
 const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace.js"));
 const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.js"));
+const ReservationList = Utils.Component.lazy(() => import("../routes/reservation-list.js"));
 
 const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
   sportsFieldDetail: (props) => <SportsFieldDetail {...props} />,
   about: (props) => <About {...props} />,
+  reservationList: (props) => <ReservationList {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
   controlPanel: (props) => <ControlPanel {...props} />,
   "*": () => (
