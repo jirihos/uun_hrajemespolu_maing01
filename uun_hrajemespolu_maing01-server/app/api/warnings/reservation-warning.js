@@ -11,7 +11,13 @@ const Warnings = {
    UnsupportedKeys: {
     code: `${Errors.ListOwn.UC_CODE}unsupportedKeys`,
   },
-}
+},
+
+CancelByUser: {
+  UnsupportedKeys: {
+    code: `${Errors.CancelByUser.UC_CODE}unsupportedKeys`,
+  },
+},
 
 };
 

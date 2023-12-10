@@ -12,3 +12,7 @@ const reservationListOwnDtoInType = shape({
     pageSize: integer(1, 1000000000)
   })
 });
+
+const reservationCancelByUserDtoInType = shape({
+  id: id().isRequired()
+});

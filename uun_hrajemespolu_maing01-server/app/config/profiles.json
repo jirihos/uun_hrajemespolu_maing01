@@ -44,6 +44,10 @@
       "gallery/get": {
         "sysStateList": ["active"],
         "profileList": ["Public","Authenticated","Executives"]
+      },
+      "reservation/cancelByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated","Executives"]
       }
     }
   }

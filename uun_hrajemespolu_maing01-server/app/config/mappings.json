@@ -50,6 +50,11 @@
         "realization": "api/controllers/GalleryController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "reservation/cancelByUser": {
+        "realization": "api/controllers/ReservationController.cancelByUser",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

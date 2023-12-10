@@ -69,7 +69,29 @@ const ListOwn = {
   
 };
 
+const CancelByUser = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}cancelByUser/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByUser.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  reservationDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByUser.UC_CODE}reservationDoesNotExist`;
+      this.message = "Reservation does not exist.";
+    }
+  },
+
+}
+
 module.exports = {
+  CancelByUser,
   ListOwn,
   Create,
 };
