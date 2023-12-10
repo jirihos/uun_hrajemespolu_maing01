@@ -44,21 +44,40 @@ const View = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+
     const { dataObject } = props;
     const [open, setOpen] = useState(false);
     const { state, data } = dataObject;
     const [filter, setFilter] = useState(true);
+    const [itemToDelete, setItemToDelete] = useState(null);
     const filteredData = Array.isArray(dataObject.data)
-         ? dataObject.data.filter(
-        itemData =>
-         itemData.data.state === "valid" || filter === false
+    ? dataObject.data.filter(
+      itemData =>
+    itemData.data.state === "valid" || filter === false
     )
-     : [];
+    : [];
 
-    console.log("filteredData", filteredData);
-    console.log("dataObject", dataObject);
-    console.log("dataObject.data", dataObject.data);
-    console.log("filter", filter);
+    function handleDelete() { // delete reservation
+      /*
+      const dataObject = useDataList({
+        handlerMap: {
+          delete: () => {
+            const dtoIn =
+            {
+              "id": itemToDelete,
+            } ;
+            return Calls.canceledByUser(dtoIn);
+          },
+        },
+      });
+      
+      }
+      */
+      console.log(`Delete ${itemToDelete}`);
+      setItemToDelete(null);
+    }
+
+    console.log("itemToDelete", itemToDelete)
 
     //@@viewOff:private
 
@@ -67,23 +86,22 @@ const View = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, View);
 
     return currentNestingLevel ? (
-
       <>
       <div className="center">
       <h1>List rezervací</h1>
           <Uu5Elements.Header
           />
-           <Uu5Elements.Toggle
+           <Uu5Elements.Toggle  // toggle filter button
             value={filter}
             onChange={(e) => setFilter(e.data.value)}
             label={filter ? 'Pouze aktivní rezervace' : 'Všechny rezervace'}
             {...props}
           />
       </div>        
-        {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
+        {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {state === "ready" && (
-          filteredData.map((itemData, index) => (
+          filteredData.map((itemData, index) => (  // map filtered data
             
             <Uu5Elements.Block
               card="full"
@@ -99,19 +117,28 @@ const View = createVisualComponent({
               footer={
                 <Uu5Elements.Grid>
                   <Uu5Elements.Grid.Item rowSpan={2}>
-                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>Začíná: {itemData.data.startTs}</Uu5Elements.Text>
+                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>
+                  Začátek rezervace_
+                    <Uu5Elements.DateTime value={itemData.data.startTs}/>
+                  </Uu5Elements.Text>
                   </Uu5Elements.Grid.Item>
                   <Uu5Elements.Grid.Item rowSpan={2}>
-                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>Končí: {itemData.data.endTs}</Uu5Elements.Text>
-                  </Uu5Elements.Grid.Item>
-                  <Uu5Elements.Grid.Item rowSpan={2}>
-                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>Id rezervace:{itemData.data.id}</Uu5Elements.Text>
+                  <Uu5Elements.Text className={Config.Css.css({  padding: 4 })}>
+                  Konec rezervace_
+                     <Uu5Elements.DateTime value={itemData.data.endTs}/>
+                  </Uu5Elements.Text>
                   </Uu5Elements.Grid.Item>
               </Uu5Elements.Grid>
               }
             >
               <Uu5Elements.Button 
-              className="center" width={200} effect="upper" onClick={() => setOpen(true)}>
+              className="center" 
+              width={200} 
+              effect="upper"
+              onClick={() => { // set delete modal+ set item to delete
+                setOpen(true)
+                setItemToDelete(itemData.data.id)
+              }}>
                 Zrušit rezervaci
                 </Uu5Elements.Button>
             </Uu5Elements.Block>
@@ -134,11 +161,11 @@ const View = createVisualComponent({
           actionList={[
             {
               children: "Zrušit"  ,
-              onClick: () => console.log("Cancel"),
+              onClick: () => setItemToDelete(null), // set item to detete to null
             },
             {
               children: "Smazat",
-              onClick: () => console.log("Delete"),
+              onClick: () =>  handleDelete(), // delete reservation
               colorScheme: "red",
               significance: "highlighted",
             },
