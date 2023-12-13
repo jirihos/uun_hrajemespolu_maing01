@@ -24,6 +24,7 @@ class ReservationMongo extends UuObjectDao {
     let filter = {
       awid,
       sportsFieldId,
+      state: "valid",
       $or: [
         {
           startTs: {
