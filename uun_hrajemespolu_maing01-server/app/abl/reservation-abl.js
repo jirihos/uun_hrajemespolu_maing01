@@ -14,6 +14,86 @@ class ReservationAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async listBySportsField(awid, dtoIn, authorizationResult) {
+    let isExecutive = authorizationResult.getAuthorizedProfiles().includes(Constants.EXECUTIVES_PROFILE);
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationListBySportsFieldDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.ListBySportsField.UnsupportedKeys.code,
+      Errors.ListBySportsField.InvalidDtoIn
+    );
+
+    // default values
+    dtoIn.fromTs ??= new Date();
+    dtoIn.toTs ??= Constants.MAX_DATE;
+
+    dtoIn.loadFull ??= false;
+
+    dtoIn.state ??= "valid";
+
+    if (!dtoIn.pageInfo) { 
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 25;
+    }
+
+    // verify that sports field exists
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+    if (!sportsField) {
+      throw new Errors.ListBySportsField.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    }
+
+    let fromMoment = moment(dtoIn.fromTs);
+    let toMoment = moment(dtoIn.toTs);
+
+    // Check that dtoIn.fromTs is earlier than dtoIn.toTs
+    if (!fromMoment.isBefore(toMoment)) {
+      throw new Errors.ListBySportsField.ToTsCannotBeSameOrBeforeFromTs(
+        { uuAppErrorMap },
+        { fromTs: dtoIn.fromTs, toTs: dtoIn.toTs }
+      );
+    }
+
+    // verify permissions
+    if (!isExecutive) {
+      if (dtoIn.loadFull) {
+        throw new Errors.ListBySportsField.UserNotAuthorized(
+          { uuAppErrorMap },
+          { loadFull: dtoIn.loadFull }
+        );
+      }
+      if (dtoIn.state !== "valid") {
+        throw new Errors.ListBySportsField.UserNotAuthorized(
+          { uuAppErrorMap },
+          { state: dtoIn.state }
+        );
+      }
+    }
+
+    // load reservations
+    let state = dtoIn.state !== "all" ? dtoIn.state : undefined;
+    let reservations = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, state, new Date(dtoIn.fromTs), new Date(dtoIn.toTs), dtoIn.pageInfo);
+
+    if (!dtoIn.loadFull) {
+      reservations.itemList.forEach((reservation) => {
+        delete reservation.uuIdentity;
+        delete reservation.cancelReason;
+      });
+    }
+
+    let dtoOut = { ...reservations,  uuAppErrorMap }
+    return dtoOut;
+  }
+
   async listOwn(awid, dtoIn, session) {
 
     let uuAppErrorMap = {};

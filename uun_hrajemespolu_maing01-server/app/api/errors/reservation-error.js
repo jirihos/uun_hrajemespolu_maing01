@@ -77,7 +77,44 @@ const ListOwn = {
   
 };
 
+const ListBySportsField = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}listBySportsField/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  },
+
+  ToTsCannotBeSameOrBeforeFromTs: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}toTsCannotBeSameOrBeforeFromTs`;
+      this.message = "Specified toTs is the same as fromTs or earlier than fromTs.";
+    }
+  },
+
+  UserNotAuthorized: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}userNotAuthorized`;
+      this.message = "User is not authorized.";
+    }
+  },
+};
+
 module.exports = {
+  ListBySportsField,
   ListOwn,
   Create,
 };

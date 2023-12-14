@@ -11,6 +11,41 @@ class ReservationMongo extends UuObjectDao {
     return await super.insertOne(uuObject);
   }
 
+  async listBySportsField(awid, sportsFieldId, state, fromDate, toDate, pageInfo) {
+    let filter = {
+      awid,
+      sportsFieldId,
+      $or: [
+        {
+          startTs: {
+            $gt: fromDate,
+            $lt: toDate
+          }
+        },
+        {
+          endTs: {
+            $gt: fromDate,
+            $lt: toDate
+          }
+        },
+        {
+          startTs: {
+            $lte: fromDate
+          },
+          endTs: {
+            $gte: toDate
+          }
+        }
+      ]
+    };
+
+    if (state) {
+      filter.state = state;
+    }
+
+    return await super.find(filter, pageInfo);
+  }
+
   async listByUuIdentity(awid, uuIdentity, pageInfo) {
     const filter = {
       awid,

@@ -12,3 +12,15 @@ const reservationListOwnDtoInType = shape({
     pageSize: integer(1, 1000000000)
   })
 });
+
+const reservationListBySportsFieldDtoInType = shape({
+  sportsFieldId: id().isRequired(),
+  fromTs: datetime(),
+  toTs: datetime(),
+  loadFull: boolean(),
+  state: oneOf(["all", "valid", "cancelledByUser", "cancelledByAdmin"]),
+  pageInfo: shape({
+    pageIndex: integer(0, 1000000000),
+    pageSize: integer(1, 1000000000)
+  })
+});
