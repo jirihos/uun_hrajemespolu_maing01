@@ -65,6 +65,11 @@
         "realization": "api/controllers/ReviewController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "review/getByUser": {
+        "realization": "api/controllers/ReviewController.getByUser",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

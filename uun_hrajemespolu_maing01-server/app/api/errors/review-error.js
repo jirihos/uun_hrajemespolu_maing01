@@ -26,6 +26,27 @@ const list = {
 
 };
 
+const getByUser = {
+  UC_CODE: `${REVIEW_ERROR_PREFIX}getByUser/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  }
+
+};
+
 const Create = {
   UC_CODE: `${REVIEW_ERROR_PREFIX}create/`,
 
@@ -54,7 +75,9 @@ const Create = {
   }
 };
 
+
 module.exports = {
+  getByUser,
   Create,
   list
 };

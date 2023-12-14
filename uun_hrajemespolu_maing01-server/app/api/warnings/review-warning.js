@@ -6,6 +6,11 @@ const Warnings = {
           code: `${Errors.list.UC_CODE}unsupportedKeys`,
         },
       },
+      getByUser: {
+        UnsupportedKeys: {
+          code: `${Errors.list.UC_CODE}unsupportedKeys`,
+        },
+      },
 };
 
 module.exports = Warnings;
