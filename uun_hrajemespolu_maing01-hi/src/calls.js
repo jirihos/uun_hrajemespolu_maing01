@@ -48,6 +48,16 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  reservationListBySportsField(dtoIn) {
+    const commandUri = Calls.getCommandUri("reservation/listBySportsField");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  reservationCreate(dtoIn) {
+    const commandUri = Calls.getCommandUri("reservation/create");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();
