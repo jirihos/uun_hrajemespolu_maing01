@@ -35,7 +35,7 @@
       },
       "gallery/create": {
         "sysStateList": ["active"],
-        "profileList": ["Executives"]
+        "profileList": ["Executives", "Public"]
       },
       "reservation/listOwn": {
         "sysStateList": ["active"],
@@ -60,6 +60,10 @@
       "reservation/listBySportsField": {
         "sysStateList": ["active"],
         "profileList": ["Public","Authenticated","Executives"]
+      },
+      "review/getByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Authenticated", "Public"]
       }
     }
   }

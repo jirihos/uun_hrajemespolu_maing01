@@ -17,6 +17,17 @@ class ReviewMongo extends UuObjectDao {
 
     return await super.find(filter, pageInfo);
   }
+
+  async getByUser(awid, sportsFieldId, uuIdentity, pageInfo) {
+
+    const filter = {
+      awid,
+      sportsFieldId,
+      uuIdentity
+    }
+
+    return await super.find(filter, pageInfo);
+  }
 }
 
 module.exports = ReviewMongo;
