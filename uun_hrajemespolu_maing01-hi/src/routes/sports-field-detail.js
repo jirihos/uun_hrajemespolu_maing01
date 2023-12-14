@@ -5,6 +5,7 @@ import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
 import ReviewListProvider from "../bricks/reviews/review-list-provider.js";
 import ReviewListView from "../bricks/reviews/review-list-view.js";
+import ReservationCalendar from "../bricks/reservation-calendar.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -46,15 +47,19 @@ const SportsFieldDetail = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
-      <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
-        <GalleryProvider galleryId="655d0191de265134ec233d41" {...attrs}>
-          {(dataObject) => <GalleryView dataObject={dataObject} />}
-        </GalleryProvider>
-      </div>
+        <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
+          <GalleryProvider galleryId="655d0191de265134ec233d41">
+            {(dataObject) => <GalleryView dataObject={dataObject} />}
+          </GalleryProvider>
+        </div>
 
-      <ReviewListProvider sportsFieldId="655d0191de265134ec233d41" {...attrs}>
-      {(dataObject) => <ReviewListView dataObject={dataObject}/>}
-      </ReviewListProvider>
+        <div style={{padding: "50px 0"}}>
+          <ReservationCalendar sportsFieldId="6574c57bd7b5a1cd5eda2c39" />
+        </div>
+
+        <ReviewListProvider sportsFieldId="655d0191de265134ec233d41">
+        {(dataObject) => <ReviewListView dataObject={dataObject}/>}
+        </ReviewListProvider>
       </>
     ) : null;
     //@@viewOff:render
