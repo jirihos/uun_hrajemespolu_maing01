@@ -18,7 +18,7 @@ class ReviewMongo extends UuObjectDao {
     return await super.find(filter, pageInfo);
   }
 
-  async getByUser(awid, sportsFieldId, uuIdentity, pageInfo) {
+  async getByUser(awid, sportsFieldId, uuIdentity) {
 
     const filter = {
       awid,
@@ -26,7 +26,7 @@ class ReviewMongo extends UuObjectDao {
       uuIdentity
     }
 
-    return await super.find(filter, pageInfo);
+    return await super.findOne(filter);
   }
 }
 

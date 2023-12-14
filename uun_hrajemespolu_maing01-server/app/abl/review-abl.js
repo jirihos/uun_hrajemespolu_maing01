@@ -28,18 +28,15 @@ class ReviewAbl {
       Errors.getByUser.InvalidDtoIn
     );
 
-    if (!dtoIn.pageInfo) {
-      dtoIn.pageInfo = {};
-    }
-    if (!dtoIn.pageInfo.pageIndex) {
-      dtoIn.pageInfo.pageIndex = 0;
-    }
-    if (!dtoIn.pageInfo.pageSize) {
-      dtoIn.pageInfo.pageSize = 10;
+    //kontrola existence sportsField
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+
+    if (!sportsField) {
+      throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
     }
 
 
-    let reviewList = await this.dao.getByUser(awid, dtoIn.sportsFieldId, dtoIn.uuIdentity, dtoIn.pageInfo);
+    let reviewList = await this.dao.getByUser(awid, dtoIn.sportsFieldId, dtoIn.uuIdentity);
 
     let dtoOut = { ...reviewList, uuAppErrorMap }
 
@@ -106,6 +103,7 @@ class ReviewAbl {
 
     //kontrola existence sportsField
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+    /* TODO odebrat komentáře */ 
     // if (!sportsField) {
     //   throw new Errors.list.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
     // }
