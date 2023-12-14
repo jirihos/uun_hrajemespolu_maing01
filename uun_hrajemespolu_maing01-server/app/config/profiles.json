@@ -35,7 +35,7 @@
       },
       "gallery/create": {
         "sysStateList": ["active"],
-        "profileList": ["Executives"]
+        "profileList": ["Executives", "Public"]
       },
       "reservation/listOwn": {
         "sysStateList": ["active"],
@@ -56,6 +56,10 @@
       "review/create": {
         "sysStateList": ["active"],
         "profileList": ["Authenticated","Executives"]
+      },
+      "review/getByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Authenticated", "Public"]
       }
     }
   }

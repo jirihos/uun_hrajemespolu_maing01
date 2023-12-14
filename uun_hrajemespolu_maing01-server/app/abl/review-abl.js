@@ -14,6 +14,39 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async getByUser(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    //validace dtoin
+    const validationResult = this.validator.validate("reviewGetByUserTypes", dtoIn)
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.getByUser.UnsupportedKeys.code,
+      Errors.getByUser.InvalidDtoIn
+    );
+
+    if (!dtoIn.pageInfo) {
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 10;
+    }
+
+
+    let reviewList = await this.dao.getByUser(awid, dtoIn.sportsFieldId, dtoIn.uuIdentity, dtoIn.pageInfo);
+
+    let dtoOut = { ...reviewList, uuAppErrorMap }
+
+    return dtoOut;
+    
+  }
+
   async create(awid, dtoIn) {
     let uuAppErrorMap = {};
 

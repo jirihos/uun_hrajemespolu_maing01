@@ -38,6 +38,11 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  reviewGetByUser(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/getByUser");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   galleryCreate() {
     const commandUri = Calls.getCommandUri("gallery/create");
     return Calls.call("get", commandUri);
