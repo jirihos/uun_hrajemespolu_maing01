@@ -3,6 +3,10 @@ const ReservationAbl = require("../../abl/reservation-abl.js");
 
 class ReservationController {
 
+  cancelByAdmin(ucEnv) {
+    return ReservationAbl.cancelByAdmin(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   listBySportsField(ucEnv) {
     return ReservationAbl.listBySportsField(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
   }

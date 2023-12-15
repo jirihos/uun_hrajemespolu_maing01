@@ -24,3 +24,8 @@ const reservationListBySportsFieldDtoInType = shape({
     pageSize: integer(1, 1000000000)
   })
 });
+
+const reservationCancelByAdminTypes = shape({
+  id: id().isRequired(),
+  cancelReason: string().isRequired()
+});

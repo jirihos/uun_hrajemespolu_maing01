@@ -55,6 +55,8 @@ class ReservationMongo extends UuObjectDao {
     return await super.find(filter, pageInfo);
   }
 
+  
+
   async countOverlaps(awid, sportsFieldId, startDate, endDate) {
     let filter = {
       awid,
@@ -85,6 +87,29 @@ class ReservationMongo extends UuObjectDao {
     }
 
     return await super.count(filter);
+  }
+
+  async getById(awid, id) {
+
+    const filter = {
+      awid,
+      id,
+    }
+
+    return await super.findOne(filter);
+  }
+
+  async cancelByAdmin(awid, id, reservation, cancelReason) {
+
+    reservation.state = "cancelledByAdmin"
+    reservation.cancelReason = cancelReason;
+
+    const filter = {
+      awid,
+      id,
+    }
+
+    return await super.findOneAndUpdate(filter, reservation, "NONE");
   }
 }
 

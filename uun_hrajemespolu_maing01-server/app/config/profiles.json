@@ -68,6 +68,10 @@
       "review/delete": {
         "sysStateList": ["active"],
         "profileList": ["Executives","Authorities"]
+      },
+      "reservation/cancelByAdmin": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }
