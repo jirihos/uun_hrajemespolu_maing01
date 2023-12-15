@@ -169,9 +169,9 @@ class ReservationAbl {
 
     // Verify that sports field exists
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-    // if (!sportsField) {
-    //   throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    // }
+    if (!sportsField) {
+      throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    }
 
     let startMoment = moment(dtoIn.startTs);
     let endMoment = moment(dtoIn.endTs);

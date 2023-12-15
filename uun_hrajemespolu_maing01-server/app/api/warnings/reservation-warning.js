@@ -20,7 +20,7 @@ const Warnings = {
   },
   CancelByAdmin: {
     UnsupportedKeys: {
-     code: `${Errors.ListBySportsField.UC_CODE}unsupportedKeys`,
+     code: `${Errors.CancelByAdmin.UC_CODE}unsupportedKeys`,
     },
   },
 };

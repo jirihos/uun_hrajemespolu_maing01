@@ -119,7 +119,7 @@ const CancelByAdmin = {
   InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListBySportsField.UC_CODE}invalidDtoIn`;
+      this.code = `${CancelByAdmin.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
@@ -127,7 +127,7 @@ const CancelByAdmin = {
   ReservationNotFound: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListBySportsField.UC_CODE}notFound`;
+      this.code = `${CancelByAdmin.UC_CODE}notFound`;
       this.message = "Reservation was not found.";
     }
   },
@@ -135,7 +135,7 @@ const CancelByAdmin = {
   ReservationAlreadyCancelled: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListBySportsField.UC_CODE}alreadyCancelled`;
+      this.code = `${CancelByAdmin.UC_CODE}alreadyCancelled`;
       this.message = "This reservation has already been cancelled.";
     }
   },
