@@ -84,7 +84,37 @@ const Create = {
 };
 
 
+const Delete = {
+  UC_CODE: `${REVIEW_ERROR_PREFIX}delete/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  ReviewDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}reviewDoesNotExist`;
+      this.message = "No review was found.";
+    }
+  },
+
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  }
+  
+};
+
 module.exports = {
+  Delete,
   getByUser,
   Create,
   list

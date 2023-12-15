@@ -75,6 +75,11 @@
         "realization": "api/controllers/ReviewController.getByUser",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "review/delete": {
+        "realization": "api/controllers/ReviewController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
