@@ -37,6 +37,14 @@ const getByUser = {
     }
   },
 
+  ReviewDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${list.UC_CODE}reviewDoesNotExist`;
+      this.message = "No review was found.";
+    }
+  },
+
   SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
