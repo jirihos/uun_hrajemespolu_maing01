@@ -32,7 +32,7 @@ const getByUser = {
   InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${list.UC_CODE}invalidDtoIn`;
+      this.code = `${getByUser.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
@@ -40,7 +40,7 @@ const getByUser = {
   ReviewDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${list.UC_CODE}reviewDoesNotExist`;
+      this.code = `${getByUser.UC_CODE}reviewDoesNotExist`;
       this.message = "No review was found.";
     }
   },
@@ -48,7 +48,7 @@ const getByUser = {
   SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${list.UC_CODE}sportsFieldDoesNotExist`;
+      this.code = `${getByUser.UC_CODE}sportsFieldDoesNotExist`;
       this.message = "Sports field does not exist.";
     }
   }
@@ -90,7 +90,7 @@ const Delete = {
   InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${list.UC_CODE}invalidDtoIn`;
+      this.code = `${Delete.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
@@ -98,19 +98,10 @@ const Delete = {
   ReviewDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${list.UC_CODE}reviewDoesNotExist`;
+      this.code = `${Delete.UC_CODE}reviewDoesNotExist`;
       this.message = "No review was found.";
     }
-  },
-
-  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${list.UC_CODE}sportsFieldDoesNotExist`;
-      this.message = "Sports field does not exist.";
-    }
   }
-  
 };
 
 module.exports = {

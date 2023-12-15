@@ -28,20 +28,13 @@ class ReviewAbl {
       Errors.Delete.InvalidDtoIn
     );
 
-    //kontrola existence sportsField
-    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-
-    // if (!sportsField) {
-    //   throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    // }
-
-    let review = await this.dao.getById(awid, dtoIn.sportsFieldId, dtoIn.reviewid)
+    let review = await this.dao.get(awid, dtoIn.id)
 
     if (!review) {
-      throw new Errors.getByUser.ReviewDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId, id : dtoIn.reviewid});
+      throw new Errors.Delete.ReviewDoesNotExist({ uuAppErrorMap }, { id : dtoIn.id});
     }
 
-    await this.dao.delete(awid, dtoIn.sportsFieldId, dtoIn.reviewid);
+    await this.dao.delete(awid, dtoIn.id);
 
     let dtoOut = { uuAppErrorMap }
 

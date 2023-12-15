@@ -18,11 +18,10 @@ class ReviewMongo extends UuObjectDao {
     return await super.find(filter, pageInfo);
   }
 
-  async getById(awid, sportsFieldId, id) {
+  async get(awid, id) {
 
     const filter = {
       awid,
-      sportsFieldId,
       id
     }
 
@@ -40,11 +39,10 @@ class ReviewMongo extends UuObjectDao {
     return await super.findOne(filter);
   }
 
-  async delete(awid, sportsFieldId, id) {
+  async delete(awid, id) {
 
     const filter = {
       awid,
-      sportsFieldId,
       id
     }
 
