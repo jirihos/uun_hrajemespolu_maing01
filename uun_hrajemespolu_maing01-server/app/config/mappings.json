@@ -80,6 +80,11 @@
         "realization": "api/controllers/ReviewController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "reservation/cancelByAdmin": {
+        "realization": "api/controllers/ReservationController.cancelByAdmin",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -113,7 +113,37 @@ const ListBySportsField = {
   },
 };
 
+const CancelByAdmin = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}cancelByAdmin/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  ReservationNotFound: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}notFound`;
+      this.message = "Reservation was not found.";
+    }
+  },
+
+  ReservationAlreadyCancelled: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}alreadyCancelled`;
+      this.message = "This reservation has already been cancelled.";
+    }
+  },
+  
+};
+
 module.exports = {
+  CancelByAdmin,
   ListBySportsField,
   ListOwn,
   Create,

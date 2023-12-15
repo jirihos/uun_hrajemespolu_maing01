@@ -18,6 +18,11 @@ const Warnings = {
      code: `${Errors.ListBySportsField.UC_CODE}unsupportedKeys`,
     },
   },
+  CancelByAdmin: {
+    UnsupportedKeys: {
+     code: `${Errors.ListBySportsField.UC_CODE}unsupportedKeys`,
+    },
+  },
 };
 
 module.exports = Warnings;

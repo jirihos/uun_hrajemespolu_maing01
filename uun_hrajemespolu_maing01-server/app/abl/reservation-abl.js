@@ -14,6 +14,34 @@ class ReservationAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async cancelByAdmin(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationCancelByAdminTypes", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.CancelByAdmin.UnsupportedKeys.code,
+      Errors.CancelByAdmin.InvalidDtoIn
+    );
+
+    let reservation = await this.dao.getById(awid, dtoIn.id);
+
+    if (!reservation) {
+      throw new Errors.CancelByAdmin.ReservationNotFound({ uuAppErrorMap }, { id: dtoIn.id });
+    } else if (reservation.state === "cancelledByUser" || reservation.state === "cancelledByAdmin") {
+      throw new Errors.CancelByAdmin.ReservationAlreadyCancelled({ uuAppErrorMap }, { id: dtoIn.id })
+    }
+
+    let cancelledReservation = await this.dao.cancelByAdmin(awid, dtoIn.id, reservation, dtoIn.cancelReason)
+    
+    let dtoOut = {...cancelledReservation, uuAppErrorMap}
+
+    return dtoOut;
+  }
+
   async listBySportsField(awid, dtoIn, authorizationResult) {
     let isExecutive = authorizationResult.getAuthorizedProfiles().includes(Constants.EXECUTIVES_PROFILE);
     let uuAppErrorMap = {};
@@ -141,9 +169,9 @@ class ReservationAbl {
 
     // Verify that sports field exists
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-    if (!sportsField) {
-      throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    }
+    // if (!sportsField) {
+    //   throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    // }
 
     let startMoment = moment(dtoIn.startTs);
     let endMoment = moment(dtoIn.endTs);
