@@ -14,6 +14,41 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async delete(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    //validace dtoin
+    const validationResult = this.validator.validate("reviewDeleteTypes", dtoIn)
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Delete.UnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    //kontrola existence sportsField
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+
+    // if (!sportsField) {
+    //   throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    // }
+
+    let review = await this.dao.getById(awid, dtoIn.sportsFieldId, dtoIn.reviewid)
+
+    if (!review) {
+      throw new Errors.getByUser.ReviewDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId, id : dtoIn.reviewid});
+    }
+
+    await this.dao.delete(awid, dtoIn.sportsFieldId, dtoIn.reviewid);
+
+    let dtoOut = { uuAppErrorMap }
+
+    return dtoOut;
+
+  }
+
   async getByUser(awid, dtoIn) {
     let uuAppErrorMap = {};
 
@@ -34,7 +69,6 @@ class ReviewAbl {
     if (!sportsField) {
       throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
     }
-
 
     let reviewList = await this.dao.getByUser(awid, dtoIn.sportsFieldId, dtoIn.uuIdentity);
 
