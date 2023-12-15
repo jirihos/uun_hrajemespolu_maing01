@@ -31,12 +31,16 @@ class ReviewAbl {
     //kontrola existence sportsField
     let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
 
-    if (!sportsField) {
-      throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
-    }
+    // if (!sportsField) {
+    //   throw new Errors.getByUser.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    // }
 
 
     let reviewList = await this.dao.getByUser(awid, dtoIn.sportsFieldId, dtoIn.uuIdentity);
+
+    if (!reviewList) {
+      throw new Errors.getByUser.ReviewDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId, uuIdentity : dtoIn.uuIdentity});
+    }
 
     let dtoOut = { ...reviewList, uuAppErrorMap }
 
