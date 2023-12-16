@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar.js";
-import OwnReservationList from "../bricks/own-reservation-list.js";
+import Provider from "../bricks/own-reservation-list/provider.js";
+import View from "../bricks/own-reservation-list/view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,9 +17,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ReservationList = createVisualComponent({
+const OwnReservationList = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ReservationList",
+  uu5Tag: Config.TAG + "OwnReservationList",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
@@ -41,12 +41,13 @@ const ReservationList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, OwnReservationList);
 
     return currentNestingLevel ? (
-      <div>
-        <RouteBar />
-        <OwnReservationList />
+      <div {...attrs}>
+        <Provider>
+          {(dataObject) => <View dataObject={dataObject} />}
+        </Provider>
       </div>
     ) : null;
     //@@viewOff:render
@@ -54,6 +55,6 @@ const ReservationList = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ReservationList };
-export default ReservationList;
+export { OwnReservationList };
+export default OwnReservationList;
 //@@viewOff:exports

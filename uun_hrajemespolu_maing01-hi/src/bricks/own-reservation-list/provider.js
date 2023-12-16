@@ -31,9 +31,8 @@ const Provider = createComponent({
         load: Calls.listOwn
         },
       
-      pageSize: 2,
+      pageSize: 4,
     });
-
 
     //@@viewOff:private
 
@@ -42,6 +41,8 @@ const Provider = createComponent({
 
     //@@viewOn:render
     return typeof children === "function" ? children(dataObject) : children;
+
+    
     //@@viewOff:render
   },
 });
