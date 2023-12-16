@@ -6,6 +6,8 @@ import Uu5Calendar from "uu5calendarg01";
 //@@viewOff:imports
 
 //@@viewOn:constants
+const MAX_RESERVATION_DURATION = 2; // maximum duration of new reservations in hours
+const MAX_RESERVATION_DURATION_MS = MAX_RESERVATION_DURATION * 60 * 60 * 1000;
 //@@viewOff:constants
 
 //@@viewOn:css
@@ -52,8 +54,13 @@ const View = createVisualComponent({
 
     const [screenSize] = useScreenSize();
 
-    const [ date, setDate ] = useState(new Date().toISOString().split("T")[0]);
-    const [ selection, setSelection ] = useState(null);
+    const [date, setDate] = useState(() => {
+      let currentDate = new Date().toISOString().split("T")[0];
+      return currentDate;
+    });
+    const [selection, setSelection] = useState(null);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [customError, setCustomError] = useState(null);
 
     // data for Scheduler component
     let rowList = useMemo(() => {
@@ -102,7 +109,14 @@ const View = createVisualComponent({
 
     function handleSlotSelect(event) {
       const { row, ...newSelection } = event.data;
-      setSelection(newSelection);
+      let durationMs = newSelection.dateTimeTo.valueOf() - newSelection.dateTimeFrom.valueOf();
+
+      if (durationMs > MAX_RESERVATION_DURATION_MS) {
+        setCustomError(`Maximum duration of a reservation is ${MAX_RESERVATION_DURATION} hours.`);
+        setSelection(null);
+      } else {
+        setSelection(newSelection);
+      }
     }
 
     function handleCreate() {
@@ -110,6 +124,58 @@ const View = createVisualComponent({
         startTs: selection.dateTimeFrom.toISOString(),
         endTs: selection.dateTimeTo.toISOString(),
       }).then(() => setSelection(null));
+    }
+
+    function renderSelectedReservationInfo() {
+      if (!selection) {
+        return null;
+      }
+
+      function SubduedText({children}) {
+        return (
+          <Uu5Elements.Text
+            category="story"
+            segment="body"
+            type="common"
+            colorScheme="building"
+            significance="subdued"
+            className={Config.Css.css({ justifySelf: "start" })}
+          >
+            {children}
+          </Uu5Elements.Text>
+        );
+      }
+
+      function Text({children}) {
+        return (
+          <Uu5Elements.Text
+            category="story"
+            segment="body"
+            type="common"
+            colorScheme="building"
+            className={Config.Css.css({ justifySelf: "start" })}
+          >
+            {children}
+          </Uu5Elements.Text>
+        );
+      }
+
+      return (
+        <Uu5Elements.Grid templateColumns="auto auto" className={Config.Css.css({ margin: "20px 5px" })}>
+          <SubduedText>Sports field</SubduedText>
+          <Text>TODO name of sports field</Text> {/* TODO name of sports field */}
+
+          <SubduedText>From</SubduedText>
+          <Text>
+            <Uu5Elements.DateTime value={selection.dateTimeFrom} />
+          </Text>
+
+          <SubduedText>To</SubduedText>
+          <Text>
+            <Uu5Elements.DateTime value={selection.dateTimeTo} />
+          </Text>
+        </Uu5Elements.Grid>
+      );
     }
     //@@viewOff:private
 
@@ -141,9 +207,24 @@ const View = createVisualComponent({
 
         {selection &&
           <div className={Css.center()}>
-            <Uu5Elements.Button colorScheme="primary" onClick={handleCreate}>Make a reservation</Uu5Elements.Button>
+            <Uu5Elements.Button colorScheme="primary" onClick={() => setShowConfirm(true)}>Make a reservation</Uu5Elements.Button>
           </div>
         }
+
+        <Uu5Elements.Dialog
+          open={showConfirm}
+          onClose={() => setShowConfirm(false)}
+          header="Create a reservation"
+          info={renderSelectedReservationInfo()}
+          width={screenSize === "xs" ? "full" : null}
+          actionDirection="horizontal"
+          actionList={[
+            { children: "Confirm", colorScheme: "primary", significance: "highlighted", onClick: handleCreate},
+            { children: "Cancel"}
+          ]}
+        ></Uu5Elements.Dialog>
+
+        {customError && <Uu5Elements.Alert message={customError} priority="error" durationMs={6000} onClose={() => setCustomError(null)} />}
       </div>
     ) : null;
     //@@viewOff:render
