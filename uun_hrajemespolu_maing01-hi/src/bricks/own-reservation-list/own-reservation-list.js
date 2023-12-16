@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
-import Config from "./config/config.js";
-import Provider from "../bricks/own-reservation-list/provider.js";
-import View from "../bricks/own-reservation-list/view.js";
+import Config from "../config/config.js";
+import Provider from "./provider.js";
+import View from "./view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants

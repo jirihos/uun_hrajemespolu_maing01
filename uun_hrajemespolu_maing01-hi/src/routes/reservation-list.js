@@ -2,7 +2,7 @@
 import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
-import OwnReservationList from "../bricks/own-reservation-list.js";
+import OwnReservationList from "../bricks/own-reservation-list/own-reservation-list.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
