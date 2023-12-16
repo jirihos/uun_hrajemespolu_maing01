@@ -59,7 +59,7 @@ const RouteBar = createVisualComponent({
     return <div>
       <Uu5Elements.Grid {...attrs} templateColumns="auto auto 1500px" alignItems="center" >
         <Uu5Elements.Grid.Item>
-          <img href='home' src={image} width="150px" margin-left='1000px' cursor='pointer'/>
+          <img href='home' src={image} width="150px" />
         </Uu5Elements.Grid.Item>
         <Uu5Elements.Grid.Item >
           <Uu5Elements.ActionGroup itemList={appActionList}></Uu5Elements.ActionGroup>
