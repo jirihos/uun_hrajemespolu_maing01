@@ -108,7 +108,10 @@
       "reservation/cancelByUser": {
         "realization": "api/controllers/ReservationController.cancelByUser",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       }
     }
   }
