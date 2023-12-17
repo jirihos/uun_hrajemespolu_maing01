@@ -1,9 +1,9 @@
 {
   "uuAppBoxDescriptor": {
     "schemaVersion": "2.0",
-    "code": "uun-hrajemespolu-maing01",
+    "code": "uun_bpmi23wczdl05_maing01",
     "version": "${projectVersion}",
-    "name": "uunHrajemespoluMaing01",
+    "name": "uunBpmi23wczdl05Maing01",
     "description": "",
     "productUri": null,
     "uuAppPackMap": {
@@ -13,7 +13,7 @@
     },
     "deliverySpecType": "uusubappspec:2.0",
     "deliverySpec": {
-      "urlPath": "uun-hrajemespolu-maing01",
+      "urlPath": "uun-bpmi23wczdl05-maing01",
       "uuNodeSetMap": {
         "nodeSet01": {
           "uuNodeSetType": "cmdSync",
@@ -50,11 +50,11 @@
     "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:0.1"
   },
   "uuSubAppDeploymentConfig": {
-    "uuAppResourcePoolOid": "----- VALUE REQUIRED -----",
+    "uuAppResourcePoolOid": "654e14b66f8dfe0016938148",
     "targetSlot": "production",
-    "asid": "----- VALUE REQUIRED -----",
+    "asid": "07ef4b2e5f7a531252b2a890f6138361",
     "awidList": [
-      "----- VALUE REQUIRED -----"
+      "8b2adc5c4c21a996b1e7dc70764d4a12"
     ]
   },
   "uuAppServerEnvironment": {
@@ -70,6 +70,8 @@
     "uu_plus4u5g02_identityManagementBaseUri": "https://uuapp-dev.plus4u.net/uu-identitymanagement-maing01/58ceb15c275c4b31bfe0fc9768aa6a9c",
     "uu_plus4u5g02_commonServicesBaseUri": "https://uuapp-dev.plus4u.net/uu-commonservices-maing01/00000b33c474420aa887c972097b8024",
     "uu_plus4u5g02_peopleBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4upeople-maing01/0000004723544d1ab0b74000d9f7671c",
-    "uu_plus4u5g02_organizationBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4uorganization-maing01/00000e17cfda49f49db73ed53ac8e4cf"
+    "uu_plus4u5g02_organizationBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4uorganization-maing01/00000e17cfda49f49db73ed53ac8e4cf",
+    "uu_app_oidc_providers_oidcg02_enabled": true,
+    "uu_app_oidc_primary_provider": "oidcg02"
   }
 }
