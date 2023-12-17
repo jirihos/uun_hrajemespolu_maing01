@@ -13,6 +13,10 @@ const reservationListOwnDtoInType = shape({
   })
 });
 
+const reservationCancelByUserDtoInType = shape({
+  id: id().isRequired()
+});
+
 const reservationListBySportsFieldDtoInType = shape({
   sportsFieldId: id().isRequired(),
   fromTs: datetime(),

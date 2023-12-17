@@ -72,6 +72,10 @@
       "reservation/cancelByAdmin": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
+      },
+      "reservation/cancelByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated","Executives"]
       }
     }
   }

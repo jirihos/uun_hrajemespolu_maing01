@@ -13,6 +13,12 @@ const Warnings = {
    }
   },
 
+  CancelByUser: {
+    UnsupportedKeys: {
+      code: `${Errors.CancelByUser.UC_CODE}unsupportedKeys`,
+    },
+  },
+
   ListBySportsField: {
     UnsupportedKeys: {
      code: `${Errors.ListBySportsField.UC_CODE}unsupportedKeys`,

@@ -85,6 +85,11 @@
         "realization": "api/controllers/ReservationController.cancelByAdmin",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "reservation/cancelByUser": {
+        "realization": "api/controllers/ReservationController.cancelByUser",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

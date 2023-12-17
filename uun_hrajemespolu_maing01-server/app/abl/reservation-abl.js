@@ -14,6 +14,31 @@ class ReservationAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async cancelByUser(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationCancelByUserDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.CancelByUser.UnsupportedKeys.code,
+      Errors.CancelByUser.InvalidDtoIn
+    );
+
+    let reservation = await this.dao.get(awid, dtoIn.id);
+    if (!reservation) {
+      throw new Errors.CancelByUser.reservationDoesNotExist({ uuAppErrorMap }, { reservationId: dtoIn.id });
+    }
+    let uuObject = {awid, id: dtoIn.id, state: "cancelledByUser", cancelReason: ""} 
+    
+    let reservationUpdate = await this.dao.update(uuObject)
+
+    let dtoOut = { ...reservationUpdate, uuAppErrorMap}
+    return dtoOut
+  }
+
   async cancelByAdmin(awid, dtoIn) {
     let uuAppErrorMap = {};
 

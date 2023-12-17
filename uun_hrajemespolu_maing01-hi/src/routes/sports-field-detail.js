@@ -5,6 +5,7 @@ import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
 import ReviewListProvider from "../bricks/reviews/review-list-provider.js";
 import ReviewListView from "../bricks/reviews/review-list-view.js";
+import RouteBar from "../core/route-bar.js";
 import ReservationCalendar from "../bricks/reservation-calendar.js";
 //@@viewOff:imports
 
@@ -47,6 +48,8 @@ const SportsFieldDetail = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
+        <RouteBar />
+
         <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
           <GalleryProvider galleryId="655d0191de265134ec233d41">
             {(dataObject) => <GalleryView dataObject={dataObject} />}
