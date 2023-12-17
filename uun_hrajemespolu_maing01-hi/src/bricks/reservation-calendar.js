@@ -1,9 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, } from "uu5g05";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar.js";
-import Provider from "../bricks/own-reservation-list/provider.js";
-import View from "../bricks/own-reservation-list/view.js";
+import SportsFieldReservationsProvider from "./sports-field-reservations-provider.js";
+import View from "./reservation-calendar/view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -18,14 +17,16 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ReservationList = createVisualComponent({
+const ReservationCalendar = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ReservationList",
+  uu5Tag: Config.TAG + "ReservationCalendar",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    sportsFieldId: PropTypes.string.isRequired,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -34,7 +35,7 @@ const ReservationList = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    const { sportsFieldId } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -42,21 +43,18 @@ const ReservationList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationCalendar);
 
     return currentNestingLevel ? (
-      <div>
-        <RouteBar />
-        <Provider>
-          {(dataObject) => <View dataObject={dataObject} />}
-        </Provider>
-      </div>
+      <SportsFieldReservationsProvider sportsFieldId={sportsFieldId} pageSize={48} {...attrs}>
+        {(dataList) => <View dataList={dataList} />}
+      </SportsFieldReservationsProvider>
     ) : null;
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { ReservationList };
-export default ReservationList;
+export { ReservationCalendar };
+export default ReservationCalendar;
 //@@viewOff:exports

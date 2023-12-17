@@ -39,6 +39,114 @@ class ReservationAbl {
     return dtoOut
   }
 
+  async cancelByAdmin(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationCancelByAdminTypes", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.CancelByAdmin.UnsupportedKeys.code,
+      Errors.CancelByAdmin.InvalidDtoIn
+    );
+
+    let reservation = await this.dao.getById(awid, dtoIn.id);
+
+    if (!reservation) {
+      throw new Errors.CancelByAdmin.ReservationNotFound({ uuAppErrorMap }, { id: dtoIn.id });
+    } else if (reservation.state === "cancelledByUser" || reservation.state === "cancelledByAdmin") {
+      throw new Errors.CancelByAdmin.ReservationAlreadyCancelled({ uuAppErrorMap }, { id: dtoIn.id })
+    }
+
+    let cancelledReservation = await this.dao.cancelByAdmin(awid, dtoIn.id, reservation, dtoIn.cancelReason)
+    
+    let dtoOut = {...cancelledReservation, uuAppErrorMap}
+
+    return dtoOut;
+  }
+
+  async listBySportsField(awid, dtoIn, authorizationResult) {
+    let isExecutive = authorizationResult.getAuthorizedProfiles().includes(Constants.EXECUTIVES_PROFILE);
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("reservationListBySportsFieldDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.ListBySportsField.UnsupportedKeys.code,
+      Errors.ListBySportsField.InvalidDtoIn
+    );
+
+    // default values
+    dtoIn.fromTs ??= new Date();
+    dtoIn.toTs ??= Constants.MAX_DATE;
+
+    dtoIn.loadFull ??= false;
+
+    dtoIn.state ??= "valid";
+
+    if (!dtoIn.pageInfo) { 
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 25;
+    }
+
+    // verify that sports field exists
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
+    if (!sportsField) {
+      throw new Errors.ListBySportsField.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
+    }
+
+    let fromMoment = moment(dtoIn.fromTs);
+    let toMoment = moment(dtoIn.toTs);
+
+    // Check that dtoIn.fromTs is earlier than dtoIn.toTs
+    if (!fromMoment.isBefore(toMoment)) {
+      throw new Errors.ListBySportsField.ToTsCannotBeSameOrBeforeFromTs(
+        { uuAppErrorMap },
+        { fromTs: dtoIn.fromTs, toTs: dtoIn.toTs }
+      );
+    }
+
+    // verify permissions
+    if (!isExecutive) {
+      if (dtoIn.loadFull) {
+        throw new Errors.ListBySportsField.UserNotAuthorized(
+          { uuAppErrorMap },
+          { loadFull: dtoIn.loadFull }
+        );
+      }
+      if (dtoIn.state !== "valid") {
+        throw new Errors.ListBySportsField.UserNotAuthorized(
+          { uuAppErrorMap },
+          { state: dtoIn.state }
+        );
+      }
+    }
+
+    // load reservations
+    let state = dtoIn.state !== "all" ? dtoIn.state : undefined;
+    let reservations = await this.dao.listBySportsField(awid, dtoIn.sportsFieldId, state, new Date(dtoIn.fromTs), new Date(dtoIn.toTs), dtoIn.pageInfo);
+
+    if (!dtoIn.loadFull) {
+      reservations.itemList.forEach((reservation) => {
+        delete reservation.uuIdentity;
+        delete reservation.cancelReason;
+      });
+    }
+
+    let dtoOut = { ...reservations,  uuAppErrorMap }
+    return dtoOut;
+  }
+
   async listOwn(awid, dtoIn, session) {
 
     let uuAppErrorMap = {};
@@ -93,8 +201,6 @@ class ReservationAbl {
     let startMoment = moment(dtoIn.startTs);
     let endMoment = moment(dtoIn.endTs);
 
-    // TODO: validate that timestamps are rounded to half an hour
-
     // Check that dtoIn.startTs is earlier than dtoIn.endTs
     if (!startMoment.isBefore(endMoment)) {
       throw new Errors.Create.EndTsCannotBeSameOrBeforeStartTs(
@@ -111,17 +217,29 @@ class ReservationAbl {
       );
     }
 
+    // Validate that timestamps are rounded to half an hour
+    if (startMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0 ||
+        endMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0) {
+      throw new Errors.Create.TimestampNotRounded({ uuAppErrorMap });
+    }
+
     // Check that the duration of the reservation is not longer than MAX_RESERVATION_DURATION hours.
     let duration = endMoment.diff(startMoment, "hours", true);
     if (duration > Constants.MAX_RESERVATION_DURATION) {
       throw new Errors.Create.DurationIsTooLong({ uuAppErrorMap }, { startTs: dtoIn.startTs, endTs: dtoIn.endTs });
     }
 
-    // TODO: Check that the reservation doesn't overlap with any existing reservation for the same sports field.
+    // Check that the reservation doesn't overlap with any existing reservation for the same sports field.
+    let overlapsCount = await this.dao.countOverlaps(awid, dtoIn.sportsFieldId, startMoment.toDate(), endMoment.toDate());
+    if (overlapsCount > 0) {
+      throw new Errors.Create.ReservationOverlaps({ uuAppErrorMap });
+    }
 
     // Call reservation DAO create
     dtoIn.awid = awid;
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    dtoIn.startTs = startMoment.toDate();
+    dtoIn.endTs = endMoment.toDate();
     dtoIn.state = "valid";
     dtoIn.cancelReason = "";
     let reservation = await this.dao.create(dtoIn);

@@ -39,6 +39,14 @@ const Create = {
     }
   },
 
+  TimestampNotRounded: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}timestampNotRounded`;
+      this.message = "Timestamps need to be rounded to half an hour.";
+    }
+  },
+
   DurationIsTooLong: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -90,8 +98,75 @@ const CancelByUser = {
 
 }
 
+const ListBySportsField = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}listBySportsField/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  },
+
+  ToTsCannotBeSameOrBeforeFromTs: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}toTsCannotBeSameOrBeforeFromTs`;
+      this.message = "Specified toTs is the same as fromTs or earlier than fromTs.";
+    }
+  },
+
+  UserNotAuthorized: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}userNotAuthorized`;
+      this.message = "User is not authorized.";
+    }
+  },
+};
+
+const CancelByAdmin = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}cancelByAdmin/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  ReservationNotFound: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}notFound`;
+      this.message = "Reservation was not found.";
+    }
+  },
+
+  ReservationAlreadyCancelled: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}alreadyCancelled`;
+      this.message = "This reservation has already been cancelled.";
+    }
+  },
+  
+};
+
 module.exports = {
   CancelByUser,
+  CancelByAdmin,
+  ListBySportsField,
   ListOwn,
   Create,
 };

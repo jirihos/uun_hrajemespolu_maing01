@@ -7,6 +7,14 @@ class ReservationController {
     return ReservationAbl.cancelByUser(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }
 
+  cancelByAdmin(ucEnv) {
+    return ReservationAbl.cancelByAdmin(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
+  listBySportsField(ucEnv) {
+    return ReservationAbl.listBySportsField(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
+  }
+
   listOwn(ucEnv) {
     return ReservationAbl.listOwn(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getSession());
   }

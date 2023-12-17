@@ -33,7 +33,7 @@ class GalleryAbl {
       throw new Errors.Get.GalleryDoesNotExist({ uuAppErrorMap }, { galleryId: dtoIn.id });
     }
 
-    const dtoOut = {gallery, uuAppErrorMap};
+    const dtoOut = { ...gallery, uuAppErrorMap };
 
     return dtoOut;
 

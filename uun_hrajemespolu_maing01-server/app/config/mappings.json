@@ -46,9 +46,44 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
+      "sportsField/get": {
+        "realization": "api/controllers/SportsFieldController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "sportsField/create": {
+        "realization": "api/controllers/SportsFieldController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
       "gallery/get": {
         "realization": "api/controllers/GalleryController.get",
         "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "review/create": {
+        "realization": "api/controllers/ReviewController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "reservation/listBySportsField": {
+        "realization": "api/controllers/ReservationController.listBySportsField",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "review/getByUser": {
+        "realization": "api/controllers/ReviewController.getByUser",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "review/delete": {
+        "realization": "api/controllers/ReviewController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "reservation/cancelByAdmin": {
+        "realization": "api/controllers/ReservationController.cancelByAdmin",
+        "httpMethod": "POST",
         "type": "CMD"
       },
       "reservation/cancelByUser": {
