@@ -29,12 +29,20 @@
       "reservation/create": {
         "realization": "api/controllers/ReservationController.create",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "sportsFieldId": "$.sportsFieldId", 
+          "startTs": "$.startTs",
+          "endTs": "$.endTs"
+        }
       },
       "review/list": {
         "realization": "api/controllers/ReviewController.list",
         "httpMethod": "GET",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.sportsFieldId"
+        }
       },
       "gallery/create": {
         "realization": "api/controllers/GalleryController.create",
@@ -49,12 +57,18 @@
       "sportsField/get": {
         "realization": "api/controllers/SportsFieldController.get",
         "httpMethod": "GET",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.sportsFieldId"
+        }
       },
       "sportsField/create": {
         "realization": "api/controllers/SportsFieldController.create",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "name": "$.sportsFieldName"
+        }
       },
       "gallery/get": {
         "realization": "api/controllers/GalleryController.get",
@@ -64,7 +78,12 @@
       "review/create": {
         "realization": "api/controllers/ReviewController.create",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "sportsFieldId": "$.sportsFieldId",
+          "text": "$.text",
+          "rating": "$.rating"
+        }
       },
       "reservation/listBySportsField": {
         "realization": "api/controllers/ReservationController.listBySportsField",
