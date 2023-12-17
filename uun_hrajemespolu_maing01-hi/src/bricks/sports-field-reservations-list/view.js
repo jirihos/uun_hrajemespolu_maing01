@@ -6,6 +6,7 @@ import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
+import Uu5Forms from "uu5g05-forms"
 
 //@@viewOff:imports
 
@@ -53,13 +54,10 @@ const View = createVisualComponent({
     const [open, setOpen] = useState(false);
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
 
-
     const columnList = [ // column list
-      { header: "Sportoviště", label: "sportsFieldId", icon: "uugds-view-list", value: "sportsFieldId" },
+      { header: "Uživatel", label: "uuIdentity", icon: "uugds-view-list", value: "uuIdentity" },
       { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
       { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
-      { header: "Stav", label: "state", icon: "uugds-view-liste", value: "state" },
-      { header: "Důvod zrušení", label: "cancelReason", icon: "uugds-view-liste", value: "cancelReason" },
     ];
 
     function getActionList({ rowIndex, data }) {   // delete button
@@ -69,8 +67,8 @@ const View = createVisualComponent({
           tooltip: "Delete item",
           colorScheme: "orange",
           onClick: (e) => {
-            setConfirmRemove({ open: true, id: data.id }),
-            setOpen(true);
+            setOpen(true),
+            setConfirmRemove({ open: true, id: data.id })
           },
         },
       ];
@@ -96,45 +94,36 @@ const View = createVisualComponent({
 
     const { dataObject } = props;
     const { state, data, handlerMap } = dataObject;
-    const [filter, setFilter] = useState(true);
 
     const dataToRender = useMemo(() => { // filter data
       return data?.filter((dataItem) => dataItem);
     }, [data]);
 
-    const filteredData = Array.isArray(dataToRender)
-    ? dataToRender.filter( 
-      itemData =>
-    itemData.data.state === "valid" || filter === false
-    )
-    : [];
 
     const sportsField = [ // sports field id TODO get from database
-      {"657b795bc46ff10dd07378c5": "Moje hřiště"},
-      {"10": "Jeho Hřiště"},
+      {"6765-1356-9539-0000": "Jirka Mrkvica"},
+      {"2002": "Ten další"},
     ];
 
-    const formatedAndIdData = filteredData.map((item) => { // format date && replace sportsFieldId with name
+    const formatedAndUserData = dataToRender?.map((item) => { // format date && replace sportsFieldId with name
       const data = item.data || {};
     
-      const { sportsFieldId, startTs, endTs, id } = data;
+      const {  uuIdentity, startTs, endTs, id } = data;
 
       const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
       const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
 
-      const sportsFieldNameObj = sportsField.find(field => field[sportsFieldId]);  // find sports field name
-      const sportsFieldName = sportsFieldNameObj ? sportsFieldNameObj[sportsFieldId] : "Unknown";    // if not found set to unknown
+      const userNameObj = sportsField.find(user => user[uuIdentity]);  // find user name
+      const userName = userNameObj ? userNameObj[uuIdentity] : "Unknown";    // if not found set to unknown
 
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
-        sportsFieldId: sportsFieldName || "Unknown",
-        cancelReason: data.cancelReason || "-",
-        state: data.state || "Unknown",
-        id: id || "Unknown",
+        uuIdentity: userName || "Unknown",
+        id: id,
       };
     });
-    
+
     //@@viewOff:private
     //@@viewOn:render
 
@@ -144,14 +133,8 @@ const View = createVisualComponent({
     return currentNestingLevel ? (
       <>
       <div className="center">
-      <h1>List rezervací</h1>
+      <h1>List rezervací sportoviště</h1>
           <Uu5Elements.Header
-          />
-           <Uu5Elements.Toggle  // toggle filter 
-            value={filter}
-            onChange={(e) => setFilter(e.data.value)}
-            label={filter ? 'Pouze aktivní rezervace' : 'Všechny rezervace'}
-            {...props}
           />
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
@@ -165,7 +148,7 @@ const View = createVisualComponent({
 
               <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
                 <Uu5TilesElements.List
-                  data={formatedAndIdData}
+                  data={formatedAndUserData}
                   columnList={columnList}
                   tileMinWidth={280}
                   tileMaxWidth={300}
@@ -196,24 +179,30 @@ const View = createVisualComponent({
           onClose={() => setOpen(false)}
           header="Zrušit tuto rezervaci?"
           icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
-          info="Rezervace sportoviště bude zrušena"
+          info="Rezervace uživatele bude zrušena"
           actionDirection="horizontal"
+
           actionList={[
             {
-              children: "Zpět"  ,
-              onClick: () => setOpen(false), // TODO set item to detete to null
+              children: "Zpět",
+              onClick: () => {
+                setConfirmRemove({ open: false, id: undefined }),
+                setOpen(false) // TODO set item to detete to null
+              },
             },
             {
               children: "Potvrdit",
-              onClick: () => {
-              handleCancelReservation(),
-               setOpen(false) // TODO delete reservation
-              },
+              onClick: () =>  {
+                handleCancelReservation(),
+                setOpen(false)
+              }, // TODO delete reservation
               colorScheme: "red",
               significance: "highlighted",
             },
           ]}
         />
+        <div>
+      </div>
       </>
     ) : null;
     //@@viewOff:render

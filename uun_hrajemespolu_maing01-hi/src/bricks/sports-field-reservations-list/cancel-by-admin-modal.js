@@ -1,12 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar.js";
-import OwnReservationList from "../bricks/own-reservation-list.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
+
 
 //@@viewOn:css
 const Css = {
@@ -17,9 +16,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ReservationList = createVisualComponent({
+const CancelByAdminModal = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ReservationList",
+  uu5Tag: Config.TAG + "CancelByAdminModal",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
@@ -41,12 +40,12 @@ const ReservationList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, CancelByAdminModal);
 
     return currentNestingLevel ? (
-      <div>
-        <RouteBar />
-        <OwnReservationList />
+      <div {...attrs}>
+        <div>Visual Component {CancelByAdminModal.uu5Tag}</div>
+        <Content nestingLevel={currentNestingLevel}>{children}</Content>
       </div>
     ) : null;
     //@@viewOff:render
@@ -54,6 +53,6 @@ const ReservationList = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ReservationList };
-export default ReservationList;
+export { CancelByAdminModal };
+export default CancelByAdminModal;
 //@@viewOff:exports
