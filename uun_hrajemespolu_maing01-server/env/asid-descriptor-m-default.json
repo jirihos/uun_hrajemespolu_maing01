@@ -2,9 +2,9 @@
   "schemaVersion": "1.0.0",
   "schemaSpecificationUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/bef682626ed943f28cde360ccb325981/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
-    "code": "UUN.BPMI23WCZDL05.MAING01",
+    "code": "UUN.HRAJEMESPOLU.MAING01",
     "version": "0.1.0",
-    "name": "uunBpmi23wczdl05Maing01",
+    "name": "uunHrajemespoluMaing01",
     "description": "",
     "license": "License Commercial",
     "asidRequired": true,
