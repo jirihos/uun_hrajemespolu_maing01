@@ -9,7 +9,10 @@
   "devkit": {
     "development": {
       "appBoxLocationUri": "----- VALUE REQUIRED -----",
-      "appDeploymentUri": null
+      "appDeploymentUri": null,
+      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
+      "uuCloudLogStoreBaseUri": "----- VALUE REQUIRED -----",
+      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
     }
   },
   "uun_hrajemespolu_maing01-hi": {},
