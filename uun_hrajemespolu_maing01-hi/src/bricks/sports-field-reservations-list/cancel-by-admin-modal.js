@@ -1,12 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
-import Config from "../config/config.js";
-import Provider from "./provider.js";
-import View from "./view.js";
+import Config from "./config/config.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
+
 
 //@@viewOn:css
 const Css = {
@@ -17,9 +16,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const OwnReservationList = createVisualComponent({
+const CancelByAdminModal = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "OwnReservationList",
+  uu5Tag: Config.TAG + "CancelByAdminModal",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
@@ -41,13 +40,12 @@ const OwnReservationList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, OwnReservationList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, CancelByAdminModal);
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <Provider>
-          {(dataObject) => <View dataObject={dataObject} />}
-        </Provider>
+        <div>Visual Component {CancelByAdminModal.uu5Tag}</div>
+        <Content nestingLevel={currentNestingLevel}>{children}</Content>
       </div>
     ) : null;
     //@@viewOff:render
@@ -55,6 +53,6 @@ const OwnReservationList = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { OwnReservationList };
-export default OwnReservationList;
+export { CancelByAdminModal };
+export default CancelByAdminModal;
 //@@viewOff:exports

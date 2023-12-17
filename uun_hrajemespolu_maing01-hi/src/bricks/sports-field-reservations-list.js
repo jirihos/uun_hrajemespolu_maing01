@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
+import Provider from "./own-reservation-list/provider.js";
+import SportsFieldReservationView from "./sports-field-reservations-list/view.js";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar.js";
-import OwnReservationList from "../bricks/own-reservation-list.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,9 +17,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ReservationList = createVisualComponent({
+const SportsFieldReservationsList = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ReservationList",
+  uu5Tag: Config.TAG + "SportsFieldReservationsList",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
@@ -41,12 +41,13 @@ const ReservationList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ReservationList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, SportsFieldReservationsList);
 
     return currentNestingLevel ? (
-      <div>
-        <RouteBar />
-        <OwnReservationList />
+      <div {...attrs}>
+        <Provider>
+          {(dataObject) => <SportsFieldReservationView dataObject={dataObject} />}
+        </Provider>
       </div>
     ) : null;
     //@@viewOff:render
@@ -54,6 +55,6 @@ const ReservationList = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ReservationList };
-export default ReservationList;
+export { SportsFieldReservationsList };
+export default SportsFieldReservationsList;
 //@@viewOff:exports
