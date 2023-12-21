@@ -41,7 +41,7 @@
         "httpMethod": "GET",
         "type": "CMD",
         "dtoInAuditMap": {
-          "id": "$.sportsFieldId"
+          "sportsFieldId": "$.sportsFieldId"
         }
       },
       "gallery/create": {
