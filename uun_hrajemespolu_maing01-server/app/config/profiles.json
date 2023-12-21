@@ -12,7 +12,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "AwidInitiator"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
