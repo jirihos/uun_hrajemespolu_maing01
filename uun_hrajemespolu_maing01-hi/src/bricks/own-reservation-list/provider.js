@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { useDataList, useEffect, useRef, createComponent, useDataObject } from "uu5g05";
+import { useDataList, useEffect, useRef, createComponent, useDataObject, PropTypes } from "uu5g05";
 import Config from "./config/config.js";
 import Calls from "../../calls.js";
 //@@viewOff:imports
@@ -32,8 +32,14 @@ const Provider = createComponent({
         },
       
       pageSize: 4,
-    });
 
+      itemHandlerMap: {
+        cancelByUser: (dtoIn) => {
+           Calls.reservationCancelByUser(dtoIn);
+        },
+      },
+    });
+    
     //@@viewOff:private
 
     //@@viewOn:interface

@@ -63,6 +63,11 @@ const Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
 
+  reservationCancelByUser(dtoIn) {
+    const commandUri = Calls.getCommandUri("reservation/cancelByUser");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   reservationCreate(dtoIn) {
     const commandUri = Calls.getCommandUri("reservation/create");
     return Calls.call("post", commandUri, dtoIn);

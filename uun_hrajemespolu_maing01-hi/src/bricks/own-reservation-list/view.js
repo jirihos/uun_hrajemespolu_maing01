@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect, useCallback } from "uu5g05";
 import Config from "./config/config.js";
 import moment from "moment";
 import Uu5Elements from "uu5g05-elements";
@@ -52,6 +52,7 @@ const View = createVisualComponent({
     const [view, setView] = useState("grid");
     const [open, setOpen] = useState(false);
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
+    const [handleCancelbyUser, setHandleCancelbyUser] = useState(null);
 
 
     const columnList = [ // column list
@@ -76,10 +77,6 @@ const View = createVisualComponent({
       ];
     };
 
-    const handleCancelReservation = () => { // TODO cancel reservation
-      // cancel reservation
-      console.log("confirmRemove POST", confirmRemove)
-    };
 
     const viewListOwnReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
@@ -95,8 +92,21 @@ const View = createVisualComponent({
     }, [screenSize]);
 
     const { dataObject } = props;
-    const { state, data, handlerMap } = dataObject;
+    const { state, data, handlerMap, itemHandlerMap, update } = dataObject;
     const [filter, setFilter] = useState(true);
+    const dtoIn = { id: confirmRemove.id };
+
+    console.log("dtoIn", dtoIn);
+    //console.log("itemHandlerMap", data);
+    //console.log("handlerMap", handlerMap);
+    console.log("data", data);
+
+    function handleCancelReservation(dtoIn) {
+     dataObject.itemHandlerMap.cancelByUser(dtoIn)
+          setConfirmRemove({ open: false, id: undefined });
+          console.log("confirmRemove", confirmRemove);
+      }
+    
 
     const dataToRender = useMemo(() => { // filter data
       return data?.filter((dataItem) => dataItem);
@@ -165,6 +175,7 @@ const View = createVisualComponent({
 
               <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
                 <Uu5TilesElements.List
+                  colorScheme="warning"
                   data={formatedAndIdData}
                   columnList={columnList}
                   tileMinWidth={280}
@@ -206,8 +217,7 @@ const View = createVisualComponent({
             {
               children: "Potvrdit",
               onClick: () => {
-              handleCancelReservation(),
-               setOpen(false) // TODO delete reservation
+                setHandleCancelbyUser({ callback: handlerMap.update, dtoIn: dtoIn });
               },
               colorScheme: "red",
               significance: "highlighted",

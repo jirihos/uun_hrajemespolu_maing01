@@ -6,7 +6,7 @@ import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
-import Uu5Forms from "uu5g05-forms"
+import CancelByAdminModal from "./cancel-by-admin-modal.js";
 
 //@@viewOff:imports
 
@@ -53,6 +53,12 @@ const View = createVisualComponent({
     const [view, setView] = useState("grid");
     const [open, setOpen] = useState(false);
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
+    const [cancelReservationReason, setCancelReservationReason] = useState("");
+
+    const onCancel = () => {
+      setOpen(false);
+      setConfirmRemove({ open: false, id: undefined })
+    };
 
     const columnList = [ // column list
       { header: "Uživatel", label: "uuIdentity", icon: "uugds-view-list", value: "uuIdentity" },
@@ -73,12 +79,43 @@ const View = createVisualComponent({
         },
       ];
     };
+    
+      const handleCancelReservation = async () => {
+        // Wait for cancelReservationReason to change
+        await new Promise(resolve => {
+          const checkChange = () => {
+            if (cancelReservationReason !== "") {
+              resolve();
+            } else {
+              setTimeout(checkChange, 100); 
+            }
+          };
+          checkChange();
+        });
 
-    const handleCancelReservation = () => { // TODO cancel reservation
-      // cancel reservation
-      console.log("confirmRemove POST", confirmRemove)
+        const dtoIn = {
+          id: confirmRemove.id,
+          cancelReason: cancelReservationReason
+        };
+
+        console.log("dtoIn", dtoIn);
+
+        setCancelReservationReason("");
+        setConfirmRemove({ open: false, id: undefined });
+        setOpen(false);
+
+      };
+
+      if (confirmRemove.open) {
+        handleCancelReservation();
+      }
+
+      /*
+    const handleTextChange = (value) => {
+      // Update the state with the new text value
+      props.onChange(value);
     };
-
+    */
     const viewListOwnReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
       { label: "Grid", icon: "uugds-view-grid", value: "grid" },
@@ -174,32 +211,16 @@ const View = createVisualComponent({
         </Uu5Elements.Button> 
 
         </div>
-        <Uu5Elements.Dialog  // confirm delete dialog
+        <CancelByAdminModal
           open={open}
-          onClose={() => setOpen(false)}
+          onClose={() => onCancel()}
+          onSubmit={(formData) => {
+            const form = formData.cancelReason  || {};
+            setCancelReservationReason( form );
+            handleCancelReservation();
+          }}
           header="Zrušit tuto rezervaci?"
-          icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
           info="Rezervace uživatele bude zrušena"
-          actionDirection="horizontal"
-
-          actionList={[
-            {
-              children: "Zpět",
-              onClick: () => {
-                setConfirmRemove({ open: false, id: undefined }),
-                setOpen(false) // TODO set item to detete to null
-              },
-            },
-            {
-              children: "Potvrdit",
-              onClick: () =>  {
-                handleCancelReservation(),
-                setOpen(false)
-              }, // TODO delete reservation
-              colorScheme: "red",
-              significance: "highlighted",
-            },
-          ]}
         />
         <div>
       </div>
