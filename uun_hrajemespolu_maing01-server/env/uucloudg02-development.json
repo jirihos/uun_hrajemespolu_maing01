@@ -65,9 +65,7 @@
       "3987-144-5699-0000",
       "471-2246-4185-0000",
       "6765-1356-9539-0000",
-      "3478-8790-927-0000",
-      "1561-1840-9793-0000",
-      "6352-458-9540-0000"
+      "3478-8790-927-0000"
     ],
     "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
     "uu5g05_libraryRegistryBaseUri": "https://uuapp-dev.plus4u.net/uu-applibraryregistry-maing01/000008ad5570455e83857a394f9a21c9",
