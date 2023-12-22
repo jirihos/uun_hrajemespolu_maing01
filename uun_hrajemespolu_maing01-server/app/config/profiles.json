@@ -12,7 +12,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "AwidInitiator"]
+        "profileList": ["Authorities","Executives","AwidLicenseOwner","AwidInitiator"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
@@ -76,6 +76,10 @@
       "reservation/cancelByUser": {
         "sysStateList": ["active"],
         "profileList": ["Authenticated","Executives"]
+      },
+      "sportsField/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Authenticated","Executives"]
       }
     }
   }

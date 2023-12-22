@@ -13,6 +13,62 @@ class SportsFieldAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("sportsField");
+    this.galleryDao = DaoFactory.getDao("gallery");
+  }
+
+  async list(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("sportsFieldListDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+
+    // default values
+    if (!dtoIn.pageInfo) {
+      dtoIn.pageInfo = {};
+    }
+    if (!dtoIn.pageInfo.pageIndex) {
+      dtoIn.pageInfo.pageIndex = 0;
+    }
+    if (!dtoIn.pageInfo.pageSize) {
+      dtoIn.pageInfo.pageSize = 30;
+    }
+
+    let sportsFields = await this.dao.list(awid, dtoIn.pageInfo);
+
+    let galleryMap = {};
+    for (let sportsField of sportsFields.itemList) {
+      let { galleryId } = sportsField;
+      let gallery = galleryMap[galleryId];
+
+      if (gallery === undefined) {
+        let uuObject = await this.galleryDao.get(awid, galleryId);
+        if (uuObject === undefined) {
+          uuObject = null;
+        }
+
+        galleryMap[galleryId] = uuObject;
+        gallery = uuObject;
+      }
+
+      let images = gallery?.images;
+      let firstImage = images && images[0];
+
+      if (!firstImage) {
+        firstImage = null;
+      }
+
+      sportsField.firstImage = firstImage;
+    }
+
+
+    return { ...sportsFields, uuAppErrorMap };
   }
 
   async create(awid, dtoIn) {

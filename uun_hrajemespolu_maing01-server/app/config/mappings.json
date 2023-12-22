@@ -31,7 +31,7 @@
         "httpMethod": "POST",
         "type": "CMD",
         "dtoInAuditMap": {
-          "sportsFieldId": "$.sportsFieldId", 
+          "sportsFieldId": "$.sportsFieldId",
           "startTs": "$.startTs",
           "endTs": "$.endTs"
         }
@@ -112,6 +112,11 @@
         "dtoInAuditMap": {
           "id": "$.id"
         }
+      },
+      "sportsField/list": {
+        "realization": "api/controllers/SportsFieldController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
