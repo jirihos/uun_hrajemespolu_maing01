@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "uu_appg01_oidc": "^3.9.1",
+    "uu_plus4u5g02-elements": "^1.26.2",
     "uu5g05-forms": "^1.27.2",
     "uu5tilesg02": "^1.22.3"
   }

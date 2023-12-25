@@ -29,15 +29,18 @@ const Provider = createComponent({
     const dataObject = useDataList({
       handlerMap: {
         load: Calls.listOwn
-        },
+      },
       
       pageSize: 4,
+      
 
       itemHandlerMap: {
-        cancelByUser: (dtoIn) => {
-           Calls.reservationCancelByUser(dtoIn);
+        cancelByUser: async(dtoIn) => {
+          await Calls.reservationCancelByUser(dtoIn);
+          return null;
         },
       },
+      
     });
     
     //@@viewOff:private

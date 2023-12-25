@@ -59,8 +59,7 @@ const CancelByAdminModal = createVisualComponent({
            <Modal 
                   header={props.header}
                   onClose={props.onClose}  
-                  open={props.open}
-                  icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
+                  open={props.open}    
                     >
                     {(modal) => (
                   <Uu5Forms.Form
