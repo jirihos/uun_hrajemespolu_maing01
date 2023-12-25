@@ -16,3 +16,9 @@ const reviewGetByUserTypes = shape({
 const reviewDeleteTypes = shape({
   id: id().isRequired()
 });
+
+const reviewCreateDtoInType = shape({
+  sportsFieldId: id().isRequired(),
+  text: string(1, 4000).isRequired(),
+  rating: integer(1, 5).isRequired()
+})
