@@ -1,12 +1,14 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect, SessionProvider } from "uu5g05";
 import Config from "./config/config.js";
 import moment from "moment";
 import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
-import Uu5Forms from "uu5g05-forms"
+import CancelByAdminModal from "./cancel-by-admin-modal.js";
+import Plus4U5Elements from "uu_plus4u5g02-elements";
+import { AuthenticationService } from "uu_appg01_oidc";
 
 //@@viewOff:imports
 
@@ -43,19 +45,30 @@ const View = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    dataObject: {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    
+    const { dataObject } = props;
+    const { state, data, handlerMap, itemHandlerMap  } = dataObject;
 
     const [screenSize] = useScreenSize();
     const [view, setView] = useState("grid");
     const [open, setOpen] = useState(false);
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
+    const [cancelReservationReason, setCancelReservationReason] = useState("");
+
+    const onCancel = () => {
+      setOpen(false);
+      setConfirmRemove({ open: false, id: undefined })
+    };
 
     const columnList = [ // column list
-      { header: "Uživatel", label: "uuIdentity", icon: "uugds-view-list", value: "uuIdentity" },
+      { header: "Uživatel", label: "uuIdentity", icon: "person", value: "uuIdentity" },
       { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
       { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
     ];
@@ -74,12 +87,40 @@ const View = createVisualComponent({
       ];
     };
 
-    const handleCancelReservation = () => { // TODO cancel reservation
-      // cancel reservation
-      console.log("confirmRemove POST", confirmRemove)
-    };
+      const handleCancelReservation = async () => {
+        // Wait for cancelReservationReason to change
+        await new Promise(resolve => {
+          const checkChange = () => {
+            if (cancelReservationReason !== "") {
+              resolve();
+            } else {
+              setTimeout(checkChange, 100); 
+            }
+          };
+          checkChange();
+        });
 
-    const viewListOwnReservation = [ // view list
+        const dtoIn = {
+          id: confirmRemove.id,
+          cancelReason: cancelReservationReason
+        };
+
+        const reservation = data.find(
+          (item) => item.data.id === confirmRemove.id
+        )
+
+        await reservation.handlerMap.cancelByAdmin(dtoIn);
+
+        setCancelReservationReason("");
+        setConfirmRemove({ open: false, id: undefined });
+        setOpen(false);
+      };
+
+      if (confirmRemove.open) {
+        handleCancelReservation();
+      }
+
+    const viewListSportsFieldReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
       { label: "Grid", icon: "uugds-view-grid", value: "grid" },
     ];
@@ -92,18 +133,9 @@ const View = createVisualComponent({
       }
     }, [screenSize]);
 
-    const { dataObject } = props;
-    const { state, data, handlerMap } = dataObject;
-
     const dataToRender = useMemo(() => { // filter data
       return data?.filter((dataItem) => dataItem);
     }, [data]);
-
-
-    const sportsField = [ // sports field id TODO get from database
-      {"6765-1356-9539-0000": "Jirka Mrkvica"},
-      {"2002": "Ten další"},
-    ];
 
     const formatedAndUserData = dataToRender?.map((item) => { // format date && replace sportsFieldId with name
       const data = item.data || {};
@@ -113,13 +145,18 @@ const View = createVisualComponent({
       const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
       const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
 
-      const userNameObj = sportsField.find(user => user[uuIdentity]);  // find user name
-      const userName = userNameObj ? userNameObj[uuIdentity] : "Unknown";    // if not found set to unknown
+      const MyUser = ( uuIdentity ) => {
+        return (
+            <Plus4U5Elements.PersonItem uuIdentity={uuIdentity} />  
+        );
+      };
 
+      console.log("myUser", MyUser)
+      
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
-        uuIdentity: userName || "Unknown",
+        uuIdentity: MyUser(uuIdentity) || "Unknown",
         id: id,
       };
     });
@@ -133,21 +170,21 @@ const View = createVisualComponent({
     return currentNestingLevel ? (
       <>
       <div className="center">
-      <h1>List rezervací sportoviště</h1>
+      <h1>Patří do SportsFieldView/ ready/ rendered by admin only</h1>
           <Uu5Elements.Header
           />
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {(state === "ready" || state === "pending") && (
-             
-              <Uu5Tiles.ViewProvider  
-              viewList={viewListOwnReservation} 
+            <Uu5Tiles.ViewProvider  
+              viewList={viewListSportsFieldReservation} 
               value={view} 
               onChange={(e) => setView(e.data.value)}>
 
               <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
                 <Uu5TilesElements.List
+                  colorScheme="warning"
                   data={formatedAndUserData}
                   columnList={columnList}
                   tileMinWidth={280}
@@ -174,32 +211,16 @@ const View = createVisualComponent({
         </Uu5Elements.Button> 
 
         </div>
-        <Uu5Elements.Dialog  // confirm delete dialog
+        <CancelByAdminModal
           open={open}
-          onClose={() => setOpen(false)}
+          onClose={() => onCancel()}
+          onSubmit={(formData) => {
+            const form = formData.cancelReason  || {};
+            setCancelReservationReason( form );
+            handleCancelReservation();
+          }}
           header="Zrušit tuto rezervaci?"
-          icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
           info="Rezervace uživatele bude zrušena"
-          actionDirection="horizontal"
-
-          actionList={[
-            {
-              children: "Zpět",
-              onClick: () => {
-                setConfirmRemove({ open: false, id: undefined }),
-                setOpen(false) // TODO set item to detete to null
-              },
-            },
-            {
-              children: "Potvrdit",
-              onClick: () =>  {
-                handleCancelReservation(),
-                setOpen(false)
-              }, // TODO delete reservation
-              colorScheme: "red",
-              significance: "highlighted",
-            },
-          ]}
         />
         <div>
       </div>

@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Content } from "uu5g05";
-import Provider from "./own-reservation-list/provider.js";
+import Provider from "../bricks/sports-field-reservations-provider.js";
 import SportsFieldReservationView from "./sports-field-reservations-list/view.js";
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -45,7 +45,7 @@ const SportsFieldReservationsList = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <Provider>
+        <Provider sportsFieldId={"65894765e3ba36065c68c048"} loadFull={true} skipInitialLoad={false}>
           {(dataObject) => <SportsFieldReservationView dataObject={dataObject} />}
         </Provider>
       </div>

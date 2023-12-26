@@ -21,19 +21,21 @@ const SportsFieldReservationsProvider = createComponent({
     sportsFieldId: PropTypes.string.isRequired,
     pageSize: PropTypes.number,
     skipInitialLoad: PropTypes.bool,
+    loadFull: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     pageSize: 20,
-    skipInitialLoad: true
+    skipInitialLoad: true,
+    loadFull: false,
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const { sportsFieldId, pageSize, skipInitialLoad, children } = props;
+    const { sportsFieldId, pageSize, skipInitialLoad, children, loadFull } = props;
 
     const [customError, setCustomError] = useState(null);
 
@@ -43,6 +45,7 @@ const SportsFieldReservationsProvider = createComponent({
       handlerMap: {
         load: (dtoIn) => {
           dtoIn.sportsFieldId = sportsFieldId;
+          dtoIn.loadFull = loadFull;
           return Calls.reservationListBySportsField(dtoIn);
         },
 
@@ -59,8 +62,9 @@ const SportsFieldReservationsProvider = createComponent({
         },
       },
       itemHandlerMap: {
-        cancelByAdmin: (dtoIn) => {
-          return Calls.reservationCancelByAdmin(dtoIn);
+        cancelByAdmin: async(dtoIn) => {
+          await Calls.reservationCancelByAdmin(dtoIn);
+          return null;
         },
       },
     });

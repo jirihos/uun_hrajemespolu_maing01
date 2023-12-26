@@ -1,6 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import Uu5, { createVisualComponent, Utils, Content } from "uu5g05";
+import { Modal } from "uu5g05-elements";
+import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
+import Uu5Forms from "uu5g05-forms";
+
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -16,6 +20,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
+
 const CancelByAdminModal = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "CancelByAdminModal",
@@ -27,7 +32,14 @@ const CancelByAdminModal = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    open: false,
+    onClose: () => {},
+    onSubmit: () => {},
+    header: "",
+    icon: null,
+    info: "",
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -44,7 +56,39 @@ const CancelByAdminModal = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <div>Visual Component {CancelByAdminModal.uu5Tag}</div>
+           <Modal 
+                  header={props.header}
+                  onClose={props.onClose}  
+                  open={props.open}    
+                    >
+                    {(modal) => (
+                  <Uu5Forms.Form
+                  onSubmit={(e) => {
+                    props.onSubmit(e.data.value, null, 2);
+                  }}
+                >
+                  <Uu5Elements.Block
+                    footer={
+                      <Uu5Elements.Grid
+                        templateColumns={{ xs: "1fr", s: "auto" }}
+                        columnGap={Uu5Elements.UuGds.SpacingPalette.getValue(["fixed", "c"])}
+                      >
+                        <Uu5Forms.SubmitButton colorScheme="warning"> Potvrdit zrušení </Uu5Forms.SubmitButton>
+                      </Uu5Elements.Grid>
+                    }
+                  >
+                    <div className={Config.Css.css({
+                      display: "grid",
+                      rowGap: 8,
+                      gridTemplateRows: "auto",
+                      marginBottom: 8,
+                    })}>
+                      <Uu5Forms.FormText name="cancelReason" label={props.info}  required />
+                    </div>
+                  </Uu5Elements.Block>
+                </Uu5Forms.Form> 
+                )}
+             </Modal>
         <Content nestingLevel={currentNestingLevel}>{children}</Content>
       </div>
     ) : null;
