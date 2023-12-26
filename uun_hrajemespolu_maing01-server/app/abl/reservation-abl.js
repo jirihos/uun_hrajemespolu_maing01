@@ -172,9 +172,34 @@ class ReservationAbl {
       dtoIn.pageInfo.pageSize = 25;
     }
 
-    let itemList = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity(), dtoIn.pageInfo );
+    let reservations = await this.dao.listByUuIdentity(awid, session.getIdentity().getUuIdentity(), dtoIn.pageInfo);
 
-    let dtoOut = {...itemList,  uuAppErrorMap}
+    // add sportsFieldName
+    let sportsFieldMap = {};
+    for (let reservation of reservations.itemList) {
+      let { sportsFieldId } = reservation;
+      let sportsField = sportsFieldMap[sportsFieldId];
+
+      if (sportsField === undefined) {
+        let uuObject = await this.sportsFieldDao.get(awid, sportsFieldId);
+        if (uuObject === undefined) {
+          uuObject = null;
+        }
+
+        sportsFieldMap[sportsFieldId] = uuObject;
+        sportsField = uuObject;
+      }
+
+      let { sportsFieldName } = sportsField;
+
+      if (!sportsFieldName) {
+        sportsFieldName = null;
+      }
+
+      reservation.sportsFieldName = sportsFieldName;
+    }
+
+    let dtoOut = { ...reservations,  uuAppErrorMap };
 
     return dtoOut;
   }
