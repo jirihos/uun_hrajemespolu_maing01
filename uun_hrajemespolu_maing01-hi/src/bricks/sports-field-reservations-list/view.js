@@ -52,7 +52,7 @@ const View = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    
+
     const { dataObject } = props;
     const { state, data, handlerMap, itemHandlerMap  } = dataObject;
 
@@ -68,7 +68,7 @@ const View = createVisualComponent({
     };
 
     const columnList = [ // column list
-      { header: "Uživatel", label: "uuIdentity", icon: "person", value: "uuIdentity" },
+      { header: "Uživatel" , label: "uuIdentity", icon: "uugds-view-liste", value: "uuIdentity"},
       { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
       { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
     ];
@@ -151,7 +151,7 @@ const View = createVisualComponent({
         );
       };
 
-      console.log("myUser", MyUser)
+      console.log("myUser", MyUser(uuIdentity.name))
       
       return { // return formated data
         startTs: formattedStartTs || "Unknown",

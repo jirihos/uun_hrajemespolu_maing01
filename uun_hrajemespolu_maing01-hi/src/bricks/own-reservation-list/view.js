@@ -56,7 +56,7 @@ const View = createVisualComponent({
 
 
     const columnList = [ // column list
-      { header: "Sportoviště", label: "sportsFieldId", icon: "uugds-view-list", value: "sportsFieldId" },
+      { header: "Sportoviště", label: "sportsFieldName", icon: "uugds-view-list", value: "sportsFieldName" },
       { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
       { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
       { header: "Stav", label: "state", icon: "uugds-view-liste", value: "state" },
@@ -120,11 +120,6 @@ const View = createVisualComponent({
     )
     : [];
 
-    const sportsField = [ // sports field id TODO get from database
-      {"657b795bc46ff10dd07378c5": "Moje hřiště"},
-      {"10": "Jeho Hřiště"},
-    ];
-
     const formatedAndIdData = filteredData.map((item) => { // format date && replace sportsFieldId with name
       const data = item.data || {};
     
@@ -133,13 +128,10 @@ const View = createVisualComponent({
       const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
       const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
 
-      const sportsFieldNameObj = sportsField.find(field => field[sportsFieldId]);  // find sports field name
-      const sportsFieldName = sportsFieldNameObj ? sportsFieldNameObj[sportsFieldId] : "Unknown";    // if not found set to unknown
-
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
-        sportsFieldId: sportsFieldName || "Unknown",
+        sportsFieldName: data.sportsFieldName || "Unknown",
         cancelReason: data.cancelReason || "-",
         state: data.state || "Unknown",
         id: id || "Unknown",
