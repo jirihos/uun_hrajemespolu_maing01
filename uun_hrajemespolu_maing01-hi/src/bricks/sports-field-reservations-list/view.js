@@ -94,8 +94,6 @@ const View = createVisualComponent({
             id: confirmRemove.id,
             cancelReason: cancelReservationReason
           };
-
-          console.log("cancelReservationReason", cancelReservationReason)
   
           const reservation = data.find(
             (item) => item.data.id === confirmRemove.id
@@ -111,8 +109,6 @@ const View = createVisualComponent({
   
       handleCancelReservation();
     }, [cancelReservationReason]); 
-
-    console.log("cancelReservationReason", cancelReservationReason)
 
     const viewListSportsFieldReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
