@@ -87,38 +87,32 @@ const View = createVisualComponent({
       ];
     };
 
+    useEffect(() => { // ToDo
       const handleCancelReservation = async () => {
-        // Wait for cancelReservationReason to change
-        await new Promise(resolve => {
-          const checkChange = () => {
-            if (cancelReservationReason !== "") {
-              resolve();
-            } else {
-              setTimeout(checkChange, 100); 
-            }
+        if (cancelReservationReason !== "") {
+          const dtoIn = {
+            id: confirmRemove.id,
+            cancelReason: cancelReservationReason
           };
-          checkChange();
-        });
 
-        const dtoIn = {
-          id: confirmRemove.id,
-          cancelReason: cancelReservationReason
-        };
-
-        const reservation = data.find(
-          (item) => item.data.id === confirmRemove.id
-        )
-
-        await reservation.handlerMap.cancelByAdmin(dtoIn);
-
-        setCancelReservationReason("");
-        setConfirmRemove({ open: false, id: undefined });
-        setOpen(false);
+          console.log("cancelReservationReason", cancelReservationReason)
+  
+          const reservation = data.find(
+            (item) => item.data.id === confirmRemove.id
+          );
+  
+          await reservation.handlerMap.cancelByAdmin(dtoIn);
+  
+          setCancelReservationReason("");
+          setConfirmRemove({ open: false, id: undefined });
+          setOpen(false);
+        }
       };
+  
+      handleCancelReservation();
+    }, [cancelReservationReason]); 
 
-      if (confirmRemove.open) {
-        handleCancelReservation();
-      }
+    console.log("cancelReservationReason", cancelReservationReason)
 
     const viewListSportsFieldReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
@@ -151,8 +145,6 @@ const View = createVisualComponent({
         );
       };
 
-      console.log("myUser", MyUser(uuIdentity.name))
-      
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
@@ -214,13 +206,11 @@ const View = createVisualComponent({
         <CancelByAdminModal
           open={open}
           onClose={() => onCancel()}
-          onSubmit={(formData) => {
-            const form = formData.cancelReason  || {};
-            setCancelReservationReason( form );
-            handleCancelReservation();
+          onSubmit={(values) => {
+            setCancelReservationReason(values.cancelReason);
           }}
-          header="Zrušit tuto rezervaci?"
-          info="Rezervace uživatele bude zrušena"
+          modalTitle="Zrušit tuto rezervaci?"
+          nameLabel="Rezervace uživatele bude zrušena"
         />
         <div>
       </div>

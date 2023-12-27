@@ -43,57 +43,45 @@ const CancelByAdminModal = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const { children } = props;
-    //@@viewOff:private
+   //@@viewOn:private
+   const { onSubmit, onClose } = props;
 
-    //@@viewOn:interface
-    //@@viewOff:interface
+   function handleSubmit(event) {
+     const values = { ...event.data.value };
+     console.log("values", values)
+     onSubmit(values);
+   }
 
-    //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, CancelByAdminModal);
+   //@@viewOff:private
 
-    return currentNestingLevel ? (
-      <div {...attrs}>
-           <Modal 
-                  header={props.header}
-                  onClose={props.onClose}  
-                  open={props.open}    
-                    >
-                    {(modal) => (
-                  <Uu5Forms.Form
-                  onSubmit={(e) => {
-                    props.onSubmit(e.data.value, null, 2);
-                  }}
-                >
-                  <Uu5Elements.Block
-                    footer={
-                      <Uu5Elements.Grid
-                        templateColumns={{ xs: "1fr", s: "auto" }}
-                        columnGap={Uu5Elements.UuGds.SpacingPalette.getValue(["fixed", "c"])}
-                      >
-                        <Uu5Forms.SubmitButton colorScheme="warning"> Potvrdit zrušení </Uu5Forms.SubmitButton>
-                      </Uu5Elements.Grid>
-                    }
-                  >
-                    <div className={Config.Css.css({
-                      display: "grid",
-                      rowGap: 8,
-                      gridTemplateRows: "auto",
-                      marginBottom: 8,
-                    })}>
-                      <Uu5Forms.FormText name="cancelReason" label={props.info}  required />
-                    </div>
-                  </Uu5Elements.Block>
-                </Uu5Forms.Form> 
-                )}
-             </Modal>
-        <Content nestingLevel={currentNestingLevel}>{children}</Content>
-      </div>
-    ) : null;
-    //@@viewOff:render
-  },
+   //@@viewOn:interface
+   //@@viewOff:interface
+
+   //@@viewOn:render
+   const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+   const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, CancelByAdminModal);
+
+   return currentNestingLevel ? (
+     <Uu5Forms.Form.Provider onSubmit={handleSubmit} {...attrs}>
+       <Uu5Elements.Modal
+         open={props.open}
+         onClose={onClose}
+         header={props.modalTitle}
+         footer={
+           <div>
+             <Uu5Forms.CancelButton onClick={onClose} />
+             <Uu5Forms.SubmitButton />
+           </div>
+         }
+       >
+         <Uu5Forms.Form.View>
+           <Uu5Forms.FormText name="cancelReason" label={props.nameLabel} minLength={1} maxLength={100} required autoFocus />
+         </Uu5Forms.Form.View>
+       </Uu5Elements.Modal>
+     </Uu5Forms.Form.Provider>
+   ) : null;
+   //@@viewOff:render
+ },
 });
 
 //@@viewOn:exports
