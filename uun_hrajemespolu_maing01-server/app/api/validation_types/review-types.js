@@ -22,3 +22,9 @@ const reviewCreateDtoInType = shape({
   text: string(1, 4000).isRequired(),
   rating: integer(1, 5).isRequired()
 })
+
+const reviewUpdateDtoInType = shape({
+  id: id().isRequired(),
+  text: string(1, 4000).isRequired(),
+  rating: integer(1, 5).isRequired()
+})

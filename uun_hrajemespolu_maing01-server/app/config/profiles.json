@@ -80,6 +80,10 @@
       "sportsField/list": {
         "sysStateList": ["active"],
         "profileList": ["Public","Authenticated","Executives"]
+      },
+      "review/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated","Executives"]
       }
     }
   }

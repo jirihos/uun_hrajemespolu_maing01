@@ -107,7 +107,44 @@ const Delete = {
   },
 };
 
+const Update = {
+  UC_CODE: `${REVIEW_ERROR_PREFIX}update/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  ReviewDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}reviewDoesNotExist`;
+      this.message = "No review was found.";
+    }
+  },
+
+  ReviewTextEmpty: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}reviewTextEmpty`;
+      this.message = "Review text is empty.";
+    }
+  },
+
+  RatingIsNullOrEmpty: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}ratingIsNullOrEmpty`;
+      this.message = "Rating is null or empty.";
+    }
+  }
+};
+
 module.exports = {
+  Update,
   Delete,
   getByUser,
   Create,

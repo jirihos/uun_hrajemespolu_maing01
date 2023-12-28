@@ -13,6 +13,26 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
+  async update(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("reviewUpdateDtoInType", dtoIn);
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(dtoIn, validationResult, uuAppErrorMap);
+    let review = await this.dao.get(awid, dtoIn.id);
+
+    if (!review) {
+      throw new Errors.Update.ReviewDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
+    }
+
+    let uuObject = { ...review, ...dtoIn };
+    review = await this.dao.update(uuObject);
+
+    let dtoOut = { uuAppErrorMap, ...review };
+
+    return dtoOut;
+  }
+
   async delete(awid, dtoIn) {
     let uuAppErrorMap = {};
 
@@ -76,6 +96,8 @@ class ReviewAbl {
   }
 
   async create(awid, dtoIn) {
+    // TODO: Přidat uuIdentity, zatím přidává NULL
+
     let uuAppErrorMap = {};
 
     // Validace dtoIn
