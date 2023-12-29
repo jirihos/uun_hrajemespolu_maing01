@@ -68,7 +68,13 @@ const View = createVisualComponent({
     };
 
     const columnList = [ // column list
-      { header: "Uživatel" , label: "uuIdentity", icon: "uugds-view-liste", value: "uuIdentity"},
+      {
+        header: "Uživatel",
+        label: "uuIdentity",
+        icon: "uugds-view-liste",
+        value: "uuIdentity",
+        cell: (props) => <Plus4U5Elements.PersonItem uuIdentity={props.data.uuIdentity} />
+      },
       { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
       { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
     ];
@@ -135,16 +141,10 @@ const View = createVisualComponent({
       const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
       const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
 
-      const MyUser = ( uuIdentity ) => {
-        return (
-            <Plus4U5Elements.PersonItem uuIdentity={uuIdentity} />  
-        );
-      };
-
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
-        uuIdentity: MyUser(uuIdentity) || "Unknown",
+        uuIdentity: uuIdentity,
         id: id,
       };
     });
