@@ -15,7 +15,7 @@ class ReviewController {
   }
 
   create(ucEnv) {
-    return ReviewAbl.create(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+    return ReviewAbl.create(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getSession());
   }
 
   list(ucEnv) {
