@@ -5,6 +5,8 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/review-error.js");
 const Warnings = require("../api/warnings/review-warning.js");
+const Constants = require("../constants.js");
+const moment = require("moment");
 
 class ReviewAbl {
   constructor() {
@@ -95,8 +97,9 @@ class ReviewAbl {
     return dtoOut;
   }
 
-  async create(awid, dtoIn) {
-    // TODO: Přidat uuIdentity, zatím přidává NULL
+  async create(awid, dtoIn, session) {
+    // Získání uuIdenty od uživatele
+    const user = session.getIdentity();
 
     let uuAppErrorMap = {};
 
@@ -124,14 +127,14 @@ class ReviewAbl {
     }
 
     // Vytvoření objektu pro vložení do databáze
-    const reviewToCreate = {
-      awid,
-      sportsFieldId: dtoIn.sportsFieldId,
-      text: dtoIn.text,
-      rating: dtoIn.rating,
-    };
+    dtoIn.awid = awid;
+    dtoIn.uuIdentity = user;
+    dtoIn.sportsFieldId;
+    dtoIn.text;
+    dtoIn.rating;
 
-    let newReview = await this.dao.create(reviewToCreate);
+
+    let newReview = await this.dao.create(dtoIn);
 
     const dtoOut = { ...newReview, uuAppErrorMap };
     return dtoOut;

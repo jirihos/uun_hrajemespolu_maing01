@@ -45,8 +45,6 @@ class ReviewMongo extends UuObjectDao {
   }
 
   async create(uuObject) {
-    uuObject.awid = uuObject.awid || this.awid;
-    uuObject.uuIdentity = uuObject.uuIdentity || this.uuIdentity;
     return await super.insertOne(uuObject);
   }
 
