@@ -18,7 +18,10 @@
   "uun_hrajemespolu_maing01-hi": {},
   "uun_hrajemespolu_maing01-server": {
     "devkit": {
-      "development": {}
+      "development": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/cf9e1c51b79a983a844cb4558342cf90/uuAppBox/get?id=659d429235abac004236a8eb&extended=true",
+        "uuSubAppInstanceWorkloadOid": "65855e4585d30d00168372b6"
+      }
     }
   }
 }
