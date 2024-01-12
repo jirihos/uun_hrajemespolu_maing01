@@ -1,6 +1,6 @@
 {
   "product": "uun_bpmi23wczdl05_maing01",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -19,7 +19,7 @@
   "uun_hrajemespolu_maing01-server": {
     "devkit": {
       "development": {
-        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/cf9e1c51b79a983a844cb4558342cf90/uuAppBox/get?id=659d429235abac004236a8eb&extended=true",
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/cf9e1c51b79a983a844cb4558342cf90/uuAppBox/get?id=65a19b3779a8ce00429dcd74&extended=true",
         "uuSubAppInstanceWorkloadOid": "65855e4585d30d00168372b6"
       }
     }
