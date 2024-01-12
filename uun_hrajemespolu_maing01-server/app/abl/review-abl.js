@@ -5,8 +5,6 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/review-error.js");
 const Warnings = require("../api/warnings/review-warning.js");
-const Constants = require("../constants.js");
-const moment = require("moment");
 
 class ReviewAbl {
   constructor() {
@@ -114,25 +112,19 @@ class ReviewAbl {
     );
 
     // Kontrola jestli existuje sportsField
-    let sportsField;
-    try {
-      sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);
-    } catch (e) {
+    let sportsField = await this.sportsFieldDao.get(awid, dtoIn.sportsFieldId);;
+    if (!sportsField) {
       throw new Errors.Create.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.sportsFieldId });
     }
 
     // Kontrola, jestli je text recenze prázdný nebo null
-    if (!dtoIn.text) {
+    if (dtoIn.text.trim().length === 0) {
       throw new Errors.Create.ReviewTextEmpty({ uuAppErrorMap });
     }
 
     // Vytvoření objektu pro vložení do databáze
     dtoIn.awid = awid;
-    dtoIn.uuIdentity = user;
-    dtoIn.sportsFieldId;
-    dtoIn.text;
-    dtoIn.rating;
-
+    dtoIn.uuIdentity = user.getUuIdentity();
 
     let newReview = await this.dao.create(dtoIn);
 
