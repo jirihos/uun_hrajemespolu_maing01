@@ -4,6 +4,9 @@ const Constants = {
   
   HALF_HOUR_MILLISECONDS: 30 * 60 * 1000,
 
+  OPEN_HOURS_FROM: 6,
+  OPEN_HOURS_TO: 19,
+
   MAX_DATE: new Date(8640000000000000),
   MIN_DATE: new Date(-8640000000000000),
 

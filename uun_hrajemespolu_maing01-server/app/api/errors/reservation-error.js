@@ -39,6 +39,14 @@ const Create = {
     }
   },
 
+  MoreThanYearAway: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}moreThanYearAway`;
+      this.message = "Cannot create a reservation that is more than a year away.";
+    }
+  },
+
   TimestampNotRounded: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -52,6 +60,14 @@ const Create = {
       super(...arguments);
       this.code = `${Create.UC_CODE}durationIsTooLong`;
       this.message = `Cannot create a reservation that lasts longer than ${Constants.MAX_RESERVATION_DURATION} hours.`;
+    }
+  },
+
+  ReservationOutsideOpenHours: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}reservationOutsideOpenHours`;
+      this.message = `Cannot create a reservation that is outside of the open hours.`;
     }
   },
 

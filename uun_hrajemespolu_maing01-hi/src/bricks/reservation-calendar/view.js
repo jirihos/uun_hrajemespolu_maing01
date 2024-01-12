@@ -8,6 +8,9 @@ import Uu5Calendar from "uu5calendarg01";
 //@@viewOn:constants
 const MAX_RESERVATION_DURATION = 2; // maximum duration of new reservations in hours
 const MAX_RESERVATION_DURATION_MS = MAX_RESERVATION_DURATION * 60 * 60 * 1000;
+
+const OPEN_HOURS_FROM = 6;
+const OPEN_HOURS_TO = 19;
 //@@viewOff:constants
 
 //@@viewOn:css
@@ -201,6 +204,8 @@ const View = createVisualComponent({
             onSlotSelect={handleSlotSelect}
             displayRowLabel={false}
             step={30}
+            hourFrom={OPEN_HOURS_FROM}
+            hourTo={OPEN_HOURS_TO}
             disabled={state === "readyNoData" || state === "pendingNoData"}
           />
         }

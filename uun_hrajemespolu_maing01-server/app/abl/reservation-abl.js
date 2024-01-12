@@ -242,6 +242,11 @@ class ReservationAbl {
       );
     }
 
+    // Check whether the reservation is max one year away
+    if (endMoment.diff(moment(), "years") >= 1) {
+      throw new Errors.Create.MoreThanYearAway({ uuAppErrorMap }, { endTs: dtoIn.endTs });
+    }
+
     // Validate that timestamps are rounded to half an hour
     if (startMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0 ||
         endMoment.valueOf() % Constants.HALF_HOUR_MILLISECONDS !== 0) {
@@ -252,6 +257,12 @@ class ReservationAbl {
     let duration = endMoment.diff(startMoment, "hours", true);
     if (duration > Constants.MAX_RESERVATION_DURATION) {
       throw new Errors.Create.DurationIsTooLong({ uuAppErrorMap }, { startTs: dtoIn.startTs, endTs: dtoIn.endTs });
+    }
+
+    // Check that the reservation is within open hours
+    if (startMoment.hours() < Constants.OPEN_HOURS_FROM ||
+        endMoment.clone().subtract("1", "milliseconds").hours() >= Constants.OPEN_HOURS_TO ) {
+      throw new Errors.Create.ReservationOutsideOpenHours({ uuAppErrorMap }, { startTs: dtoIn.startTs, endTs: dtoIn.endTs });
     }
 
     // Check that the reservation doesn't overlap with any existing reservation for the same sports field.
