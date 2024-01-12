@@ -3,7 +3,7 @@ const ReviewAbl = require("../../abl/review-abl.js");
 
 class ReviewController {
   update(ucEnv) {
-    return ReviewAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+    return ReviewAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getSession());
   }
 
   delete(ucEnv) {

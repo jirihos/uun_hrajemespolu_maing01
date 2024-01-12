@@ -13,16 +13,29 @@ class ReviewAbl {
     this.sportsFieldDao = DaoFactory.getDao("sportsField");
   }
 
-  async update(awid, dtoIn) {
+  async update(awid, dtoIn, session) {
+    // Získání uuIdenty od uživatele
+    const user = session.getIdentity();
+
     let uuAppErrorMap = {};
 
     const validationResult = this.validator.validate("reviewUpdateDtoInType", dtoIn);
 
-    uuAppErrorMap = ValidationHelper.processValidationResult(dtoIn, validationResult, uuAppErrorMap);
-    let review = await this.dao.get(awid, dtoIn.id);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn,
+    );
 
+    let review = await this.dao.get(awid, dtoIn.id);
     if (!review) {
       throw new Errors.Update.ReviewDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
+    }
+
+    if (review.uuIdentity !== user.getUuIdentity()) {
+      throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
 
     let uuObject = { ...review, ...dtoIn };

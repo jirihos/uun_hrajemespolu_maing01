@@ -126,21 +126,13 @@ const Update = {
     }
   },
 
-  ReviewTextEmpty: class extends HrajemespoluMainUseCaseError {
+  UserNotAuthorized: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}reviewTextEmpty`;
-      this.message = "Review text is empty.";
+      this.code = `${Update.UC_CODE}userNotAuthorized`;
+      this.message = "User is not allowed to update a review that was not written by him.";
     }
   },
-
-  RatingIsNullOrEmpty: class extends HrajemespoluMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Update.UC_CODE}ratingIsNullOrEmpty`;
-      this.message = "Rating is null or empty.";
-    }
-  }
 };
 
 module.exports = {
