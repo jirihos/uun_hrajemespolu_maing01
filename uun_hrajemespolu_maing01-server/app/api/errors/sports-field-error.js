@@ -32,6 +32,13 @@ const Create = {
     }
   },
   
+  GalleryDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}galleryDoesNotExist`;
+      this.message = "Gallery does not exist.";
+    }
+  },
 };
 
 

@@ -86,11 +86,14 @@ class SportsFieldAbl {
         Errors.Create.InvalidDtoIn
     );
 
+    // Verify that gallery exists
+    let gallery = await this.galleryDao.get(awid, dtoIn.galleryId);
+    if (!gallery) {
+      throw new Errors.Create.GalleryDoesNotExist({ uuAppErrorMap }, { galleryId: dtoIn.galleryId });
+    }
+
     // Call sportsField DAO create
     dtoIn.awid = awid;
-    // dtoIn.sportsFieldName: "Tenisový kurt 1"; // jméno sportoviště
-    // dtoIn.sportsFieldDesc: "Nejlepší tenisový kurt široko daleko.", // popis sportoviště
-    // dtoIn.galleryId: "123456789", //id galerií obrázků pro sportoviště
     let sportsField = await this.dao.create(dtoIn);
 
     let dtoOut = { ...sportsField, uuAppErrorMap };
