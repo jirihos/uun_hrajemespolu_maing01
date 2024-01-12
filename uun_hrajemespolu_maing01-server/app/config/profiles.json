@@ -84,6 +84,10 @@
       "review/update": {
         "sysStateList": ["active"],
         "profileList": ["Authenticated","Executives"]
+      },
+      "gallery/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }

@@ -122,6 +122,11 @@
         "realization": "api/controllers/ReviewController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "gallery/update": {
+        "realization": "api/controllers/GalleryController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

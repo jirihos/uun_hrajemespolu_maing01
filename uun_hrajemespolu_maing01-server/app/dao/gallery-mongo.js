@@ -9,6 +9,11 @@ class GalleryMongo extends UuObjectDao {
     return await super.insertOne(dtoIn);
 
   }
+
+  async update(uuObject) {
+    let filter = { id: uuObject.id, awid: uuObject.awid };
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
+  }
   
   async get(awid, id) {
     return await super.findOne({ awid, id });

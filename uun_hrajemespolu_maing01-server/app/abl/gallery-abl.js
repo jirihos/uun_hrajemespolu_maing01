@@ -13,6 +13,31 @@ class GalleryAbl {
     this.dao = DaoFactory.getDao("gallery");
   }
 
+  async update(awid, dtoIn) {
+    // validation of dtoIn
+    const validationResult = this.validator.validate("galleryUpdateDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    // Verify that gallery exists
+    let gallery = await this.dao.get(awid, dtoIn.id);
+    if (!gallery) {
+      throw new Errors.Update.GalleryDoesNotExist({ uuAppErrorMap }, { galleryId: dtoIn.id });
+    }
+
+    // Update gallery
+    gallery.images = dtoIn.images;
+    gallery = await this.dao.update(gallery);
+
+    const dtoOut = { ...gallery, uuAppErrorMap };
+    return dtoOut;
+  }
+
   async get(awid, dtoIn) {
 
     let uuAppErrorMap = {};
