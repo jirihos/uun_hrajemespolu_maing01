@@ -1,5 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
+import { withRoute } from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
 import OwnReservationList from "../bricks/own-reservation-list.js";
@@ -17,7 +18,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ReservationList = createVisualComponent({
+let ReservationList = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ReservationList",
   nestingLevel: ["areaCollection", "area"],
@@ -54,6 +55,8 @@ const ReservationList = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+ReservationList = withRoute(ReservationList, { authenticated: true });
 
 //@@viewOn:exports
 export { ReservationList };
