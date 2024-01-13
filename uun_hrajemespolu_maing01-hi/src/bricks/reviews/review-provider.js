@@ -1,6 +1,7 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { createComponent, useDataObject, PropTypes } from "uu5g05";
 import Config from "./config/config.js";
+import Calls from "../../calls.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -15,7 +16,10 @@ const ReviewProvider = createComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    sportsFieldId: PropTypes.string.isRequired,
+    uuIdentity: PropTypes.string.isRequired,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -24,14 +28,40 @@ const ReviewProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    const { children, sportsFieldId, uuIdentity } = props;
     //@@viewOff:private
+
+    const dataObject = useDataObject({
+      handlerMap: {
+        getByUser: () => {
+          const dtoIn = {
+            sportsFieldId: sportsFieldId,
+            uuIdentity: uuIdentity,
+          };
+          return Calls.reviewGetByUser(dtoIn);
+        },
+        create: () => {
+          const dtoIn = {
+            sportsFieldId: sportsFieldId,
+            uuIdentity: uuIdentity,
+          };
+          return Calls.reviewCreate(dtoIn);
+        },
+        update: () => {
+          const dtoIn = {
+            sportsFieldId: sportsFieldId,
+            uuIdentity: uuIdentity,
+          };
+          return Calls.reviewUpdate(dtoIn);
+        }
+      },
+    });
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    return children ?? null;
+    return typeof children === "function" ? children(dataObject) : children;
     //@@viewOff:render
   },
 });
