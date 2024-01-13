@@ -12,6 +12,6 @@ const CONFIG = {
   },
 };
 
-describe(`UunHrajemeSpolu.Routes.SportsFields`, () => {
-  testProperties(UunHrajemeSpolu.Routes.SportsFields, CONFIG);
+describe(`UunHrajemeSpolu.Bricks.Tile`, () => {
+  testProperties(UunHrajemeSpolu.Bricks.Tile, CONFIG);
 });

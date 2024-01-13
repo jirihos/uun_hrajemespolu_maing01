@@ -1,6 +1,8 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { createComponent, useDataList } from "uu5g05";
 import Config from "./config/config.js";
+import Calls from "../calls.js";
+
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -25,16 +27,24 @@ const SportsFieldListProvider = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
+
+    const dataObject = useDataList({
+      handlerMap: {
+        load: Calls.sportsFieldList
+      },
+    });
+
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    return children ?? null;
+    return typeof children === "function" ? children(dataObject) : children;
     //@@viewOff:render
   },
 });
+
 
 //@@viewOn:exports
 export { SportsFieldListProvider };
