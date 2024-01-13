@@ -3,8 +3,6 @@ import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSi
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
-import Uu5TilesControls from "uu5tilesg02-controls";
-import Uu5Tiles from "uu5tilesg02";
 import Tile from "./tile.js";
 //@@viewOff:imports
 
@@ -52,7 +50,6 @@ const SportsFieldListView = createVisualComponent({
     const { dataObject } = props;
     const { state, data, handlerMap } = dataObject;
 
-    console.log("data", data);
     //@@viewOff:private
 
     //@@viewOn:interface

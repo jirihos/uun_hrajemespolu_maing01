@@ -80,7 +80,6 @@ const Tile = createVisualComponent({
     const fixedC = Uu5Elements.UuGds.SpacingPalette.getValue(["fixed", "c"]);
 
     const onClickHandler = () => {
-      console.log("sportsField", { id: props.data.data.id });
       setRoute("sportsFieldDetail", { id: props.data.data.id });
     }
 
