@@ -110,7 +110,7 @@ const Reviews = createVisualComponent({
             )}
           </ReviewProvider>
         )}
-        <div {...reviewListProviderAttrs}>
+        <div>
           <RevieListProvider sportsFieldId={sportsFieldId} key={counter}>
             {(dataObject) => <ReviewListView dataObject={dataObject} />}
           </RevieListProvider>
