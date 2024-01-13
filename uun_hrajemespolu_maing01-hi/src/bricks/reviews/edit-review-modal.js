@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import Uu5, { createVisualComponent, Utils, Content, PropTypes, useState } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useState } from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Forms from "uu5g05-forms";
 import Uu5Elements from "uu5g05-elements";
@@ -33,6 +33,7 @@ const Css = {
       margin-right: 16px;
     }
   `),
+  controls: () => Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" }),
 };
 //@@viewOff:css
 
@@ -102,7 +103,7 @@ const EditReviewModal = createVisualComponent({
           onClose={onClose}
           header={(reviewId ? "Upravit" : "Přidat")+" recenzi"}
           footer={
-            <div>
+            <div className={Css.controls()}>
               <Uu5Forms.CancelButton onClick={onClose} />
               <Uu5Forms.SubmitButton />
             </div>
@@ -110,7 +111,7 @@ const EditReviewModal = createVisualComponent({
         >
           <Uu5Forms.Form.View>
             <Uu5Forms.FormTextArea name="text" label={props.nameLabel} initialValue={props.initialText} required min={1} max={4000} />
-            <Uu504.Bricks.Rating count={5} size="l" value={rating} onClick={handleRatingClick} colorSchema="blue" />
+            <Uu504.Bricks.Rating count={5} size="l" value={rating} onClick={handleRatingClick} colorSchema="blue" className={Config.Css.css({ marginTop: "12px" })} />
           </Uu5Forms.Form.View>
         </Uu5Elements.Modal>
       </Uu5Forms.Form.Provider>

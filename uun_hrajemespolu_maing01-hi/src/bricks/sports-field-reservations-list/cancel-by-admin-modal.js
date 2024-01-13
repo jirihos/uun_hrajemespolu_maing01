@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import Uu5, { createVisualComponent, Utils, Content } from "uu5g05";
-import { Modal } from "uu5g05-elements";
+import { createVisualComponent, Utils } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
 import Uu5Forms from "uu5g05-forms";
@@ -14,6 +13,7 @@ import Uu5Forms from "uu5g05-forms";
 //@@viewOn:css
 const Css = {
   main: () => Config.Css.css({}),
+  controls: () => Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" }),
 };
 //@@viewOff:css
 
@@ -68,7 +68,7 @@ const CancelByAdminModal = createVisualComponent({
          onClose={onClose}
          header={props.modalTitle}
          footer={
-           <div>
+           <div className={Css.controls()}>
              <Uu5Forms.CancelButton onClick={onClose} />
              <Uu5Forms.SubmitButton />
            </div>
