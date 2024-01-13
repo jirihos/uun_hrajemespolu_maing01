@@ -13,7 +13,42 @@ import Uu5Elements, { Button } from "uu5g05-elements";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () =>
+    Config.Css.css(`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff; 
+  `),
+  button: () =>
+    Config.Css.css(`
+    margin-top: 16px;
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    background-color: #2196F3;
+
+    &:hover {
+      background-color: #1976D2;
+      color: '#fff';
+    }
+  `),
+  reviewListProvider: () =>
+    Config.Css.css(`
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `),
 };
 //@@viewOff:css
 
@@ -54,13 +89,15 @@ const Reviews = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const buttonAttrs = Css.button();
+    const reviewListProviderAttrs = Css.reviewListProvider();
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, Reviews);
 
     return currentNestingLevel ? (
       <>
         <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity}>
           {(dataObject) => (
-            <div>
+            <div {...attrs}>
               <EditReviewModal
                 sportsFieldId={sportsFieldId}
                 open={open}
@@ -71,15 +108,17 @@ const Reviews = createVisualComponent({
                 }}
                 onUpdate={(reviewId, values) => setOpen(false)}
               />
-              <Uu5Elements.Button onClick={handleAddReview}>
+              <Uu5Elements.Button {...buttonAttrs} onClick={handleAddReview}>
                 {"Review " + (dataObject.state === "ready" ? "edit" : "add")}
               </Uu5Elements.Button>
             </div>
           )}
         </ReviewProvider>
-        <RevieListProvider sportsFieldId={sportsFieldId}>
-          {(dataObject) => <ReviewListView dataObject={dataObject} />}
-        </RevieListProvider>
+        <div {...reviewListProviderAttrs}>
+          <RevieListProvider sportsFieldId={sportsFieldId}>
+            {(dataObject) => <ReviewListView dataObject={dataObject} />}
+          </RevieListProvider>
+        </div>
       </>
     ) : null;
     //@@viewOff:render

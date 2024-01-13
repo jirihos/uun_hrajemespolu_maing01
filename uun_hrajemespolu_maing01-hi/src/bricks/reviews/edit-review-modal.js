@@ -11,7 +11,27 @@ import Uu504 from "uu5g04";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css(`
+    .uu5-bricks-modal-header {
+      padding: 16px 24px;
+      background-color: #EEEEEE; 
+      color: #333; 
+      font-size: 24px; 
+    }
+    .uu5-bricks-modal-footer {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: flex-end;
+      background-color: #FAFAFA; 
+    }
+    .uu5-bricks-modal-body {
+      padding: 24px;
+    }
+    .uu5-forms-cancel-button,
+    .uu5-forms-submit-button {
+      margin-right: 16px;
+    }
+  `),
 };
 //@@viewOff:css
 
