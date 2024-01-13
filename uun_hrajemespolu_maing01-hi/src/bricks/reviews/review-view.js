@@ -124,7 +124,7 @@ const ReviewView = createVisualComponent({
             <Uu5Elements.Text className={Config.Css.css({ whiteSpace: "pre-wrap" })}>{review.text}</Uu5Elements.Text>
           </div>
 
-          <Uu5Elements.Grid>
+          <Uu5Elements.Grid className={Config.Css.css({ minHeight: "22px" })}>
             {(session?.uuIdentity === review.uuIdentity || canDelete) && (
               <>
                 <Uu5Elements.Button className={Css.reviewButton()} onClick={() => setShow(true)}>
