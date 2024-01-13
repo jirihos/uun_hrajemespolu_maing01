@@ -1,11 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useSession } from "uu5g05";
-import { useSubAppData, useSystemData } from "uu_plus4u5g02";
+import { useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
-import ReviewListProvider from "../bricks/reviews/review-list-provider.js";
-import ReviewListView from "../bricks/reviews/review-list-view.js";
 import ReservationCalendar from "../bricks/reservation-calendar.js";
 import Uu5Elements from "uu5g05-elements";
 import SportsFieldReservationsList from "./sports-field-reservations-list.js";
@@ -80,9 +78,11 @@ const SportsFieldView = createVisualComponent({
           paddingBottom: d,
           paddingRight: d,
         }}>
-          <GalleryProvider galleryId={data.galleryId}>
-            {(dataObject) => <GalleryView dataObject={dataObject} />}
-          </GalleryProvider> 
+          <div className={Config.Css.css({ margin: "auto", maxWidth: "1280px" })}>
+            <GalleryProvider galleryId={data.galleryId}>
+              {(dataObject) => <GalleryView dataObject={dataObject} />}
+            </GalleryProvider>
+          </div>
           
           <br/>
           <Uu5Elements.Block header={(
@@ -99,7 +99,9 @@ const SportsFieldView = createVisualComponent({
           </Uu5Elements.Block>
 
           <br />
-          <ReservationCalendar sportsFieldId={data.id} sportsFieldName={data.sportsFieldName} />
+          <div className={Config.Css.css({ margin: "30px 0" })}>
+            <ReservationCalendar sportsFieldId={data.id} sportsFieldName={data.sportsFieldName} />
+          </div>
           
           { isExecutives && (<SportsFieldReservationsList sportsFieldId={data.id}/>)}
           <br />
@@ -111,22 +113,6 @@ const SportsFieldView = createVisualComponent({
       )}
     </>
   ) : null;
-    //   <div {...attrs}>
-    //     {/* <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
-    //     <GalleryProvider galleryId="655d0191de265134ec233d41">
-    //         {(dataObject) => <GalleryView dataObject={dataObject} />}
-    //       </GalleryProvider>
-    //     </div>
-
-    //     <div style={{padding: "50px 0"}}>
-    //       <ReservationCalendar sportsFieldId="6574c57bd7b5a1cd5eda2c39" />
-    //     </div>
-
-    //     <ReviewListProvider sportsFieldId="655d0191de265134ec233d41">
-    //     {(dataObject) => <ReviewListView dataObject={dataObject}/>}
-    //     </ReviewListProvider> */}
-    //   </div>
-    // ) : null;
     //@@viewOff:render
   },
 });

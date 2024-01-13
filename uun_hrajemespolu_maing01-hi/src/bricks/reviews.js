@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import Uu5, { createVisualComponent, Utils, Content, PropTypes, useState, useSession } from "uu5g05";
+import Uu5, { createVisualComponent, Utils, PropTypes, useState, useSession } from "uu5g05";
 import Config from "./config/config.js";
 import ReviewProvider from "./reviews/review-provider.js";
 import RevieListProvider from "./reviews/review-list-provider.js";
 import EditReviewModal from "./reviews/edit-review-modal.js";
 import ReviewListView from "./reviews/review-list-view.js";
-import Uu5Elements, { Button } from "uu5g05-elements";
+import Uu5Elements from "uu5g05-elements";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -14,34 +14,13 @@ import Uu5Elements, { Button } from "uu5g05-elements";
 //@@viewOn:css
 const Css = {
   main: () =>
-    Config.Css.css(`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 16px;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: #fff; 
-  `),
+    Config.Css.css({}),
   button: () =>
-    Config.Css.css(`
-    margin-top: 16px;
-    padding: 8px 16px;
-    font-size: 16px;
-    line-height: 1.5;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    background-color: #2196F3;
-
-    &:hover {
-      background-color: #1976D2;
-      color: '#fff';
-    }
-  `),
+    Config.Css.css({
+      height: "75px",
+      display: "grid",
+      placeItems: "center",
+    }),
   reviewListProvider: () =>
     Config.Css.css(`
     width: 100%; 
@@ -88,21 +67,19 @@ const Reviews = createVisualComponent({
 
     //@@viewOn:interface
     //@@viewOff:interface
-    // uuIdentity={identity.uuIdentity}
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const buttonAttrs = Css.button();
     const reviewListProviderAttrs = Css.reviewListProvider();
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, Reviews);
 
     const [counter, setCounter] = useState(0);
 
     return currentNestingLevel ? (
-      <>
+      <Uu5Elements.Box {...attrs}>
         {identity !== null && (
           <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity}>
             {(dataObject) => (
-              <div {...attrs}>
+              <div>
                 {open && (
                   <EditReviewModal
                     sportsFieldId={sportsFieldId}
@@ -120,13 +97,15 @@ const Reviews = createVisualComponent({
                       await dataObject.handlerMap.update(values);
                       setCounter(counter + 1);
                     }}
-                    initialText={dataObject.state === "ready" ? dataObject.data.text : null}
-                    initialRating={dataObject.state === "ready" ? dataObject.data.rating : null}
+                    initialText={dataObject.state === "ready" ? dataObject.data.text : undefined}
+                    initialRating={dataObject.state === "ready" ? dataObject.data.rating : undefined}
                   />
                 )}
-                <Uu5Elements.Button {...buttonAttrs} onClick={handleAddReview}>
-                  {"Recenze " + (dataObject.state === "ready" ? "upravit" : "přidat")}
-                </Uu5Elements.Button>
+                <div className={Css.button()}>
+                  <Uu5Elements.Button onClick={handleAddReview}>
+                    {(dataObject.state === "ready" ? "Upravit" : "Přidat")+" recenzi"}
+                  </Uu5Elements.Button>
+                </div>
               </div>
             )}
           </ReviewProvider>
@@ -136,7 +115,7 @@ const Reviews = createVisualComponent({
             {(dataObject) => <ReviewListView dataObject={dataObject} />}
           </RevieListProvider>
         </div>
-      </>
+      </Uu5Elements.Box>
     ) : null;
     //@@viewOff:render
   },

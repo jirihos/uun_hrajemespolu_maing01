@@ -12,7 +12,7 @@ import Tile from "./tile.js";
 //@@viewOn:css
 const Css = {
   main: () => Config.Css.css({
-    padding: "16px",
+    padding: "25px",
   }),
   centerImage: () =>
     Config.Css.css({
@@ -64,7 +64,7 @@ const SportsFieldListView = createVisualComponent({
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {(state === "ready" || state === "pending") && (
-            <Uu5TilesElements.Grid data={data} tileMinWidth={250} tileMaxWidth={500} verticalGap={16} horizontalGap={16} > 
+            <Uu5TilesElements.Grid data={data} tileMinWidth={250} tileMaxWidth={500} verticalGap={25} horizontalGap={25} > 
               <Tile/>
             </Uu5TilesElements.Grid>
             )}

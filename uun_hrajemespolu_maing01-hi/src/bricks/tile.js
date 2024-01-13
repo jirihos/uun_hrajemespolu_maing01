@@ -37,8 +37,9 @@ const Css = {
   },
   image: (isModal) =>
     Config.Css.css({
+      marginBottom: "5px",
       width: "100%",
-      height: isModal ? 400 : 120,
+      height: isModal ? 400 : 250,
       display: "block",
       objectFit: "cover",
     }),
@@ -77,8 +78,7 @@ const Tile = createVisualComponent({
 
     const  [, setRoute] = useRoute();
 
-    const titleStyles = { category: "interface", segment: "title", type: "micro" };
-    //const textStyles = (segment) => ({ category: "interface", segment, type: "medium" });
+    const titleStyles = { category: "interface", segment: "title", type: "common" };
     const fixedC = Uu5Elements.UuGds.SpacingPalette.getValue(["fixed", "c"]);
 
     const onClickHandler = () => {

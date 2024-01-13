@@ -77,6 +77,12 @@ const EditReviewModal = createVisualComponent({
       }
     }
 
+    function handleValidate() {
+      if (rating === 0) {
+        return { message: "Chybí počet hvězdiček" };
+      }
+    }
+
     function handleRatingClick(value) {
       setRating(value);
     }
@@ -90,11 +96,11 @@ const EditReviewModal = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, EditReviewModal);
 
     return currentNestingLevel ? (
-      <Uu5Forms.Form.Provider onSubmit={handleSubmit} {...attrs}>
+      <Uu5Forms.Form.Provider onSubmit={handleSubmit} onValidate={handleValidate} {...attrs}>
         <Uu5Elements.Modal
           open={props.open}
           onClose={onClose}
-          header={"Recenze " + (reviewId ? "upravit" : "přidat")}
+          header={(reviewId ? "Upravit" : "Přidat")+" recenzi"}
           footer={
             <div>
               <Uu5Forms.CancelButton onClick={onClose} />
@@ -103,7 +109,7 @@ const EditReviewModal = createVisualComponent({
           }
         >
           <Uu5Forms.Form.View>
-            <Uu5Forms.FormTextArea name="text" label={props.nameLabel} initialValue={props.initialText} required />
+            <Uu5Forms.FormTextArea name="text" label={props.nameLabel} initialValue={props.initialText} required min={1} max={4000} />
             <Uu504.Bricks.Rating count={5} size="l" value={rating} onClick={handleRatingClick} colorSchema="blue" />
           </Uu5Forms.Form.View>
         </Uu5Elements.Modal>

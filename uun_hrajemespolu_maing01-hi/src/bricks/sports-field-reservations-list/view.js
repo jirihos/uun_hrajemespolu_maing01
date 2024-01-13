@@ -19,7 +19,7 @@ import Error from "../error.js";
 //@@viewOn:css
 const Css = {
   main: () => Config.Css.css({
-    padding: "16px",
+    padding: "16px 0",
   }),
   centerImage: () =>
     Config.Css.css({
@@ -159,9 +159,11 @@ const View = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, View);
 
     return currentNestingLevel ? (
-      <>
+      <Uu5Elements.Box {...attrs}>
       <div className="center">
-      <h3>Rezervace sportoviště(zobrazení pro správce)</h3>
+      <Uu5Elements.Text category="expose" segment="default" type="broad">
+        Rezervace sportoviště (zobrazení pro správce)
+        </Uu5Elements.Text>
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error' />}
@@ -211,7 +213,7 @@ const View = createVisualComponent({
         />
         <div>
       </div>
-      </>
+      </Uu5Elements.Box>
     ) : null;
     //@@viewOff:render
   },
