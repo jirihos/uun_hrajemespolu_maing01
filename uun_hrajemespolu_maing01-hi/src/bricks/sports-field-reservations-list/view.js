@@ -63,6 +63,8 @@ const View = createVisualComponent({
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
     const [cancelReservationReason, setCancelReservationReason] = useState("");
 
+    const firstNotYetLoadedIndex = data ? data.findIndex((it) => it == null) : 0;
+
     const onCancel = () => {
       setOpen(false);
       setConfirmRemove({ open: false, id: undefined })
@@ -192,14 +194,17 @@ const View = createVisualComponent({
             </Uu5Tiles.ViewProvider> 
             )}
         
-        <div className="center">     
-        <Uu5Elements.Button // load next button
-        disabled={state === "pending" || state === "pendingNoData"}
-         className={Config.Css.css({  margin: 16 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}>
-          Načíst další rezervace
-        </Uu5Elements.Button> 
-
+        <div className="center">
+          {firstNotYetLoadedIndex >= 0 && (
+            <Uu5Elements.Button // load next button
+              disabled={state === "pending" || state === "pendingNoData"}
+              className={Config.Css.css({  margin: 16 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}
+            >
+              Načíst další rezervace
+            </Uu5Elements.Button>
+          )}
         </div>
+        
         <CancelByAdminModal
           open={open}
           onClose={() => onCancel()}

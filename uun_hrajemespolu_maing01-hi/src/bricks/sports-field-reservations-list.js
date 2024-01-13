@@ -47,7 +47,7 @@ const SportsFieldReservationsList = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <Provider sportsFieldId={sportsFieldId} loadFull={true} skipInitialLoad={false}>
+        <Provider sportsFieldId={sportsFieldId} loadFull={true} skipInitialLoad={false} pageSize={5}>
           {(dataObject) => <SportsFieldReservationView dataObject={dataObject} />}
         </Provider>
       </div>

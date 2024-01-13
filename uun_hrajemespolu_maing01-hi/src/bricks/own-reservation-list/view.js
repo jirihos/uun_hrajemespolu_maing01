@@ -99,6 +99,8 @@ const View = createVisualComponent({
     const [filter, setFilter] = useState(true);
     const dtoIn = { id: confirmRemove.id };
 
+    const firstNotYetLoadedIndex = data ? data.findIndex((it) => it == null) : 0;
+
     const handleCancelReservation = async  () => {
 
       const reservation = data.find(
@@ -189,14 +191,17 @@ const View = createVisualComponent({
             </Uu5Tiles.ViewProvider> 
             )}
         
-        <div className="center">     
-        <Uu5Elements.Button // load next button
-        disabled={state === "pending" || state === "pendingNoData"}
-         className={Config.Css.css({  margin: 16 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}>
-          Načíst další rezervace
-        </Uu5Elements.Button> 
-
+        <div className="center">
+          {firstNotYetLoadedIndex >= 0 && (
+            <Uu5Elements.Button // load next button
+              disabled={state === "pending" || state === "pendingNoData"}
+              className={Config.Css.css({  margin: 16 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}
+            >
+              Načíst další rezervace
+            </Uu5Elements.Button>
+          )}
         </div>
+
         <Uu5Elements.Dialog  // confirm delete dialog
           open={open}
           onClose={() => setOpen(false)}
