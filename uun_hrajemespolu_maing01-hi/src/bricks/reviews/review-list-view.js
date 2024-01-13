@@ -45,18 +45,14 @@ const ReviewListView = createVisualComponent({
     //@@viewOn:private
     const { dataObject } = props;
     const { state, data } = dataObject;
-    //@@viewOff:private
-    let profileList = "";
-    let canDeleteReservation = "";
 
     const { identity } = useSession();
-
     const systemDataObject = useSystemData();
 
-    if (identity !== null) {
-    profileList = systemDataObject.data.profileData.uuIdentityProfileList;
-    canDeleteReservation = profileList.includes("Authenticated") || profileList.includes("Executives");
-    }
+    let profileList = systemDataObject?.data?.profileData?.uuIdentityProfileList;
+    let canDeleteReservation = profileList !== undefined ? (profileList.includes("Authenticated") || profileList.includes("Executives")) : false;
+    //@@viewOff:private
+
 
     //@@viewOn:interface
     //@@viewOff:interface

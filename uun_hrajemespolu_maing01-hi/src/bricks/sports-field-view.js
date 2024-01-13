@@ -44,17 +44,9 @@ const SportsFieldView = createVisualComponent({
     const { dataObject } = props;
     const { state, data } = dataObject;
     const systemDataObject = useSystemData();
-
-    let isExecutives = "";
-    let profileList = "";
-
-    const { identity } = useSession();
     
-    if (identity !== null) {
-      profileList = systemDataObject.data.profileData.uuIdentityProfileList;
-      isExecutives = profileList.includes("Executives");
-      }
-
+    let profileList = systemDataObject?.data?.profileData?.uuIdentityProfileList;
+    let isExecutives = profileList !== undefined ? profileList.includes("Executives") : false;
 
     const { a, b, c, d } = Uu5Elements.useSpacing();
     //@@viewOff:private
