@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content, useState, useScreenSize } from "uu5g05";
+import { createVisualComponent, Utils, useState, useScreenSize } from "uu5g05";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 
 import { Rating } from "uu5g04-bricks";
@@ -18,9 +18,7 @@ const Css = {
     let widthPercentage = screensize == "xs" || screensize == "s" || screensize == "m" ? "100%" : "50%";
     return Config.Css.css({
       width: widthPercentage,
-      margin: "1% auto",
-      marginTop: "1%",
-      marginBottom: "1%",
+      margin: "auto",
       height: "33%",
     });
   },
@@ -42,46 +40,19 @@ const Css = {
       float: "left",
       fontSize: "25px",
     }),
-  rating: (screensize) => {
-    if (screensize == "xs" || screensize == "s") {
-      return Config.Css.css({
-        width: "50%",
-        marginLeft: "30%",
-        marginRight: "1%",
-        marginTop: "3%",
-      });
-    } else if (screensize == "m") {
-      return Config.Css.css({
-        width: "50%",
-        marginLeft: "60%",
-        marginRight: "1%",
-        marginTop: "3%",
-      });
-    } else {
-      return Config.Css.css({
-        width: "50%",
-        marginLeft: "40%",
-        marginRight: "1%",
-        marginTop: "3%",
-      });
-    }
-  },
+  rating: () => Config.Css.css({
+    marginRight: "16px",
+  }),
   body: () =>
     Config.Css.css({
       width: "90%",
       height: "80%",
       marginLeft: "5%",
     }),
-  footer: () =>
-    Config.Css.css({
-      width: "90%",
-      marginLeft: "5%",
-      marginTop: "5%",
-    }),
   reviewButton: () =>
     Config.Css.css({
-      float: "right",
-      marginBottom: "1%",
+      justifySelf: "end",
+      margin: "14px",
     }),
 };
 //@@viewOff:css
@@ -135,7 +106,7 @@ const ReviewView = createVisualComponent({
       <>
         <Uu5Elements.Box className={Css.box(screenSize)}>
           <div className={Css.header()}>
-            <Uu5Elements.Grid templateColumns="50% 50%">
+            <Uu5Elements.Grid templateColumns="auto auto">
               {session === null && (
                 <Uu5Elements.Grid.Item className={Css.username()}>{review.uuIdentityName}</Uu5Elements.Grid.Item>
               )}
@@ -143,7 +114,7 @@ const ReviewView = createVisualComponent({
                 <Plus4U5Elements.PersonItem className={Css.username()} uuIdentity={review.uuIdentity} />
               )}
 
-              <Uu5Elements.Grid.Item className={Css.rating(screenSize)}>
+              <Uu5Elements.Grid.Item justifySelf="end" className={Css.rating()}>
                 <Rating colorSchema="blue" size={size} value={review.rating} />
               </Uu5Elements.Grid.Item>
             </Uu5Elements.Grid>
@@ -153,7 +124,7 @@ const ReviewView = createVisualComponent({
             <Uu5Elements.Text className="reviewText">{review.text}</Uu5Elements.Text>
           </div>
 
-          <div className={Css.footer()}>
+          <Uu5Elements.Grid>
             {(session?.uuIdentity === review.uuIdentity || canDelete) && (
               <>
                 <Uu5Elements.Button className={Css.reviewButton()} onClick={() => setShow(true)}>
@@ -161,7 +132,7 @@ const ReviewView = createVisualComponent({
                 </Uu5Elements.Button>
               </>
             )}
-          </div>
+          </Uu5Elements.Grid>
         </Uu5Elements.Box>
 
         <Uu5Elements.Dialog

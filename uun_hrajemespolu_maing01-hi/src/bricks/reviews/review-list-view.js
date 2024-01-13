@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useState, Content, useSession} from "uu5g05";
-import { useSubAppData, useSystemData } from "uu_plus4u5g02";
+import { createVisualComponent, Utils, useSession } from "uu5g05";
+import { useSystemData } from "uu_plus4u5g02";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
 import ReviewView from "./review-view.js";
@@ -19,7 +19,8 @@ const Css = {
     height: "100%",
     marginLeft: "5%",
     display: "inline-flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    marginBottom: "25px",
   }),
 };
 //@@viewOff:css
