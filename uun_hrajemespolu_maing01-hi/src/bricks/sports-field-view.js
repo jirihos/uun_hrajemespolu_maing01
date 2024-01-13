@@ -18,6 +18,7 @@ import SportsFieldReservationsList from "./sports-field-reservations-list.js";
 const Css = {
   main: () => Config.Css.css({}),
 };
+
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -46,6 +47,7 @@ const SportsFieldView = createVisualComponent({
     const systemDataObject = useSystemData();
     const profileList = systemDataObject.data.profileData.uuIdentityProfileList;
     const isExecutives = profileList.includes("Executives");
+    const { a, b, c, d } = Uu5Elements.useSpacing();
     //@@viewOff:private
     console.log(data);
     //@@viewOn:interface
@@ -61,24 +63,38 @@ const SportsFieldView = createVisualComponent({
       {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
       {state === "ready" && (
         
-        <>
+        <div style={{
+          paddingLeft: d,
+          paddingBottom: d,
+          paddingRight: d,
+        }}>
           <GalleryProvider galleryId={data.galleryId}>
             {(dataObject) => <GalleryView dataObject={dataObject} />}
           </GalleryProvider> 
-
-          <Uu5Elements.Block header={data.sportsFieldName} >
-            {data.sportsFieldDesc}
+          
+          <br/>
+          <Uu5Elements.Block header={(
+            <Uu5Elements.Text category="story" segment="heading" type="h2">
+              {data.sportsFieldName}
+            </Uu5Elements.Text>
+          )}
+            card="full"
+            significance="distinct"
+          >
+            <Uu5Elements.Text category="interface" segment="content" type="medium">
+              {data.sportsFieldDesc}
+            </Uu5Elements.Text>
           </Uu5Elements.Block>
 
+          <br />
           <ReservationCalendar sportsFieldId={data.id} />
 
-
+          <br />
           { isExecutives && (<SportsFieldReservationsList sportsFieldId={data.id}/>)}
-          
+          <br />
 
           {/* TODO Reviews */}
-       
-        </>
+        </div>
 
 
       )}
