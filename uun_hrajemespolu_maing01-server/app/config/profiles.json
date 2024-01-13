@@ -95,7 +95,7 @@
       },
       "gallery/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Executives","Public"]
+        "profileList": ["Executives"]
       }
     }
   }
