@@ -18,6 +18,15 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  sportsFieldGet(dtoIn) {
+    const commandUri = Calls.getCommandUri("sportsField/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  sportsFieldList(dtoIn) {
+    const commandUri = Calls.getCommandUri("sportsField/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri);
@@ -36,11 +45,6 @@ const Calls = {
   reviewList(dtoIn) {
     const commandUri = Calls.getCommandUri("review/list");
     return Calls.call("get", commandUri, dtoIn);
-  },
-
-  galleryCreate() {
-    const commandUri = Calls.getCommandUri("gallery/create");
-    return Calls.call("get", commandUri);
   },
 
   listOwn(dtoIn) {

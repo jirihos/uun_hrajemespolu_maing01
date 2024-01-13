@@ -10,6 +10,7 @@ import Home from "../routes/home.js";
 
 //@@viewOn:constants
 const SportsFieldDetail = Utils.Component.lazy(() => import("../routes/sports-field-detail.js"));
+const SportsFields = Utils.Component.lazy(() => import("../routes/sports-fields.js"));
 const About = Utils.Component.lazy(() => import("../routes/about.js"));
 const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace.js"));
 const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.js"));
@@ -19,6 +20,7 @@ const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
   sportsFieldDetail: (props) => <SportsFieldDetail {...props} />,
+  sportsFields: (props) => <SportsFields {...props} />,
   about: (props) => <About {...props} />,
   reservationList: (props) => <ReservationList {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
