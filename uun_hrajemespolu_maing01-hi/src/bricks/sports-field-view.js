@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes} from "uu5g05";
+import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import { useSubAppData, useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
@@ -9,6 +9,7 @@ import ReviewListView from "../bricks/reviews/review-list-view.js";
 import ReservationCalendar from "../bricks/reservation-calendar.js";
 import Uu5Elements from "uu5g05-elements";
 import SportsFieldReservationsList from "./sports-field-reservations-list.js";
+import Reviews from "./reviews.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -31,7 +32,7 @@ const SportsFieldView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    dataObject: PropTypes.object.isRequired
+    dataObject: PropTypes.object.isRequired,
   },
   //@@viewOff:propTypes
 
@@ -57,33 +58,25 @@ const SportsFieldView = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
-      {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-      {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
-      {state === "ready" && (
-        
-        <>
-          <GalleryProvider galleryId={data.galleryId}>
-            {(dataObject) => <GalleryView dataObject={dataObject} />}
-          </GalleryProvider> 
+        {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
+        {state === "ready" && (
+          <>
+            <GalleryProvider galleryId={data.galleryId}>
+              {(dataObject) => <GalleryView dataObject={dataObject} />}
+            </GalleryProvider>
 
-          <Uu5Elements.Block header={data.sportsFieldName} >
-            {data.sportsFieldDesc}
-          </Uu5Elements.Block>
+            <Uu5Elements.Block header={data.sportsFieldName}>{data.sportsFieldDesc}</Uu5Elements.Block>
 
-          <ReservationCalendar sportsFieldId={data.id} />
+            <ReservationCalendar sportsFieldId={data.id} />
 
+            {isExecutives && <SportsFieldReservationsList sportsFieldId={data.id} />}
 
-          { isExecutives && (<SportsFieldReservationsList sportsFieldId={data.id}/>)}
-          
-
-          {/* TODO Reviews */}
-       
-        </>
-
-
-      )}
-    </>
-  ) : null;
+            <Reviews sportsFieldId={data.id} />
+          </>
+        )}
+      </>
+    ) : null;
     //   <div {...attrs}>
     //     {/* <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
     //     <GalleryProvider galleryId="655d0191de265134ec233d41">

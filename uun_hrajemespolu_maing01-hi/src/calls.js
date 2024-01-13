@@ -90,6 +90,16 @@ const Calls = {
   getCommandUri(useCase, baseUri = Environment.appBaseUri) {
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
+
+  async reviewCreate(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/create");
+    return await Calls.call("post", commandUri, dtoIn);
+  },
+
+  async reviewUpdate(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/update");
+    return await Calls.call("post", commandUri, dtoIn);
+  },
 };
 
 export default Calls;
