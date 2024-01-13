@@ -204,7 +204,7 @@ const View = createVisualComponent({
           <Uu5Elements.Calendar min={minDate} max={maxDate} value={date} onSelect={handleDaySelect} />
         </Uu5Elements.Box>
 
-        {(state === "error" || state === "errorNoData") ? <Error message='Error when loading reservation times' /> :
+        {(state === "error" || state === "errorNoData") ? <Error message='Chyba při načítání rezervací' /> :
           <Uu5Calendar.Scheduler
             className={Css.scheduler()}
             date={date}

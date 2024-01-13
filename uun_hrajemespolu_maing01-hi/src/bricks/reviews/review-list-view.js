@@ -67,7 +67,7 @@ const ReviewListView = createVisualComponent({
 
       <Uu5Elements.Grid className={Css.wrapper()} >
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Error when loading review list' />}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání recenzí' />}
         {state === "ready" && (
 
           dataObject.data.itemList.map((review) => {

@@ -7,7 +7,6 @@ import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
 import Error from "../error.js";
-
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -161,7 +160,7 @@ const View = createVisualComponent({
           />
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error reservation list' />}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání seznamu rezervací' />}
         {(state === "ready" || state === "pending") && (
           
               <Uu5Tiles.ViewProvider  

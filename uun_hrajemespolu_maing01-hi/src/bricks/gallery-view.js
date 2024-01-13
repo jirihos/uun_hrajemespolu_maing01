@@ -76,7 +76,7 @@ const GalleryView = createVisualComponent({
     return currentNestingLevel ? (
       <>
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Error when loading gallery' />}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání galerie' />}
         {state === "ready" && (
           <Uu5Elements.Carousel
             index={index}

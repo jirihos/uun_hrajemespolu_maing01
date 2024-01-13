@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect, SessionProvider } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect } from "uu5g05";
 import Config from "./config/config.js";
 import moment from "moment";
 import Uu5Elements from "uu5g05-elements";
@@ -8,9 +8,7 @@ import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
 import CancelByAdminModal from "./cancel-by-admin-modal.js";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
-import { AuthenticationService } from "uu_appg01_oidc";
 import Error from "../error.js";
-
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -166,7 +164,7 @@ const View = createVisualComponent({
         </Uu5Elements.Text>
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error' />}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání seznamu rezervací' />}
         {(state === "ready" || state === "pending") && (
             <Uu5Tiles.ViewProvider  
               viewList={viewListSportsFieldReservation} 

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, useSession } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import { useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
@@ -8,6 +8,7 @@ import ReservationCalendar from "../bricks/reservation-calendar.js";
 import Uu5Elements from "uu5g05-elements";
 import SportsFieldReservationsList from "./sports-field-reservations-list.js";
 import Reviews from "./reviews.js";
+import Error from "./error.js"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -62,7 +63,7 @@ const SportsFieldView = createVisualComponent({
       <>
 
       {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-      {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
+      {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání sportoviště' />}
       {state === "ready" && (
         
         <div style={{
