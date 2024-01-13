@@ -95,6 +95,8 @@ const Reviews = createVisualComponent({
     const reviewListProviderAttrs = Css.reviewListProvider();
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, Reviews);
 
+    const [counter, setCounter] = useState(0);
+
     return currentNestingLevel ? (
       <>
         {identity !== null && (
@@ -107,14 +109,16 @@ const Reviews = createVisualComponent({
                     reviewId={dataObject.state === "ready" ? dataObject.data.id : null}
                     open={open}
                     onClose={() => setOpen(false)}
-                    onCreate={(values) => {
+                    onCreate={async (values) => {
                       setOpen(false);
-                      dataObject.handlerMap.create(values);
+                      await dataObject.handlerMap.create(values);
+                      setCounter(counter + 1);
                     }}
-                    onUpdate={(reviewId, values) => {
+                    onUpdate={async (reviewId, values) => {
                       setOpen(false);
                       values.id = reviewId;
-                      dataObject.handlerMap.update(values);
+                      await dataObject.handlerMap.update(values);
+                      setCounter(counter + 1);
                     }}
                     initialText={dataObject.state === "ready" ? dataObject.data.text : null}
                     initialRating={dataObject.state === "ready" ? dataObject.data.rating : null}
@@ -128,7 +132,7 @@ const Reviews = createVisualComponent({
           </ReviewProvider>
         )}
         <div {...reviewListProviderAttrs}>
-          <RevieListProvider sportsFieldId={sportsFieldId}>
+          <RevieListProvider sportsFieldId={sportsFieldId} key={counter}>
             {(dataObject) => <ReviewListView dataObject={dataObject} />}
           </RevieListProvider>
         </div>
