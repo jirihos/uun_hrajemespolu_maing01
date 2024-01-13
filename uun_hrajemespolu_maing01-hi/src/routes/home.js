@@ -83,6 +83,7 @@ let Home = createVisualComponent({
 
         <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}>
           <p>Pokud chcete vytvořit rezervaci, klikněte prosím zde:</p>
+          <p2>Pokud chcete vytvořit rezervaci, klikněte prosím zde:</p2>
           <Uu5Elements.Link href={'./sportsFields'}>
           <Uu5Elements.Button onClick={() => {}} className={Css.button()} significance={"highlighted"}>Přesměrovat</Uu5Elements.Button></Uu5Elements.Link></Uu5Elements.Grid.Item>
 

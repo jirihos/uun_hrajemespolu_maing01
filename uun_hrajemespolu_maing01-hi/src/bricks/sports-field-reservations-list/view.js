@@ -159,7 +159,7 @@ const View = createVisualComponent({
     return currentNestingLevel ? (
       <>
       <div className="center">
-      <h1>Patří do SportsFieldView/ ready/ rendered by admin only</h1>
+      <h3>Rezervace sportoviště(zobrazení pro správce)</h3>
           <Uu5Elements.Header
           />
       </div>        
