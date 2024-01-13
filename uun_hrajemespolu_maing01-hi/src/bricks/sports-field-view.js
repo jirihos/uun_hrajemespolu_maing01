@@ -90,7 +90,7 @@ const SportsFieldView = createVisualComponent({
 
           <br />
           <ReservationCalendar sportsFieldId={data.id} sportsFieldName={data.sportsFieldName} />
-          <br />
+          
           { isExecutives && (<SportsFieldReservationsList sportsFieldId={data.id}/>)}
           <br />
 

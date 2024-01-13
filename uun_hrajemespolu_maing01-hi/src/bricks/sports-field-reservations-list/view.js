@@ -160,8 +160,6 @@ const View = createVisualComponent({
       <>
       <div className="center">
       <h3>Rezervace sportoviště(zobrazení pro správce)</h3>
-          <Uu5Elements.Header
-          />
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error' />}
