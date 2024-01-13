@@ -69,13 +69,20 @@ const ReviewListView = createVisualComponent({
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Chyba při načítání recenzí' />}
         {state === "ready" && (
+          <>
+            {dataObject.data.itemList.map((review) => {
+              return (
+                <ReviewView key={review.id} review={review} canDelete={isExecutive} session={identity} reload={() => { dataObject.handlerMap.load(); }} />
+              )
+            })}
 
-          dataObject.data.itemList.map((review) => {
-             return (
-              <ReviewView key={review.id} review={review} canDelete={isExecutive} session={identity} reload={() => { dataObject.handlerMap.load(); }} />
-             )}
-          ))
-        }
+            {dataObject.data.itemList.length === 0 && (
+              <div className={Config.Css.css({ width: "100%", textAlign: "center" })}>
+                <h2>Žádné recenze</h2>
+              </div>
+            )}
+          </>
+        )}
 
       </Uu5Elements.Grid>
       </>
