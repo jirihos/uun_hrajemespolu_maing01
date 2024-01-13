@@ -1,5 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes,} from "uu5g05";
+import { createVisualComponent, Utils, PropTypes} from "uu5g05";
+import { useSubAppData, useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
 import GalleryView from "../bricks/gallery-view.js";
@@ -42,6 +43,9 @@ const SportsFieldView = createVisualComponent({
     //@@viewOn:private
     const { dataObject } = props;
     const { state, data } = dataObject;
+    const systemDataObject = useSystemData();
+    const profileList = systemDataObject.data.profileData.uuIdentityProfileList;
+    const isExecutives = profileList.includes("Executives");
     //@@viewOff:private
     console.log(data);
     //@@viewOn:interface
@@ -66,9 +70,11 @@ const SportsFieldView = createVisualComponent({
             {data.sportsFieldDesc}
           </Uu5Elements.Block>
 
-          <ReservationCalendar sportsFieldId={data.sportsFieldId} />
+          <ReservationCalendar sportsFieldId={data.id} />
 
-          <SportsFieldReservationsList sportsFieldId={data.sportsFieldId}/>
+
+          { isExecutives && (<SportsFieldReservationsList sportsFieldId={data.id}/>)}
+          
 
           {/* TODO Reviews */}
        
