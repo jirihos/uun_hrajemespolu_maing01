@@ -2,6 +2,7 @@
 import { createVisualComponent, PropTypes, Utils, useMemo, useState } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
+import Error from "./error.js"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -74,7 +75,7 @@ const GalleryView = createVisualComponent({
     return currentNestingLevel ? (
       <>
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Error when loading gallery' />}
         {state === "ready" && (
           <Uu5Elements.Carousel
             index={index}
