@@ -5,6 +5,7 @@ import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5Tiles from "uu5tilesg02";
+import Tile from "./tile.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -12,7 +13,9 @@ import Uu5Tiles from "uu5tilesg02";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    padding: "16px",
+  }),
   centerImage: () =>
     Config.Css.css({
       margin: "auto",
@@ -49,17 +52,7 @@ const SportsFieldListView = createVisualComponent({
     const { dataObject } = props;
     const { state, data, handlerMap } = dataObject;
 
-    const viewListOwnReservation = [ // view list
-      { label: "Table", icon: "uugds-view-list", value: "table" },
-      { label: "Grid", icon: "uugds-view-grid", value: "grid" },
-    ];
-
-    const columnList = [ // column list
-      { header: "Sportoviště:", label: "sportsFieldName", icon: "uugds-view-list", value: "sportsFieldName" },
-      { header: "Popis:", label: "sportsFieldDesc", icon: "uugds-view-list", value: "sportsFieldDesc" }
-    ];
-
-    console.log("dataObject", dataObject);
+    console.log("data", data);
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -74,30 +67,9 @@ const SportsFieldListView = createVisualComponent({
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {(state === "ready" || state === "pending") && (
-              <Uu5Tiles.ViewProvider  
-              viewList={viewListOwnReservation} 
-              value={view} 
-              onChange={(e) => setView(e.data.value)}>
-
-              <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
-                <Uu5TilesElements.List
-                  colorScheme="warning"
-                  data={data}
-                  columnList={columnList}
-                  tileMinWidth={280}
-                  tileMaxWidth={300}
-                  view={view} 
-                  //getActionList={getActionList}
-                >
-                  <Uu5TilesElements.Grid.DefaultTile
-                    header={
-                      <Uu5Elements.Text category="interface" segment="title" type="micro">
-                         Sportoviště
-                      </Uu5Elements.Text>}
-                  />
-                </Uu5TilesElements.List>
-              </Uu5Elements.Block>
-            </Uu5Tiles.ViewProvider> 
+            <Uu5TilesElements.Grid data={data} tileMinWidth={250} tileMaxWidth={280}>
+              <Tile/>
+            </Uu5TilesElements.Grid>
             )}
       </div>
     ) : null;
