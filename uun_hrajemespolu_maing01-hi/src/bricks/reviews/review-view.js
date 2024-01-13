@@ -121,7 +121,7 @@ const ReviewView = createVisualComponent({
           </div>
 
           <div className={Css.body()}>
-            <Uu5Elements.Text className="reviewText">{review.text}</Uu5Elements.Text>
+            <Uu5Elements.Text className={Config.Css.css({ whiteSpace: "pre-wrap" })}>{review.text}</Uu5Elements.Text>
           </div>
 
           <Uu5Elements.Grid>
