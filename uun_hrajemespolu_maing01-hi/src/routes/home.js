@@ -1,13 +1,12 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useSession, Lsi, useRoute } from "uu5g05";
+import { Utils, createVisualComponent, useRoute } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
-import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { withRoute } from "uu_plus4u5g02-app";
 
 import Config from "./config/config.js";
-import WelcomeRow from "../bricks/welcome-row.js";
 import RouteBar from "../core/route-bar.js";
-import importLsi from "../lsi/import-lsi.js";
+
+import LOGO from "../../src/assets/hrajemeSpoluLogo.png";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -18,10 +17,8 @@ const Css = {
   button: () =>
     Config.Css.css({
       fontSize: 12,
-      width: "10em",
-      height: "5em",
       fontSize: "1em",
-      // marginLeft:"15%",
+      padding: "30px"
     }),
   gridwrapper: () =>
     Config.Css.css({
@@ -31,10 +28,12 @@ const Css = {
     }),
   image: () =>
     Config.Css.css({
-      width: "100%",
-      height: "100%",
+      display: "block",
+      maxWidth: "100%",
+      maxHeight: "100%",
       justifySelf: "center",
-      alignSelf: "center"
+      alignSelf: "center",
+      margin: "5px",
     }),
 };
 //@@viewOff:css
@@ -57,7 +56,6 @@ let Home = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { identity } = useSession();
     const [, setRoute] = useRoute();
     //@@viewOff:private
 
@@ -72,7 +70,9 @@ let Home = createVisualComponent({
 
         <Uu5Elements.Grid className={Css.gridwrapper()}>
 
-        <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}><img className={Css.image()} src={require('../../src/assets/hrajemeSpoluLogoWidth.png')} /></Uu5Elements.Grid.Item>
+        <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}>
+          <Uu5Elements.Box className={Config.Css.css({ backgroundColor: "#F0F0F0" })}><img className={Css.image()} src={LOGO} /></Uu5Elements.Box>
+        </Uu5Elements.Grid.Item>
 
         <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}>
 
@@ -96,7 +96,16 @@ let Home = createVisualComponent({
             <Uu5Elements.Link href={'./sportsFields'}></Uu5Elements.Link>
           </p>
           
-          { <Uu5Elements.Button onClick={() => {}} className={Css.button()} significance={"highlighted"}>Vstup na stránky</Uu5Elements.Button>}
+          <Uu5Elements.Button
+            onClick={() => {
+              setRoute("sportsFields");
+            }}
+            className={Css.button()}
+            colorScheme="secondary"
+            significance={"highlighted"}
+          >
+            Seznam sportovišť
+          </Uu5Elements.Button>
       </Uu5Elements.Block>
     </div>
           
