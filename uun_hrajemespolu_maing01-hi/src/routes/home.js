@@ -82,16 +82,46 @@ let Home = createVisualComponent({
         <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}><img className={Css.image()} src={require('../../src/assets/hrajemeSpoluLogoWidth.png')} /></Uu5Elements.Grid.Item>
 
         <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}>
-          <p>Pokud chcete vytvořit rezervaci, klikněte prosím zde:</p>
-          <p2>Pokud chcete vytvořit rezervaci, klikněte prosím zde:</p2>
-          <Uu5Elements.Link href={'./sportsFields'}>
-          <Uu5Elements.Button onClick={() => {}} className={Css.button()} significance={"highlighted"}>Přesměrovat</Uu5Elements.Button></Uu5Elements.Link></Uu5Elements.Grid.Item>
 
+
+        <div style={{
+          paddingLeft: "30px",
+          paddingRight: "30px",
+        }}>
+        <Uu5Elements.Block
       
+        card="full"
+        significance="distinct"
+        >
+          <p>Vítejte na stránkách Hrajeme spolu.cz!
+            Poskytujeme široký výběr udržovaných sportovišť s kompletním vybavením, a zázemím.
+            Sportoviště jsou vhodné jak pro rekreační tak i pro vrcholové sportovce.
+            Dostupná sportoviště jsou vždycky v perfektním stavu.
+            Poskytujeme sportoviště pro bowling, badminton, squash, fotbal, beach volejbal!
+            Pro úplný a aktální seznam poskytovaných sportovišť a jejich rezervaci pokračujte kliknutím na tlačítko Vstup na stránky:
+            <Uu5Elements.Link href={'./sportsFields'}></Uu5Elements.Link>
+          </p>
+          
+          { <Uu5Elements.Button onClick={() => {}} className={Css.button()} significance={"highlighted"}>Vstup na stránky</Uu5Elements.Button>}
+      </Uu5Elements.Block>
+    </div>
+          
+          </Uu5Elements.Grid.Item>
+
+          
 
         </Uu5Elements.Grid>
-
-
+        <div style={{
+          paddingLeft: "30px",
+          paddingRight: "30px",
+          paddingTop: "300px",
+        }}>
+          <Uu5Elements.Block 
+          footer={<p>Data byla vypůjená pro školní účely z http://www.zebetinsky-dvur.cz/brno/sport/bowling</p>}>
+          
+         
+          </Uu5Elements.Block>
+        </div>
         </>
         );
     //@@viewOff:render
