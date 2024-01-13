@@ -131,7 +131,7 @@ let Home = createVisualComponent({
   },
 });
 
-Home = withRoute(Home, { authenticated: true });
+Home = withRoute(Home);
 
 //@@viewOn:exports
 export { Home };

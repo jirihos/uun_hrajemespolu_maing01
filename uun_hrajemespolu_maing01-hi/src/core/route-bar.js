@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useRoute, Utils } from "uu5g05";
+import { createVisualComponent, useMemo, useRoute, Utils, useSession } from "uu5g05";
 import Plus4U5App from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
@@ -36,18 +36,26 @@ const RouteBar = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { identity } = useSession();
     const [, setRoute] = useRoute();
 
-    const appActionList = [
-      {
-        children: "Moje rezervace",
-        onClick: () => setRoute("reservationList"),
-      },
-      {
-        children: "Sportoviště",
-        onClick: () => setRoute("sportsFields"),
+    const appActionList = useMemo(() => {
+      const actionList = [
+        {
+          children: "Sportoviště",
+          onClick: () => setRoute("sportsFields"),
+        }
+      ];
+
+      if (identity) {
+        actionList.unshift({
+          children: "Moje rezervace",
+          onClick: () => setRoute("reservationList"),
+        });
       }
-    ];
+
+      return actionList;
+    }, [identity]);
     //@@viewOff:private
 
     //@@viewOn:interface
