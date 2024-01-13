@@ -21,7 +21,7 @@ const Css = {
       width: "10em",
       height: "5em",
       fontSize: "1em",
-      marginLeft:"25%",
+      // marginLeft:"15%",
     }),
   gridwrapper: () =>
     Config.Css.css({
@@ -35,13 +35,6 @@ const Css = {
       height: "100%",
       justifySelf: "center",
       alignSelf: "center"
-    }),
-  text: () =>
-    Config.Css.css({
-      float: "right", 
-      width: "20%",
-      height: "100%",
-      backgroundColor: "orange"
     }),
 };
 //@@viewOff:css
@@ -85,8 +78,9 @@ let Home = createVisualComponent({
 
 
         <div style={{
-          paddingLeft: "30px",
-          paddingRight: "30px",
+          paddingLeft: "250px",
+          paddingRight: "250px",
+          textAlign: "center",
         }}>
         <Uu5Elements.Block
       
@@ -112,15 +106,15 @@ let Home = createVisualComponent({
 
         </Uu5Elements.Grid>
         <div style={{
-          paddingLeft: "30px",
-          paddingRight: "30px",
-          paddingTop: "300px",
+           paddingTop: "10px",
+           textAlign: "center"
         }}>
-          <Uu5Elements.Block 
-          footer={<p>Data byla vypůjená pro školní účely z http://www.zebetinsky-dvur.cz/brno/sport/bowling</p>}>
-          
-         
-          </Uu5Elements.Block>
+          <Uu5Elements.Text 
+            significance="subdued"
+            colorScheme="grey">
+            Data byla vypůjená pro školní účely z http://www.zebetinsky-dvur.cz/brno/sport/bowling
+
+          </Uu5Elements.Text>
         </div>
         </>
         );
