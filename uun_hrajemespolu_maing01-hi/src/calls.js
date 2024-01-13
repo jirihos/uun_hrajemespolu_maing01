@@ -18,6 +18,15 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  sportsFieldGet(dtoIn) {
+    const commandUri = Calls.getCommandUri("sportsField/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  sportsFieldList(dtoIn) {
+    const commandUri = Calls.getCommandUri("sportsField/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri);
@@ -43,11 +52,6 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
-  galleryCreate() {
-    const commandUri = Calls.getCommandUri("gallery/create");
-    return Calls.call("get", commandUri);
-  },
-
   listOwn(dtoIn) {
     const commandUri = Calls.getCommandUri("reservation/listOwn");
     return Calls.call("get", commandUri, dtoIn);
@@ -60,6 +64,11 @@ const Calls = {
 
   reservationCancelByAdmin(dtoIn) {
     const commandUri = Calls.getCommandUri("reservation/cancelByAdmin");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  sportsFieldDelete(dtoIn) {
+    const commandUri = Calls.getCommandUri("sportsField/delete");
     return Calls.call("post", commandUri, dtoIn);
   },
 

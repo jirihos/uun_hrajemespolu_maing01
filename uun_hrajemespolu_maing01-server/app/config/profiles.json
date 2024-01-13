@@ -88,6 +88,10 @@
       "gallery/update": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
+      },
+      "sportsField/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }

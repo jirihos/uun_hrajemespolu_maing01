@@ -1,12 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useRoute } from "uu5g05";
 import Config from "./config/config.js";
-import GalleryProvider from "../bricks/gallery-provider.js";
-import GalleryView from "../bricks/gallery-view.js";
-import ReviewListProvider from "../bricks/reviews/review-list-provider.js";
-import ReviewListView from "../bricks/reviews/review-list-view.js";
 import RouteBar from "../core/route-bar.js";
-import ReservationCalendar from "../bricks/reservation-calendar.js";
+import SportsFieldProvider from "../bricks/sports-field-provider.js";
+import SportsFieldView from "../bricks/sports-field-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -36,7 +33,10 @@ const SportsFieldDetail = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+
     //@@viewOn:private
+    const [route] = useRoute();
+    let sportsFieldId = route.params?.id;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -49,20 +49,9 @@ const SportsFieldDetail = createVisualComponent({
     return currentNestingLevel ? (
       <>
         <RouteBar />
-
-        <div id="testing_div" style={{maxWidth: "1200px", margin: "auto"}}>
-          <GalleryProvider galleryId="655d0191de265134ec233d41">
-            {(dataObject) => <GalleryView dataObject={dataObject} />}
-          </GalleryProvider>
-        </div>
-
-        <div style={{padding: "50px 0"}}>
-          <ReservationCalendar sportsFieldId="6574c57bd7b5a1cd5eda2c39" />
-        </div>
-
-        <ReviewListProvider sportsFieldId="655d0191de265134ec233d41">
-        {(dataObject) => <ReviewListView dataObject={dataObject}/>}
-        </ReviewListProvider>
+        <SportsFieldProvider sportsFieldId={sportsFieldId}>
+            {(dataObject) => <SportsFieldView dataObject={dataObject} />}
+        </SportsFieldProvider>
       </>
     ) : null;
     //@@viewOff:render

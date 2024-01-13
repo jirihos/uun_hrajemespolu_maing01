@@ -1,7 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes } from "uu5g05";
-import Provider from "../bricks/sports-field-reservations-provider.js";
-import SportsFieldReservationView from "./sports-field-reservations-list/view.js";
+import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -17,16 +15,14 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const SportsFieldReservationsList = createVisualComponent({
+const SportsFieldListView = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "SportsFieldReservationsList",
+  uu5Tag: Config.TAG + "SportsFieldListView",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {
-    sportsFieldId: PropTypes.string.isRequired,
-  },
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -35,7 +31,7 @@ const SportsFieldReservationsList = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { sportsFieldId } = props;
+    const { children } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -43,13 +39,12 @@ const SportsFieldReservationsList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, SportsFieldReservationsList);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, SportsFieldListView);
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <Provider sportsFieldId={sportsFieldId} loadFull={true} skipInitialLoad={false}>
-          {(dataObject) => <SportsFieldReservationView dataObject={dataObject} />}
-        </Provider>
+        <div>Visual Component {SportsFieldListView.uu5Tag}</div>
+        <Content nestingLevel={currentNestingLevel}>{children}</Content>
       </div>
     ) : null;
     //@@viewOff:render
@@ -57,6 +52,6 @@ const SportsFieldReservationsList = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { SportsFieldReservationsList };
-export default SportsFieldReservationsList;
+export { SportsFieldListView };
+export default SportsFieldListView;
 //@@viewOff:exports
