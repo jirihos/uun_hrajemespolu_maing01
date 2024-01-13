@@ -14,23 +14,14 @@ import Config from "./config/config.js";
 const Css = {
   main: () => Config.Css.css({}),
   box: (screensize) => {
-    if (screensize == "xs" || screensize == "s" || screensize == "m") {
-      return Config.Css.css({
-        width: "98%",
-        marginLeft: "1%",
-        marginTop: "1%",
-        marginBottom: "1%",
-        height: "33%",
-      });
-    } else {
-      return Config.Css.css({
-        width: "31%",
-        marginLeft: "1%",
-        marginTop: "1%",
-        marginBottom: "1%",
-        height: "33%",
-      });
-    }
+    let widthPercentage = screensize == "xs" || screensize == "s" || screensize == "m" ? "100%" : "50%";
+    return Config.Css.css({
+      width: widthPercentage,
+      margin: "1% auto",
+      marginTop: "1%",
+      marginBottom: "1%",
+      height: "33%",
+    });
   },
   header: () =>
     Config.Css.css({
