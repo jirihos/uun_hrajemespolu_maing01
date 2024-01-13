@@ -3,6 +3,10 @@ const GalleryAbl = require("../../abl/gallery-abl.js");
 
 class GalleryController {
 
+  update(ucEnv) {
+    return GalleryAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   get(ucEnv) {
     return GalleryAbl.get(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

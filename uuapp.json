@@ -1,6 +1,6 @@
 {
-  "product": "uun_hrajemespolu_maing01",
-  "version": "0.1.0",
+  "product": "uun_bpmi23wczdl05_maing01",
+  "version": "0.1.11",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -9,9 +9,19 @@
   "devkit": {
     "development": {
       "appBoxLocationUri": "----- VALUE REQUIRED -----",
-      "appDeploymentUri": null
+      "appDeploymentUri": null,
+      "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/4b5432d7b22636f4344e08228f4820e8",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/cf9e1c51b79a983a844cb4558342cf90"
     }
   },
   "uun_hrajemespolu_maing01-hi": {},
-  "uun_hrajemespolu_maing01-server": {}
+  "uun_hrajemespolu_maing01-server": {
+    "devkit": {
+      "development": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/cf9e1c51b79a983a844cb4558342cf90/uuAppBox/get?id=65a1c45979a8ce00429dcf85&extended=true",
+        "uuSubAppInstanceWorkloadOid": "65855e4585d30d00168372b6"
+      }
+    }
+  }
 }

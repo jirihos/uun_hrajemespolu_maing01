@@ -1,6 +1,6 @@
 {
   "name": "uun_hrajemespolu_maing01-hi",
-  "version": "0.1.0",
+  "version": "0.1.11",
   "private": true,
   "description": "",
   "license": "License Commercial",
@@ -10,6 +10,7 @@
     "uu_plus4u5g02": "^1.22.2",
     "uu_plus4u5g02-app": "^1.22.2",
     "uu_plus4u5g02-elements": "^1.22.2",
+    "uu5calendarg01": "^2.3.0",
     "uu5g04": "^1.57.2",
     "uu5g05": "^1.22.1",
     "uu5g05-browser-compatibility": "^1.22.1",

@@ -39,6 +39,14 @@ const Create = {
     }
   },
 
+  MoreThanYearAway: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}moreThanYearAway`;
+      this.message = "Cannot create a reservation that is more than a year away.";
+    }
+  },
+
   TimestampNotRounded: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -52,6 +60,14 @@ const Create = {
       super(...arguments);
       this.code = `${Create.UC_CODE}durationIsTooLong`;
       this.message = `Cannot create a reservation that lasts longer than ${Constants.MAX_RESERVATION_DURATION} hours.`;
+    }
+  },
+
+  ReservationOutsideOpenHours: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}reservationOutsideOpenHours`;
+      this.message = `Cannot create a reservation that is outside of the open hours.`;
     }
   },
 
@@ -77,7 +93,96 @@ const ListOwn = {
   
 };
 
+const CancelByUser = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}cancelByUser/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByUser.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  reservationDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByUser.UC_CODE}reservationDoesNotExist`;
+      this.message = "Reservation does not exist.";
+    }
+  },
+
+}
+
+const ListBySportsField = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}listBySportsField/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  },
+
+  ToTsCannotBeSameOrBeforeFromTs: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}toTsCannotBeSameOrBeforeFromTs`;
+      this.message = "Specified toTs is the same as fromTs or earlier than fromTs.";
+    }
+  },
+
+  UserNotAuthorized: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${ListBySportsField.UC_CODE}userNotAuthorized`;
+      this.message = "User is not authorized.";
+    }
+  },
+};
+
+const CancelByAdmin = {
+  UC_CODE: `${RESERVATION_ERROR_PREFIX}cancelByAdmin/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  ReservationNotFound: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}notFound`;
+      this.message = "Reservation was not found.";
+    }
+  },
+
+  ReservationAlreadyCancelled: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CancelByAdmin.UC_CODE}alreadyCancelled`;
+      this.message = "This reservation has already been cancelled.";
+    }
+  },
+  
+};
+
 module.exports = {
+  CancelByUser,
+  CancelByAdmin,
+  ListBySportsField,
   ListOwn,
   Create,
 };

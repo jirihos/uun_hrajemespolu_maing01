@@ -2,8 +2,7 @@
 import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
-import Provider from "../bricks/own-reservation-list/provider.js";
-import View from "../bricks/own-reservation-list/view.js";
+import OwnReservationList from "../bricks/own-reservation-list.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -47,9 +46,7 @@ const ReservationList = createVisualComponent({
     return currentNestingLevel ? (
       <div>
         <RouteBar />
-        <Provider>
-          {(dataObject) => <View dataObject={dataObject} />}
-        </Provider>
+        <OwnReservationList />
       </div>
     ) : null;
     //@@viewOff:render

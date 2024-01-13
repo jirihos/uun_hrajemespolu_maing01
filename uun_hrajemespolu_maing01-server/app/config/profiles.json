@@ -12,7 +12,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated"]
+        "profileList": ["Authorities","Executives","AwidLicenseOwner","AwidInitiator"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
@@ -35,7 +35,7 @@
       },
       "gallery/create": {
         "sysStateList": ["active"],
-        "profileList": ["Executives"]
+        "profileList": ["Executives","Public"]
       },
       "reservation/listOwn": {
         "sysStateList": ["active"],
@@ -56,6 +56,42 @@
       "review/create": {
         "sysStateList": ["active"],
         "profileList": ["Authenticated","Executives"]
+      },
+      "reservation/listBySportsField": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Authenticated","Executives"]
+      },
+      "review/getByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Authenticated","Public"]
+      },
+      "review/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","Authorities"]
+      },
+      "reservation/cancelByAdmin": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
+      },
+      "reservation/cancelByUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated","Executives"]
+      },
+      "sportsField/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Authenticated","Executives"]
+      },
+      "review/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated","Executives"]
+      },
+      "gallery/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
+      },
+      "sportsField/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }

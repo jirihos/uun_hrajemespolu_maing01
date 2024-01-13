@@ -11,6 +11,24 @@ class SportsFieldMongo extends UuObjectDao {
   async get(awid, id) {
     return await super.findOne({ awid, id });
   }
+
+  async list(awid, pageInfo) {
+    const filter = {
+      awid,
+    }
+
+    return await super.find(filter, pageInfo);
+  }
+
+  async delete(uuObject) {
+
+    const filter = {
+      awid: uuObject.awid,
+      id: uuObject.id,
+    };
+
+    return await super.deleteOne(filter);
+  }
 }
 
 module.exports = SportsFieldMongo;

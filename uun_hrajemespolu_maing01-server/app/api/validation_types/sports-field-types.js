@@ -10,3 +10,14 @@ const sportsFieldGetDtoInType = shape({
     galleryId: id().isRequired(),
     
   });
+
+const sportsFieldListDtoInType = shape({
+  pageInfo: shape({
+    pageIndex: integer(0, 1000000000),
+    pageSize: integer(1, 1000000000)
+  })
+});
+
+const sportsFieldDeleteDtoInType = shape({
+    id: id().isRequired()
+});

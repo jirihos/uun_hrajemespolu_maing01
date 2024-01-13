@@ -1,6 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, Block, Grid, useState, Toogle, useMemo } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, useMemo, useScreenSize, useEffect } from "uu5g05";
 import Config from "./config/config.js";
+import moment from "moment";
 import Uu5Elements from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import Uu5TilesControls from "uu5tilesg02-controls";
@@ -47,16 +48,17 @@ const View = createVisualComponent({
   render(props) {
     //@@viewOn:private
 
-    const [view, setView] = useState("table");
+    const [screenSize] = useScreenSize();
+    const [view, setView] = useState("grid");
     const [open, setOpen] = useState(false);
     const [confirmRemove, setConfirmRemove] = useState({ open: false, id: undefined });
+    const [handleCancelbyUser, setHandleCancelbyUser] = useState(null);
+
 
     const columnList = [ // column list
-      { header: "Sportoviště", label: "sportsFieldId", icon: "uugds-view-list", value: "sportsFieldId" },
-      { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs", 
-      cellComponent:<Uu5TilesElements.Table.Cell><Uu5Elements.DateTime /> </Uu5TilesElements.Table.Cell> },
-      { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs", 
-      cellComponent: <Uu5TilesElements.Table.Cell><Uu5Elements.DateTime /> </Uu5TilesElements.Table.Cell>  },
+      { header: "Sportoviště", label: "sportsFieldName", icon: "uugds-view-list", value: "sportsFieldName" },
+      { header: "Rezervace Od", label: "startTs", icon: "uugds-view-liste", value: "startTs" },
+      { header: "Rezervace Do", label: "endTs", icon: "uugds-view-liste", value: "endTs"},
       { header: "Stav", label: "state", icon: "uugds-view-liste", value: "state" },
       { header: "Důvod zrušení", label: "cancelReason", icon: "uugds-view-liste", value: "cancelReason" },
     ];
@@ -66,6 +68,8 @@ const View = createVisualComponent({
         {
           icon: "uugds-delete",
           tooltip: "Delete item",
+          colorScheme: "orange",
+          disabled: filter === false,
           onClick: (e) => {
             setConfirmRemove({ open: true, id: data.id }),
             setOpen(true);
@@ -74,18 +78,41 @@ const View = createVisualComponent({
       ];
     };
 
-    const VIEW_LIST = [ // view list
+
+    const viewListOwnReservation = [ // view list
       { label: "Table", icon: "uugds-view-list", value: "table" },
       { label: "Grid", icon: "uugds-view-grid", value: "grid" },
     ];
 
+    useEffect(() => { // set view to grid s & xs screen size
+      if (screenSize === "xs" || screenSize === "s") {  
+        setView("grid");
+      } else {
+        setView("table");
+      }
+    }, [screenSize]);
+
     const { dataObject } = props;
     const { state, data, handlerMap } = dataObject;
     const [filter, setFilter] = useState(true);
+    const dtoIn = { id: confirmRemove.id };
 
+    const handleCancelReservation = async  () => {
+
+      const reservation = data.find(
+        (item) => item.data.id === confirmRemove.id
+      )
+
+      await reservation.handlerMap.cancelByUser(dtoIn);
+
+      setConfirmRemove({ open: false, id: undefined });
+      setOpen(false);
+    };
+    
     const dataToRender = useMemo(() => { // filter data
       return data?.filter((dataItem) => dataItem);
     }, [data]);
+
     const filteredData = Array.isArray(dataToRender)
     ? dataToRender.filter( 
       itemData =>
@@ -93,6 +120,24 @@ const View = createVisualComponent({
     )
     : [];
 
+    const formatedAndIdData = filteredData.map((item) => { // format date && replace sportsFieldId with name
+      const data = item.data || {};
+    
+      const { sportsFieldId, startTs, endTs, id } = data;
+
+      const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
+      const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
+
+      return { // return formated data
+        startTs: formattedStartTs || "Unknown",
+        endTs: formattedEndsTs || "Unknown",
+        sportsFieldName: data.sportsFieldName || "Unknown",
+        cancelReason: data.cancelReason || "-",
+        state: data.state || "Unknown",
+        id: id || "Unknown",
+      };
+    });
+    
     //@@viewOff:private
     //@@viewOn:render
 
@@ -115,24 +160,26 @@ const View = createVisualComponent({
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {(state === "ready" || state === "pending") && (
-              
-              <Uu5Tiles.ViewProvider viewList={VIEW_LIST} value={view} onChange={(e) => setView(e.data.value)}>
+              <Uu5Tiles.ViewProvider  
+              viewList={viewListOwnReservation} 
+              value={view} 
+              onChange={(e) => setView(e.data.value)}>
+
               <Uu5Elements.Block actionList={[{ component: <Uu5TilesControls.ViewButton /> }]}>
                 <Uu5TilesElements.List
-                  data={filteredData}
-                  columnList={columnList
-                  }
+                  colorScheme="warning"
+                  data={formatedAndIdData}
+                  columnList={columnList}
                   tileMinWidth={280}
                   tileMaxWidth={300}
-                  view={view}
+                  view={view} 
                   getActionList={getActionList}
                 >
                   <Uu5TilesElements.Grid.DefaultTile
                     header={
                       <Uu5Elements.Text category="interface" segment="title" type="micro">
                          Rezervace 
-                      </Uu5Elements.Text>
-                    }
+                      </Uu5Elements.Text>}
                   />
                 </Uu5TilesElements.List>
               </Uu5Elements.Block>
@@ -150,18 +197,21 @@ const View = createVisualComponent({
         <Uu5Elements.Dialog  // confirm delete dialog
           open={open}
           onClose={() => setOpen(false)}
-          header="Smazat tuto rezervaci?"
+          header="Zrušit tuto rezervaci?"
           icon={<Uu5Elements.Svg code="uugdssvg-svg-delete" />}
-          info="Rezervaci nelze obnovit"
+          info="Rezervace sportoviště bude zrušena"
           actionDirection="horizontal"
           actionList={[
             {
-              children: "Zrušit"  ,
+              children: "Zpět"  ,
               onClick: () => setOpen(false), // TODO set item to detete to null
             },
             {
-              children: "Smazat",
-              onClick: () =>  setOpen(false), // TODO delete reservation
+              children: "Potvrdit",
+              onClick: () => {
+                setHandleCancelbyUser({ callback: handlerMap.update, dtoIn: dtoIn });
+                handleCancelReservation();
+              },
               colorScheme: "red",
               significance: "highlighted",
             },

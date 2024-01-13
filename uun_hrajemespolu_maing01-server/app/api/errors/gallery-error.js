@@ -35,7 +35,28 @@ const Get = {
   }
 };
 
+const Update = {
+  UC_CODE: `${GALLERY_ERROR_PREFIX}update/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  GalleryDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}galleryDoesNotExist`;
+      this.message = "Gallery does not exist.";
+    }
+  }
+};
+
 module.exports = {
+  Update,
   Get,
   Create
 };

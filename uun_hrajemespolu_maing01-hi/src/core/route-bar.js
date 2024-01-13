@@ -1,15 +1,21 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, useRoute } from "uu5g05";
+import { createVisualComponent, useRoute, Utils } from "uu5g05";
 import Plus4U5App from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
-import importLsi from "../lsi/import-lsi.js";
+import Uu5Elements from "uu5g05-elements";
+import image from '../assets/hrajemeSpoluLogoWidth.png'
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
 
 //@@viewOn:css
+const Css = {
+  main: () => Config.Css.css({
+    backgroundColor: "#F0F0F0",
+    height: "59px"
+  }),
+};
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -33,16 +39,9 @@ const RouteBar = createVisualComponent({
     const [, setRoute] = useRoute();
 
     const appActionList = [
-      { children: <Lsi import={importLsi} path={["Menu", "home"]} />, onClick: () => setRoute("home") },
       {
-        children: <Lsi import={importLsi} path={["Menu", "about"]} />,
-        onClick: () => setRoute("about"),
-        collapsed: true,
-      },
-      {
-        children: <Lsi import={importLsi} path={["Menu", "reservationList"]} />,
+        children: "My reservations",
         onClick: () => setRoute("reservationList"),
-        collapsed: true,
       }
     ];
     //@@viewOff:private
@@ -51,7 +50,22 @@ const RouteBar = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    return <Plus4U5App.RouteBar appActionList={appActionList} {...props} />;
+
+    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+
+    return <div>
+      <Uu5Elements.Grid {...attrs} templateColumns="auto auto 80px" alignItems="center" >
+        <Uu5Elements.Grid.Item>
+          <Uu5Elements.Link href="home">
+            <img href='home' src={image} width="150px" />
+          </Uu5Elements.Link>
+        </Uu5Elements.Grid.Item>
+        <Uu5Elements.Grid.Item >
+          <Uu5Elements.ActionGroup itemList={appActionList}></Uu5Elements.ActionGroup>
+        </Uu5Elements.Grid.Item>
+      </Uu5Elements.Grid>
+      <Plus4U5App.Plus4UButton />
+    </div>
     //@@viewOff:render
   },
 });
