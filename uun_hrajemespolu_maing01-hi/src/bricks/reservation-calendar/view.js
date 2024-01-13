@@ -209,7 +209,7 @@ const View = createVisualComponent({
             className={Css.scheduler()}
             date={date}
             rowList={rowList}
-            onSlotSelect={identity !== null && handleSlotSelect}
+            onSlotSelect={identity !== null ? handleSlotSelect : undefined}
             displayRowLabel={false}
             step={30}
             hourFrom={OPEN_HOURS_FROM}
