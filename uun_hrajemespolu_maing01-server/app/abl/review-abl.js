@@ -138,6 +138,7 @@ class ReviewAbl {
     // Vytvoření objektu pro vložení do databáze
     dtoIn.awid = awid;
     dtoIn.uuIdentity = user.getUuIdentity();
+    dtoIn.uuIdentityName = user.getName();
 
     let newReview = await this.dao.create(dtoIn);
 
