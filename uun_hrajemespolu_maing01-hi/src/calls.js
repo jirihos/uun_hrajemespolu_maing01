@@ -105,6 +105,11 @@ const Calls = {
     const commandUri = Calls.getCommandUri("review/update");
     return await Calls.call("post", commandUri, dtoIn);
   },
+
+  async reviewDelete(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/delete");
+    return await Calls.call("post", commandUri, dtoIn);
+  },
 };
 
 export default Calls;

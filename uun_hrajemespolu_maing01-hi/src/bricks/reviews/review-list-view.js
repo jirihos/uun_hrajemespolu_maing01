@@ -50,7 +50,7 @@ const ReviewListView = createVisualComponent({
     const systemDataObject = useSystemData();
 
     let profileList = systemDataObject?.data?.profileData?.uuIdentityProfileList;
-    let canDeleteReservation = profileList !== undefined ? (profileList.includes("Authenticated") || profileList.includes("Executives")) : false;
+    let isExecutive = profileList !== undefined ? profileList.includes("Executives") : false;
     //@@viewOff:private
 
 
@@ -71,7 +71,7 @@ const ReviewListView = createVisualComponent({
 
           dataObject.data.itemList.map((review) => {
              return (
-             <ReviewView key={review.id} review={review} canDelete={canDeleteReservation} session={identity} />
+              <ReviewView key={review.id} review={review} canDelete={isExecutive} session={identity} reload={() => { dataObject.handlerMap.load(); }} />
              )}
           ))
         }

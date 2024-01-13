@@ -5,6 +5,7 @@ import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { Rating } from "uu5g04-bricks";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
+import Calls from "calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -104,7 +105,7 @@ const ReviewView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { review, canDelete, session, children } = props;
+    const { review, canDelete, session, reload } = props;
     const [show, setShow] = useState(false);
     const [screenSize] = useScreenSize();
     let size = "";
@@ -113,6 +114,14 @@ const ReviewView = createVisualComponent({
       size = "s";
     } else {
       size = "m";
+    }
+
+    function handleDelete() {
+      Calls.reviewDelete({
+        id: review.id,
+      }).then(() => {
+        reload();
+      });
     }
 
     //@@viewOn:interface
@@ -145,7 +154,7 @@ const ReviewView = createVisualComponent({
           </div>
 
           <div className={Css.footer()}>
-            {canDelete === false /*TODO Upravit po fixnutí profileListu na TRUE*/ && (
+            {(session?.uuIdentity === review.uuIdentity || canDelete) && (
               <>
                 <Uu5Elements.Button className={Css.reviewButton()} onClick={() => setShow(true)}>
                   Smazat
@@ -162,7 +171,7 @@ const ReviewView = createVisualComponent({
           icon="uugds-delete"
           actionDirection="horizontal"
           actionList={[
-            { children: "Confirm", colorScheme: "primary", significance: "highlighted" /*TODO DELETE*/ },
+            { children: "Confirm", colorScheme: "red", significance: "highlighted", onClick: handleDelete },
             { children: "Cancel" },
           ]}
         ></Uu5Elements.Dialog>
