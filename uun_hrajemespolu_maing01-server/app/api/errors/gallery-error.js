@@ -55,7 +55,29 @@ const Update = {
   }
 };
 
+const Delete = {
+  UC_CODE: `${GALLERY_ERROR_PREFIX}delete/`,
+
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  GalleryDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}galleryDoesNotExist`;
+      this.message = "Gallery does not exist.";
+    }
+  }
+  
+};
+
 module.exports = {
+  Delete,
   Update,
   Get,
   Create

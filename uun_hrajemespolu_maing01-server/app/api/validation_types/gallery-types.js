@@ -31,3 +31,6 @@ const galleryGetDtoInType = shape({
     id: id().isRequired()
   });
   
+const galleryDeleteDtoInType = shape({
+    id: id().isRequired()
+  });

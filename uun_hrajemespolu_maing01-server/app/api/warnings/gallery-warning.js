@@ -15,6 +15,11 @@ const Warnings = {
       UnsupportedKeys: {
         code: `${Errors.Get.UC_CODE}unsupportedKeys`,
       },
+    },
+    Delete: {
+      UnsupportedKeys: {
+        code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
+      },
     }
 };
 

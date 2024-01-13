@@ -61,14 +61,14 @@ const Delete = {
   InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.code = `${Delete.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
   SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}sportsFieldDoesNotExist`;
+      this.code = `${Delete.UC_CODE}sportsFieldDoesNotExist`;
       this.message = "Sports field does not exist.";
     }
   },

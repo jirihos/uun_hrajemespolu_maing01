@@ -132,6 +132,11 @@
         "realization": "api/controllers/SportsFieldController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "gallery/delete": {
+        "realization": "api/controllers/GalleryController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
