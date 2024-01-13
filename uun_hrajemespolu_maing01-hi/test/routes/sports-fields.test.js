@@ -1,14 +1,17 @@
 import UunHrajemeSpolu from "uun_hrajemespolu_maing01-hi";
-import { mount, wait } from "uu5g05-test";
+import { testProperties } from "uu5g05-test";
+
+const CONFIG = {
+  props: {
+    // left: {
+    //   values: ["Left as text", <span key="l">Left as JSX</span>, 0],
+    // },
+  },
+  requiredProps: {
+    // children: "Children content",
+  },
+};
 
 describe(`UunHrajemeSpolu.Routes.SportsFields`, () => {
-  // it("onLoad", async () => {
-  //   let onLoad = jest.fn(async () => ({ content: "Hello, world!" }));
-  //   let loadDtoIn = { foo: "bar" };
-  //   let wrapper = mount(<UunHrajemeSpolu.Routes.SportsFields onLoad={onLoad} loadDtoIn={loadDtoIn} />);
-  //   expect(onLoad).toHaveBeenCalledTimes(1);
-  //   expect(onLoad).lastCalledWith(loadDtoIn);
-  //   await wait();
-  //   expect(wrapper.text()).toContain("Hello, world!");
-  // });
+  testProperties(UunHrajemeSpolu.Routes.SportsFields, CONFIG);
 });

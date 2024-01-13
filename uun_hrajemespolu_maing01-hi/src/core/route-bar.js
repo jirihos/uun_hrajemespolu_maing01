@@ -42,6 +42,10 @@ const RouteBar = createVisualComponent({
       {
         children: "My reservations",
         onClick: () => setRoute("reservationList"),
+      },
+      {
+        children: "Sports fields",
+        onClick: () => setRoute("sportsFields"),
       }
     ];
     //@@viewOff:private
