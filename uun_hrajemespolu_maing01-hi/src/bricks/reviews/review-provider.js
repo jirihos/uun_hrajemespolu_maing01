@@ -35,11 +35,13 @@ const ReviewProvider = createComponent({
 
     const dataObject = useDataObject({
       handlerMap: {
-        getByUser: (dtoIn) => {
+        load: () => {
+          const dtoIn = {};
           dtoIn.sportsFieldId = sportsFieldId;
           dtoIn.uuIdentity = uuIdentity;
           return Calls.reviewGetByUser(dtoIn);
         },
+
         create: async (dtoIn) => {
           dtoIn.sportsFieldId = sportsFieldId;
           dtoIn.uuIdentity = uuIdentity;
@@ -52,6 +54,7 @@ const ReviewProvider = createComponent({
           }
           return result;
         },
+
         update: async (dtoIn) => {
           dtoIn.sportsFieldId = sportsFieldId;
           dtoIn.uuIdentity = uuIdentity;
