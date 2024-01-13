@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, useState, useMemo, useScreenSize, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useState, useMemo, useScreenSize, useEffect, useSession } from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import Uu5Calendar from "uu5calendarg01";
@@ -58,6 +58,8 @@ const View = createVisualComponent({
     const { state, data, handlerMap } = dataList;
 
     const [screenSize] = useScreenSize();
+
+    const { identity } = useSession(); 
 
     const [date, setDate] = useState(() => {
       let currentDate = new Date().toISOString().split("T")[0];
@@ -218,7 +220,7 @@ const View = createVisualComponent({
 
         {selection &&
           <div className={Css.center()}>
-            <Uu5Elements.Button colorScheme="primary" onClick={() => setShowConfirm(true)}>Make a reservation</Uu5Elements.Button>
+            <Uu5Elements.Button colorScheme="primary" disabled={identity === null} onClick={() => setShowConfirm(true)}>Make a reservation</Uu5Elements.Button>
           </div>
         }
 
