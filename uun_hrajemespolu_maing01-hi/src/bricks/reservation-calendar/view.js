@@ -196,7 +196,7 @@ const View = createVisualComponent({
           <Uu5Elements.Calendar value={date} onSelect={handleDaySelect} />
         </Uu5Elements.Box>
 
-        {(state === "error" || state === "errorNoData") ? <Error message='Error when loading calendar' /> :
+        {(state === "error" || state === "errorNoData") ? <Error message='Error when loading reservation times' /> :
           <Uu5Calendar.Scheduler
             className={Css.scheduler()}
             date={date}

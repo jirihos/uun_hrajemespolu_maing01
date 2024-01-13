@@ -9,6 +9,7 @@ import Uu5Tiles from "uu5tilesg02";
 import CancelByAdminModal from "./cancel-by-admin-modal.js";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { AuthenticationService } from "uu_appg01_oidc";
+import Error from "../error.js";
 
 //@@viewOff:imports
 
@@ -163,7 +164,7 @@ const View = createVisualComponent({
           />
       </div>        
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error' />}
         {(state === "ready" || state === "pending") && (
             <Uu5Tiles.ViewProvider  
               viewList={viewListSportsFieldReservation} 
