@@ -174,15 +174,15 @@ const View = createVisualComponent({
 
       return (
         <Uu5Elements.Grid templateColumns="auto auto" className={Config.Css.css({ margin: "20px 5px" })}>
-          <SubduedText>Sports field</SubduedText>
+          <SubduedText>Sportoviště</SubduedText>
           <Text>{sportsFieldName}</Text>
 
-          <SubduedText>From</SubduedText>
+          <SubduedText>Od</SubduedText>
           <Text>
             <Uu5Elements.DateTime value={selection.dateTimeFrom} />
           </Text>
 
-          <SubduedText>To</SubduedText>
+          <SubduedText>Do</SubduedText>
           <Text>
             <Uu5Elements.DateTime value={selection.dateTimeTo} />
           </Text>
@@ -209,7 +209,7 @@ const View = createVisualComponent({
             className={Css.scheduler()}
             date={date}
             rowList={rowList}
-            onSlotSelect={handleSlotSelect}
+            onSlotSelect={identity !== null && handleSlotSelect}
             displayRowLabel={false}
             step={30}
             hourFrom={OPEN_HOURS_FROM}
@@ -220,20 +220,20 @@ const View = createVisualComponent({
 
         {selection &&
           <div className={Css.center()}>
-            <Uu5Elements.Button colorScheme="primary" disabled={identity === null} onClick={() => setShowConfirm(true)}>Make a reservation</Uu5Elements.Button>
+            <Uu5Elements.Button colorScheme="primary" onClick={() => setShowConfirm(true)}>Vytvořit rezervaci</Uu5Elements.Button>
           </div>
         }
 
         <Uu5Elements.Dialog
           open={showConfirm}
           onClose={() => setShowConfirm(false)}
-          header="Create a reservation"
+          header="Vytvořit rezervaci"
           info={renderSelectedReservationInfo()}
           width={screenSize === "xs" ? "full" : null}
           actionDirection="horizontal"
           actionList={[
-            { children: "Confirm", colorScheme: "primary", significance: "highlighted", onClick: handleCreate},
-            { children: "Cancel"}
+            { children: "Potvrdit", colorScheme: "primary", significance: "highlighted", onClick: handleCreate},
+            { children: "Zrušit"}
           ]}
         ></Uu5Elements.Dialog>
 
