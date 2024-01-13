@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import Provider from "../bricks/sports-field-reservations-provider.js";
 import SportsFieldReservationView from "./sports-field-reservations-list/view.js";
 import Config from "./config/config.js";
@@ -24,7 +24,9 @@ const SportsFieldReservationsList = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    sportsFieldId: PropTypes.string.isRequired,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -33,7 +35,7 @@ const SportsFieldReservationsList = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    const { sportsFieldId } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -45,7 +47,7 @@ const SportsFieldReservationsList = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <Provider sportsFieldId={"65894765e3ba36065c68c048"} loadFull={true} skipInitialLoad={false}>
+        <Provider sportsFieldId={sportsFieldId} loadFull={true} skipInitialLoad={false}>
           {(dataObject) => <SportsFieldReservationView dataObject={dataObject} />}
         </Provider>
       </div>

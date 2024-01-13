@@ -3,7 +3,6 @@ import { createVisualComponent, Utils, Content } from "uu5g05";
 import Config from "./config/config.js";
 import Provider from "./own-reservation-list/provider.js";
 import View from "./own-reservation-list/view.js";
-import SportsFieldReservationsList from "./sports-field-reservations-list.js"; // TODO: remove this
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -49,7 +48,6 @@ const OwnReservationList = createVisualComponent({
         <Provider>
           {(dataObject) => <View dataObject={dataObject} />}
         </Provider>
-        <SportsFieldReservationsList/>
       </div>
     ) : null;
     //@@viewOff:render

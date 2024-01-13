@@ -1,6 +1,7 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { PropTypes, createComponent, useDataObject } from "uu5g05";
 import Config from "./config/config.js";
+import Calls from "calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -15,7 +16,9 @@ const SportsFieldProvider = createComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    sportsFieldId: PropTypes.string.isRequired,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -24,14 +27,23 @@ const SportsFieldProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    const { sportsFieldId, children } = props;
+
+    const dataObject = useDataObject({
+      handlerMap: {
+        load: () => {
+          const dtoIn = { id: sportsFieldId };
+          return Calls.sportsFieldGet(dtoIn);
+        },
+      },
+    });
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    return children ?? null;
+    return typeof children === "function" ? children(dataObject) : children;
     //@@viewOff:render
   },
 });
