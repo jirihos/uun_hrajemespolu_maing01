@@ -15,7 +15,9 @@ import Error from "../error.js";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    padding: "16px",
+  }),
   centerImage: () =>
     Config.Css.css({
       margin: "auto",
@@ -161,6 +163,7 @@ const View = createVisualComponent({
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Loading error reservation list' />}
         {(state === "ready" || state === "pending") && (
+          
               <Uu5Tiles.ViewProvider  
               viewList={viewListOwnReservation} 
               value={view} 
@@ -190,7 +193,7 @@ const View = createVisualComponent({
         <div className="center">     
         <Uu5Elements.Button // load next button
         disabled={state === "pending" || state === "pendingNoData"}
-         className={Config.Css.css({  padding: 6 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}>
+         className={Config.Css.css({  margin: 16 })} width={300} effect="upper" onClick={() => handlerMap.loadNext()}>
           Načíst další rezervace
         </Uu5Elements.Button> 
 

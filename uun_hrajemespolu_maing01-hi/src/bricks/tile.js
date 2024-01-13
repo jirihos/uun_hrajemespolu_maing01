@@ -10,7 +10,9 @@ import Uu5Elements from "uu5g05-elements";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    padding: "16px",
+  }),
   layout: (padding, gap) => {
     let styles = {};
     if (padding) {
@@ -83,6 +85,8 @@ const Tile = createVisualComponent({
       setRoute("sportsFieldDetail", { id: props.data.data.id });
     }
 
+    console.log("propsJirka", props.data.data.firstImage);
+
     return currentNestingLevel ? (
       <>
       <Uu5Elements.Tile
@@ -94,11 +98,13 @@ const Tile = createVisualComponent({
         {({ padding }) => {
           return (
             <>
+            {props.data.data.firstImage !== null && (
               <img
                 src={`${props.data.data.firstImage.imageURL}`}
                 alt={props.data.data.firstImage.imageName}
                 className={Css.image(false)}
               />
+              )}
               <div className={Css.layout(padding, fixedC)}>
                 <Uu5Elements.Text {...titleStyles} colorScheme="green">
                   {props.data.data.sportsFieldName}
