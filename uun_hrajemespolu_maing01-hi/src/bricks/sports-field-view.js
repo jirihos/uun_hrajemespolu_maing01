@@ -68,7 +68,7 @@ const SportsFieldView = createVisualComponent({
 
             <Uu5Elements.Block header={data.sportsFieldName}>{data.sportsFieldDesc}</Uu5Elements.Block>
 
-            <ReservationCalendar sportsFieldId={data.id} />
+            <ReservationCalendar sportsFieldId={data.id} sportsFieldName={data.sportsFieldName} />
 
             {isExecutives && <SportsFieldReservationsList sportsFieldId={data.id} />}
 

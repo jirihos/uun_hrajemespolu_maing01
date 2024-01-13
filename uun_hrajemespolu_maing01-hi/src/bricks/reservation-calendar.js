@@ -26,6 +26,7 @@ const ReservationCalendar = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     sportsFieldId: PropTypes.string.isRequired,
+    sportsFieldName: PropTypes.string.isRequired,
   },
   //@@viewOff:propTypes
 
@@ -35,7 +36,7 @@ const ReservationCalendar = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { sportsFieldId } = props;
+    const { sportsFieldId, sportsFieldName } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -47,7 +48,7 @@ const ReservationCalendar = createVisualComponent({
 
     return currentNestingLevel ? (
       <SportsFieldReservationsProvider sportsFieldId={sportsFieldId} pageSize={48} {...attrs}>
-        {(dataList) => <View dataList={dataList} />}
+        {(dataList) => <View dataList={dataList} sportsFieldName={sportsFieldName} />}
       </SportsFieldReservationsProvider>
     ) : null;
     //@@viewOff:render
