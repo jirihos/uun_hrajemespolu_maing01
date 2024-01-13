@@ -46,7 +46,9 @@ const ReservationList = createVisualComponent({
     return currentNestingLevel ? (
       <div>
         <RouteBar />
-        <OwnReservationList />
+        <div className={Config.Css.css({  margin: "0 20px" })}>
+          <OwnReservationList />
+        </div>
       </div>
     ) : null;
     //@@viewOff:render

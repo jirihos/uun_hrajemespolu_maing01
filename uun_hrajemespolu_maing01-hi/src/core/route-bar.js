@@ -40,11 +40,11 @@ const RouteBar = createVisualComponent({
 
     const appActionList = [
       {
-        children: "My reservations",
+        children: "Moje rezervace",
         onClick: () => setRoute("reservationList"),
       },
       {
-        children: "Sports fields",
+        children: "Sportoviště",
         onClick: () => setRoute("sportsFields"),
       }
     ];

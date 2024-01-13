@@ -64,7 +64,7 @@ const SportsFieldListView = createVisualComponent({
         {( state === "pendingNoData") && <Uu5Elements.Pending />} 
         {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>}
         {(state === "ready" || state === "pending") && (
-            <Uu5TilesElements.Grid data={data} tileMinWidth={250} tileMaxWidth={280}>
+            <Uu5TilesElements.Grid data={data} tileMinWidth={250} tileMaxWidth={500} verticalGap={16} horizontalGap={16} > 
               <Tile/>
             </Uu5TilesElements.Grid>
             )}

@@ -31,9 +31,8 @@ const Provider = createComponent({
         load: Calls.listOwn
       },
       
-      pageSize: 4,
+      pageSize: 6,
       
-
       itemHandlerMap: {
         cancelByUser: async(dtoIn) => {
           await Calls.reservationCancelByUser(dtoIn);
