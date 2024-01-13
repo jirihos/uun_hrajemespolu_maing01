@@ -82,11 +82,13 @@ const Reviews = createVisualComponent({
     function handleAddReview() {
       setOpen(true);
     }
+
+
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
-// uuIdentity={identity.uuIdentity}
+    // uuIdentity={identity.uuIdentity}
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     const buttonAttrs = Css.button();
@@ -95,25 +97,36 @@ const Reviews = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
-        { identity !== null && <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity} >
-          {(dataObject) => (
-            <div {...attrs}>
-              <EditReviewModal
-                sportsFieldId={sportsFieldId}
-                open={open}
-                onClose={() => setOpen(false)}
-                onCreate={(values) => {
-                  setOpen(false);
-                  dataObject.handlerMap.create(values);
-                }}
-                onUpdate={(reviewId, values) => setOpen(false)}
-              />
-              <Uu5Elements.Button {...buttonAttrs} onClick={handleAddReview}>
-                {"Review " + (dataObject.state === "ready" ? "edit" : "add")}
-              </Uu5Elements.Button>
-            </div>
-          )}
-        </ReviewProvider>}
+        {identity !== null && (
+          <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity}>
+            {(dataObject) => (
+              <div {...attrs}>
+                {open && (
+                  <EditReviewModal
+                    sportsFieldId={sportsFieldId}
+                    reviewId={dataObject.state === "ready" ? dataObject.data.id : null}
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    onCreate={(values) => {
+                      setOpen(false);
+                      dataObject.handlerMap.create(values);
+                    }}
+                    onUpdate={(reviewId, values) => {
+                      setOpen(false);
+                      values.id = reviewId;
+                      dataObject.handlerMap.update(values);
+                    }}
+                    initialText={dataObject.state === "ready" ? dataObject.data.text : null}
+                    initialRating={dataObject.state === "ready" ? dataObject.data.rating : null}
+                  />
+                )}
+                <Uu5Elements.Button {...buttonAttrs} onClick={handleAddReview}>
+                  {"Recenze " + (dataObject.state === "ready" ? "upravit" : "přidat")}
+                </Uu5Elements.Button>
+              </div>
+            )}
+          </ReviewProvider>
+        )}
         <div {...reviewListProviderAttrs}>
           <RevieListProvider sportsFieldId={sportsFieldId}>
             {(dataObject) => <ReviewListView dataObject={dataObject} />}

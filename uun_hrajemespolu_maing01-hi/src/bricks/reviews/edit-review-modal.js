@@ -11,7 +11,8 @@ import Uu504 from "uu5g04";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css(`
+  main: () =>
+    Config.Css.css(`
     .uu5-bricks-modal-header {
       padding: 16px 24px;
       background-color: #EEEEEE; 
@@ -69,7 +70,6 @@ const EditReviewModal = createVisualComponent({
     function handleSubmit(event) {
       event.preventDefault();
       const values = { text: event.data.value.text, rating };
-      // console.log("values", values);
       if (!reviewId) {
         onCreate(values);
       } else {
@@ -94,7 +94,7 @@ const EditReviewModal = createVisualComponent({
         <Uu5Elements.Modal
           open={props.open}
           onClose={onClose}
-          header={"Review " + (reviewId ? "edit" : "add")}
+          header={"Recenze " + (reviewId ? "upravit" : "přidat")}
           footer={
             <div>
               <Uu5Forms.CancelButton onClick={onClose} />
@@ -103,7 +103,7 @@ const EditReviewModal = createVisualComponent({
           }
         >
           <Uu5Forms.Form.View>
-            <Uu5Forms.FormTextArea name="text" label={props.nameLabel} required />
+            <Uu5Forms.FormTextArea name="text" label={props.nameLabel} initialValue={props.initialText} required />
             <Uu504.Bricks.Rating count={5} size="l" value={rating} onClick={handleRatingClick} colorSchema="blue" />
           </Uu5Forms.Form.View>
         </Uu5Elements.Modal>

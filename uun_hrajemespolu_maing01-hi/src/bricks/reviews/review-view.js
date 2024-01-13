@@ -148,7 +148,7 @@ const ReviewView = createVisualComponent({
             {canDelete === false /*TODO Upravit po fixnutí profileListu na TRUE*/ && (
               <>
                 <Uu5Elements.Button className={Css.reviewButton()} onClick={() => setShow(true)}>
-                  Delete
+                  Smazat
                 </Uu5Elements.Button>
               </>
             )}
