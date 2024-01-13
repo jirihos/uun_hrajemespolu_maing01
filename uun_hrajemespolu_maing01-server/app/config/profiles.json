@@ -92,6 +92,10 @@
       "sportsField/delete": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
+      },
+      "gallery/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives"]
       }
     }
   }

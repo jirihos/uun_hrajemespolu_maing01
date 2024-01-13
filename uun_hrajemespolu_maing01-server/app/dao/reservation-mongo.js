@@ -59,11 +59,13 @@ class ReservationMongo extends UuObjectDao {
     const filter = {
       awid,
       uuIdentity,
-    }
-
+    };
   
-
-    return await super.find(filter, pageInfo);
+    const sort = {
+      ["startTs"]: 1
+    };
+  
+    return await super.find(filter, pageInfo, sort);
   }
 
   

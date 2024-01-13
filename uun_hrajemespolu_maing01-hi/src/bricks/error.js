@@ -1,6 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, Utils, Content, PropTypes } from "uu5g05";
 import Config from "./config/config.js";
+import Uu5Elements from "uu5g05-elements";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -15,14 +16,16 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const EditReviewModal = createVisualComponent({
+const Error = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "EditReviewModal",
+  uu5Tag: Config.TAG + "Error",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    message: PropTypes.string.isRequired
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -31,7 +34,7 @@ const EditReviewModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    const { message } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -39,19 +42,28 @@ const EditReviewModal = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, EditReviewModal);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, Error);
 
     return currentNestingLevel ? (
-      <div {...attrs}>
-        <div>Visual Component {EditReviewModal.uu5Tag}</div>
-        <Content nestingLevel={currentNestingLevel}>{children}</Content>
-      </div>
+      <Uu5Elements.Block
+        card="full"
+        colorScheme= 'red'
+        significance= 'highlighted'
+        style={{
+          margin: '10px' 
+        }}
+
+      >   
+        <Uu5Elements.Text category="story" segment="heading" type="h4">
+          {message}
+        </Uu5Elements.Text>
+      </Uu5Elements.Block>
     ) : null;
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { EditReviewModal };
-export default EditReviewModal;
+export { Error };
+export default Error;
 //@@viewOff:exports

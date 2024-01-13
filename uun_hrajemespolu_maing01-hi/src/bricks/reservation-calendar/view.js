@@ -3,6 +3,7 @@ import { createVisualComponent, Utils, PropTypes, useState, useMemo, useScreenSi
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import Uu5Calendar from "uu5calendarg01";
+import Error from "../error.js"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -43,6 +44,7 @@ const View = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     dataList: PropTypes.object.isRequired,
+    sportsFieldName: PropTypes.string.isRequired,
   },
   //@@viewOff:propTypes
 
@@ -52,7 +54,7 @@ const View = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { dataList } = props;
+    const { dataList, sportsFieldName } = props;
     const { state, data, handlerMap } = dataList;
 
     const [screenSize] = useScreenSize();
@@ -64,6 +66,11 @@ const View = createVisualComponent({
     const [selection, setSelection] = useState(null);
     const [showConfirm, setShowConfirm] = useState(false);
     const [customError, setCustomError] = useState(null);
+
+    let today = new Date();
+    let minDate = today.toISOString().split("T")[0];
+    today.setFullYear(today.getFullYear()+1);
+    let maxDate = today.toISOString().split("T")[0];
 
     // data for Scheduler component
     let rowList = useMemo(() => {
@@ -166,7 +173,7 @@ const View = createVisualComponent({
       return (
         <Uu5Elements.Grid templateColumns="auto auto" className={Config.Css.css({ margin: "20px 5px" })}>
           <SubduedText>Sports field</SubduedText>
-          <Text>TODO name of sports field</Text> {/* TODO name of sports field */}
+          <Text>{sportsFieldName}</Text>
 
           <SubduedText>From</SubduedText>
           <Text>
@@ -192,11 +199,10 @@ const View = createVisualComponent({
     return currentNestingLevel ? (
       <div {...attrs}>
         <Uu5Elements.Box className={Css.calendarBox(screenSize)}>
-          <Uu5Elements.Calendar value={date} onSelect={handleDaySelect} />
+          <Uu5Elements.Calendar min={minDate} max={maxDate} value={date} onSelect={handleDaySelect} />
         </Uu5Elements.Box>
 
-        {/* TODO error */}
-        {(state === "error" || state === "errorNoData") ? <h1>Error</h1> :
+        {(state === "error" || state === "errorNoData") ? <Error message='Error when loading calendar' /> :
           <Uu5Calendar.Scheduler
             className={Css.scheduler()}
             date={date}

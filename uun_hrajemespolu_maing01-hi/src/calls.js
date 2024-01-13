@@ -18,6 +18,11 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  galleryDelete(dtoIn) {
+    const commandUri = Calls.getCommandUri("gallery/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   sportsFieldGet(dtoIn) {
     const commandUri = Calls.getCommandUri("sportsField/get");
     return Calls.call("get", commandUri, dtoIn);
@@ -89,6 +94,16 @@ const Calls = {
 
   getCommandUri(useCase, baseUri = Environment.appBaseUri) {
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
+  },
+
+  async reviewCreate(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/create");
+    return await Calls.call("post", commandUri, dtoIn);
+  },
+
+  async reviewUpdate(dtoIn) {
+    const commandUri = Calls.getCommandUri("review/update");
+    return await Calls.call("post", commandUri, dtoIn);
   },
 };
 
