@@ -86,7 +86,7 @@ const Reviews = createVisualComponent({
 
     //@@viewOn:interface
     //@@viewOff:interface
-
+// uuIdentity={identity.uuIdentity}
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     const buttonAttrs = Css.button();
@@ -95,7 +95,7 @@ const Reviews = createVisualComponent({
 
     return currentNestingLevel ? (
       <>
-        <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity}>
+        { identity !== null && <ReviewProvider sportsFieldId={sportsFieldId} uuIdentity={identity.uuIdentity} >
           {(dataObject) => (
             <div {...attrs}>
               <EditReviewModal
@@ -113,7 +113,7 @@ const Reviews = createVisualComponent({
               </Uu5Elements.Button>
             </div>
           )}
-        </ReviewProvider>
+        </ReviewProvider>}
         <div {...reviewListProviderAttrs}>
           <RevieListProvider sportsFieldId={sportsFieldId}>
             {(dataObject) => <ReviewListView dataObject={dataObject} />}

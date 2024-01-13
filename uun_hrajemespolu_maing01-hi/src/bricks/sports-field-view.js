@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useSession } from "uu5g05";
 import { useSubAppData, useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import GalleryProvider from "../bricks/gallery-provider.js";
@@ -46,8 +46,18 @@ const SportsFieldView = createVisualComponent({
     const { dataObject } = props;
     const { state, data } = dataObject;
     const systemDataObject = useSystemData();
-    const profileList = systemDataObject.data.profileData.uuIdentityProfileList;
-    const isExecutives = profileList.includes("Executives");
+
+    let isExecutives = "";
+    let profileList = "";
+
+    const { identity } = useSession();
+    
+    if (identity !== null) {
+      profileList = systemDataObject.data.profileData.uuIdentityProfileList;
+      isExecutives = profileList.includes("Executives");
+      }
+
+
     const { a, b, c, d } = Uu5Elements.useSpacing();
     //@@viewOff:private
     console.log(data);
