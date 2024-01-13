@@ -16,6 +16,7 @@ const Css = {
       margin: "auto",
       width: "100%",
       objectFit: "cover",
+      maxHeight: "600px",
     }),
 };
 //@@viewOff:css
