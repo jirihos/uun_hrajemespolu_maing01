@@ -18,6 +18,11 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  galleryDelete(dtoIn) {
+    const commandUri = Calls.getCommandUri("gallery/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   sportsFieldGet(dtoIn) {
     const commandUri = Calls.getCommandUri("sportsField/get");
     return Calls.call("get", commandUri, dtoIn);

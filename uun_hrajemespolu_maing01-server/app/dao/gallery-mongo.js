@@ -18,6 +18,16 @@ class GalleryMongo extends UuObjectDao {
   async get(awid, id) {
     return await super.findOne({ awid, id });
   }
+
+  async delete(uuObject) {
+    
+    const filter = {
+      awid: uuObject.awid,
+      id: uuObject.id
+    }
+
+    return await super.deleteOne(filter);
+  }
 }
 
 module.exports = GalleryMongo;

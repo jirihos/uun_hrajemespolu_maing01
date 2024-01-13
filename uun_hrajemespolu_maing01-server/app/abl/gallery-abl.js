@@ -13,6 +13,31 @@ class GalleryAbl {
     this.dao = DaoFactory.getDao("gallery");
   }
 
+  async delete(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("galleryDeleteDtoInType", dtoIn)
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Delete.UnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    let gallery = await this.dao.get(awid, dtoIn.id)
+
+    if (!gallery) {
+      throw new Errors.Delete.GalleryDoesNotExist({ uuAppErrorMap }, { galleryId: dtoIn.id });
+    }
+
+    await this.dao.delete(gallery);
+
+    return { uuAppErrorMap };
+    
+  }
+
   async update(awid, dtoIn) {
     // validation of dtoIn
     const validationResult = this.validator.validate("galleryUpdateDtoInType", dtoIn);
