@@ -17,3 +17,7 @@ const sportsFieldListDtoInType = shape({
     pageSize: integer(1, 1000000000)
   })
 });
+
+const sportsFieldDeleteDtoInType = shape({
+    id: id().isRequired()
+});

@@ -55,7 +55,28 @@ const List = {
   },
 };
 
+const Delete = {
+  UC_CODE: `${SPORTS_FIELD_ERROR_PREFIX}delete/`,
+  
+  InvalidDtoIn: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SportsFieldDoesNotExist: class extends HrajemespoluMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}sportsFieldDoesNotExist`;
+      this.message = "Sports field does not exist.";
+    }
+  },
+  
+};
+
 module.exports = {
+  Delete,
   List,
   Create,
   Get

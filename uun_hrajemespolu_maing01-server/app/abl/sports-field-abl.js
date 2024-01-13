@@ -16,6 +16,32 @@ class SportsFieldAbl {
     this.galleryDao = DaoFactory.getDao("gallery");
   }
 
+  async delete(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("sportsFieldDeleteDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Delete.UnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    let sportsField = await this.dao.get(awid, dtoIn.id);
+
+    if (!sportsField) {
+      throw new Errors.Delete.SportsFieldDoesNotExist({ uuAppErrorMap }, { sportsFieldId: dtoIn.id });
+    }
+
+    await this.dao.delete(sportsField);
+
+    return { uuAppErrorMap };
+
+
+  }
+
   async list(awid, dtoIn) {
     let uuAppErrorMap = {};
 
