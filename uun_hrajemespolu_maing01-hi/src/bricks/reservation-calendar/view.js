@@ -3,6 +3,7 @@ import { createVisualComponent, Utils, PropTypes, useState, useMemo, useScreenSi
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import Uu5Calendar from "uu5calendarg01";
+import Error from "../error.js"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -195,8 +196,7 @@ const View = createVisualComponent({
           <Uu5Elements.Calendar value={date} onSelect={handleDaySelect} />
         </Uu5Elements.Box>
 
-        {/* TODO error */}
-        {(state === "error" || state === "errorNoData") ? <h1>Error</h1> :
+        {(state === "error" || state === "errorNoData") ? <Error message='Error when loading calendar' /> :
           <Uu5Calendar.Scheduler
             className={Css.scheduler()}
             date={date}

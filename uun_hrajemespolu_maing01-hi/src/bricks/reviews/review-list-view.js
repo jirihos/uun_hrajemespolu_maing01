@@ -4,6 +4,7 @@ import { useSubAppData, useSystemData } from "uu_plus4u5g02";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
 import ReviewView from "./review-view.js";
+import Error from "../error.js"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -69,7 +70,7 @@ const ReviewListView = createVisualComponent({
 
       <Uu5Elements.Grid className={Css.wrapper()} >
         {(state === "pending" || state === "pendingNoData") && <Uu5Elements.Pending />}
-        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <h1>Error</h1>} {/* TODO error */}
+        {(state === "error" || state === "errorNoData" || state === "readyNoData") && <Error message='Error when loading review list' />}
         {state === "ready" && (
 
           dataObject.data.itemList.map((review) => {
