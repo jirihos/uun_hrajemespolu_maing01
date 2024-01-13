@@ -15,10 +15,33 @@ import importLsi from "../lsi/import-lsi.js";
 
 //@@viewOn:css
 const Css = {
-  icon: () =>
+  button: () =>
     Config.Css.css({
-      fontSize: 48,
-      lineHeight: "1em",
+      fontSize: 12,
+      width: "10em",
+      height: "5em",
+      fontSize: "1em",
+      marginLeft:"25%",
+    }),
+  gridwrapper: () =>
+    Config.Css.css({
+      width: "100%",
+      height: "100%",
+      paddingTop: "1%"
+    }),
+  image: () =>
+    Config.Css.css({
+      width: "100%",
+      height: "100%",
+      justifySelf: "center",
+      alignSelf: "center"
+    }),
+  text: () =>
+    Config.Css.css({
+      float: "right", 
+      width: "20%",
+      height: "100%",
+      backgroundColor: "orange"
     }),
 };
 //@@viewOff:css
@@ -51,44 +74,25 @@ let Home = createVisualComponent({
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props);
     return (
-      <div {...attrs}>
+      <>
         <RouteBar />
 
-        <Uu5Elements.Button
-          colorScheme="warning"
-          significance="highlighted"
-          onClick={() => setRoute("sportsFieldDetail", { id: "655d0191de265134ec233d41" })}
-        >
-          Go to sportsFieldDetail
-        </Uu5Elements.Button>
+        <Uu5Elements.Grid className={Css.gridwrapper()}>
 
-        <WelcomeRow left={<Plus4U5Elements.PersonPhoto size="xl" borderRadius="none" />}>
-          <Uu5Elements.Text category="story" segment="heading" type="h2">
-            <Lsi import={importLsi} path={["Home", "welcome"]} />
-          </Uu5Elements.Text>
-          {identity && (
-            <Uu5Elements.Text category="story" segment="heading" type="h2">
-              {identity.name}
-            </Uu5Elements.Text>
-          )}
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-human-greeting" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi import={importLsi} path={["Home", "intro"]} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-monitor" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi import={importLsi} path={["Home", "clientSide"]} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-server" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi import={importLsi} path={["Home", "serverSide"]} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-      </div>
-    );
+        <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}><img className={Css.image()} src={require('../../src/assets/hrajemeSpoluLogoWidth.png')} /></Uu5Elements.Grid.Item>
+
+        <Uu5Elements.Grid.Item justifySelf={"center"} alignSelf={"center"}>
+          <p>Pokud chcete vytvořit rezervaci, klikněte prosím zde:</p>
+          <Uu5Elements.Link href={'./sportsFields'}>
+          <Uu5Elements.Button onClick={() => {}} className={Css.button()} significance={"highlighted"}>Přesměrovat</Uu5Elements.Button></Uu5Elements.Link></Uu5Elements.Grid.Item>
+
+      
+
+        </Uu5Elements.Grid>
+
+
+        </>
+        );
     //@@viewOff:render
   },
 });
