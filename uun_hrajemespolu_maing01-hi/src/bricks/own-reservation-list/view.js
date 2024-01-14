@@ -124,20 +124,36 @@ const View = createVisualComponent({
     )
     : [];
 
-    const formatedAndIdData = filteredData.map((item) => { // format date && replace sportsFieldId with name
+    const formatedAndIdData = filteredData.map((item) => { // format date
       const data = item.data || {};
     
-      const { sportsFieldId, startTs, endTs, id } = data;
+      const { startTs, endTs, id, state } = data;
 
       const formattedStartTs = moment(startTs).format('DD.MM.YYYY HH:mm');
       const formattedEndsTs = moment(endTs).format('DD.MM.YYYY HH:mm');
+
+      let formattedState;
+      switch (state) {
+        case "valid":
+          formattedState = "Aktivní";
+          break;
+        case "cancelledByUser":
+          formattedState = "Zrušeno uživatelem";
+          break;
+        case "cancelledByAdmin":
+          formattedState = "Zrušeno správcem";
+          break;
+        default:
+          formattedState = "Unknown"
+          break;
+      }
 
       return { // return formated data
         startTs: formattedStartTs || "Unknown",
         endTs: formattedEndsTs || "Unknown",
         sportsFieldName: data.sportsFieldName || "Unknown",
         cancelReason: data.cancelReason || "-",
-        state: data.state || "Unknown",
+        state: formattedState,
         id: id || "Unknown",
       };
     });
