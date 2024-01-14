@@ -212,7 +212,7 @@ const View = createVisualComponent({
           actionList={[
             {
               children: "Zpět"  ,
-              onClick: () => setOpen(false), // TODO set item to detete to null
+              onClick: () => setOpen(false),
             },
             {
               children: "Potvrdit",

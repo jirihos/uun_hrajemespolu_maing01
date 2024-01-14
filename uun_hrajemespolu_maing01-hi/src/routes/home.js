@@ -92,7 +92,7 @@ let Home = createVisualComponent({
             Sportoviště jsou vhodné jak pro rekreační tak i pro vrcholové sportovce.
             Dostupná sportoviště jsou vždycky v perfektním stavu.
             Poskytujeme sportoviště pro bowling, badminton, squash, fotbal, beach volejbal!
-            Pro úplný a aktální seznam poskytovaných sportovišť a jejich rezervaci pokračujte kliknutím na tlačítko Vstup na stránky:
+            Pro úplný a aktální seznam poskytovaných sportovišť a jejich rezervaci pokračujte kliknutím na tlačítko Seznam sportovišť:
             <Uu5Elements.Link href={'./sportsFields'}></Uu5Elements.Link>
           </p>
           
